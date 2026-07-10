@@ -99,7 +99,7 @@ export default function Footer() {
             </li>
             <li className="flex gap-2.5">
               <PhoneIcon />
-              <span>0803 123 4567 · 0810 987 6543</span>
+              <span>07065772394 &middot; 0810 987 6543</span>
             </li>
             <li className="flex gap-2.5">
               <MailIcon />
@@ -126,7 +126,7 @@ export default function Footer() {
 
       {/* Floating WhatsApp */}
       <a
-        href="https://wa.me/2348031234567"
+        href="https://wa.me/2347065772394"
         target="_blank"
         rel="noreferrer"
         aria-label="Chat with us on WhatsApp"
