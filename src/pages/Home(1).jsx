@@ -182,7 +182,7 @@ function AboutSection() {
             excellence.
           </p>
 
-          <div className="grid sm:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-3 gap-6 mb-8">
             {PILLARS.map(({ title, body, Icon }) => (
               <div key={title} className="border-t-2 border-navy/15 pt-4">
                 <Icon />
@@ -191,6 +191,13 @@ function AboutSection() {
               </div>
             ))}
           </div>
+
+          <a
+            href="/about"
+            className="inline-flex items-center gap-2 bg-burgundy hover:bg-burgundy-dark transition-colors text-white font-semibold px-6 py-3 rounded text-sm"
+          >
+            Learn More →
+          </a>
         </div>
       </div>
     </section>

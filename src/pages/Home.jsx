@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-// import CoverageSection from "../components/CoverageSection";
+import NigeriaMap from "../assets/ng.svg";
 /**
  * S & D Membs Security Services — Home page.
  *
@@ -132,6 +132,9 @@ function HeroSection() {
 /* ============================================================================
    ABOUT
 ============================================================================ */
+/* ============================================================================
+   ABOUT
+============================================================================ */
 function AboutSection() {
   const ref = useReveal();
 
@@ -181,7 +184,7 @@ function AboutSection() {
             excellence.
           </p>
 
-          <div className="grid sm:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-3 gap-6 mb-8">
             {PILLARS.map(({ title, body, Icon }) => (
               <div key={title} className="border-t-2 border-navy/15 pt-4">
                 <Icon />
@@ -190,6 +193,13 @@ function AboutSection() {
               </div>
             ))}
           </div>
+
+          <a
+            href="#"
+            className="inline-flex items-center gap-2 bg-burgundy hover:bg-burgundy-dark transition-colors text-white font-semibold px-6 py-3 rounded text-sm"
+          >
+            Learn More →
+          </a>
         </div>
       </div>
     </section>
@@ -503,14 +513,24 @@ function RecruitmentSection() {
 // }
 
 /* ============================================================================
-   COVERAGE — map of Nigeria, Rivers State highlighted
+   COVERAGE — Real Nigeria SVG map with location markers
 ============================================================================ */
 function CoverageSection() {
   const ref = useReveal();
-
+ 
+  // Location coordinates as percentages of the SVG viewBox (1000 x 812)
+  // These are calibrated for the Nigeria map
+  const locations = {
+    lagos: { x: 17.5, y: 82.5, label: "Lagos" },
+    abuja: { x: 45.5, y: 42, label: "Abuja (FCT)" },
+    umuahia: { x: 54, y: 62, label: "Umuahia (Abia)" },
+    portHarcourt: { x: 37.5, y: 84, label: "Port Harcourt", rivers: "Rivers State" },
+  };
+ 
   return (
     <section ref={ref} className="fade-up bg-burgundy">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 grid lg:grid-cols-2 gap-10 items-center">
+        {/* Left Column: Text Content */}
         <div>
           <p className="text-white/70 font-bold text-sm tracking-[0.2em] uppercase mb-3">
             Our Coverage
@@ -532,27 +552,143 @@ function CoverageSection() {
             Request a Consultation
           </a>
         </div>
-
-        {/* Simplified illustrative map: Nigeria outline placeholder with a Rivers State pin.
-            Swap for a real SVG map of Nigeria when you have one. */}
+ 
+        {/* Right Column: Nigeria Map with Markers */}
         <div className="flex justify-center">
-          <svg width="320" height="340" viewBox="0 0 320 340" className="drop-shadow-xl">
-            <path
-              d="M60 40 C40 60 30 100 40 140 C30 170 40 210 70 240 C90 270 110 300 150 310 C190 300 220 280 250 250 C275 220 280 180 265 145 C280 110 270 70 240 45 C200 20 150 15 110 25 C90 30 70 30 60 40Z"
-              fill="#F8F9FA"
-              opacity="0.12"
-              stroke="#F8F9FA"
-              strokeWidth="2"
-            />
-            <circle cx="118" cy="255" r="8" fill="#FFFFFF" stroke="#7A1530" strokeWidth="2" />
-            <circle cx="118" cy="255" r="16" fill="#FFFFFF" opacity="0.35">
-              <animate attributeName="r" values="16;26;16" dur="2.4s" repeatCount="indefinite" />
-              <animate attributeName="opacity" values="0.3;0;0.3" dur="2.4s" repeatCount="indefinite" />
-            </circle>
-            <text x="132" y="260" fill="#F8F9FA" fontSize="13" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="700">
-              Port Harcourt, Rivers State
-            </text>
-          </svg>
+          <div className="relative w-full max-w-[420px]">
+            {/* Nigeria SVG Map */}
+            <svg
+              viewBox="0 0 1000 812"
+              className="w-full h-auto drop-shadow-xl"
+              style={{
+                filter: "drop-shadow(0 20px 25px rgba(0, 0, 0, 0.15))",
+              }}
+            >
+              {/* Import and embed the Nigeria map SVG */}
+              <image
+                href={NigeriaMap}
+                width="1000"
+                height="812"
+                x="0"
+                y="0"
+                preserveAspectRatio="xMidYMid meet"
+              />
+ 
+              {/* Styled overlay: make the map match the design */}
+              <defs>
+                <filter id="mapFilter">
+                  <feColorMatrix
+                    type="saturate"
+                    values="0.8"
+                  />
+                </filter>
+              </defs>
+ 
+              {/* Lagos Marker */}
+              <circle
+                cx={locations.lagos.x * 10}
+                cy={locations.lagos.y * 10}
+                r="6"
+                fill="#FFFFFF"
+                stroke="#7A1530"
+                strokeWidth="2"
+              />
+ 
+              {/* Abuja Marker */}
+              <circle
+                cx={locations.abuja.x * 10}
+                cy={locations.abuja.y * 10}
+                r="6"
+                fill="#FFFFFF"
+                stroke="#7A1530"
+                strokeWidth="2"
+              />
+ 
+              {/* Umuahia Marker */}
+              <circle
+                cx={locations.umuahia.x * 10}
+                cy={locations.umuahia.y * 10}
+                r="6"
+                fill="#FFFFFF"
+                stroke="#7A1530"
+                strokeWidth="2"
+              />
+ 
+              {/* Port Harcourt: Center dot */}
+              <circle
+                cx={locations.portHarcourt.x * 10}
+                cy={locations.portHarcourt.y * 10}
+                r="8"
+                fill="#FFFFFF"
+                stroke="#7A1530"
+                strokeWidth="2.5"
+              />
+ 
+              {/* Port Harcourt: Pulse Ring 1 */}
+              <circle
+                cx={locations.portHarcourt.x * 10}
+                cy={locations.portHarcourt.y * 10}
+                r="12"
+                fill="none"
+                stroke="#7A1530"
+                strokeWidth="1.5"
+                opacity="0.5"
+                className="marker-pulse-ring-1"
+              />
+ 
+              {/* Port Harcourt: Pulse Ring 2 (delayed) */}
+              <circle
+                cx={locations.portHarcourt.x * 10}
+                cy={locations.portHarcourt.y * 10}
+                r="12"
+                fill="none"
+                stroke="#7A1530"
+                strokeWidth="1.5"
+                opacity="0.5"
+                className="marker-pulse-ring-2"
+              />
+            </svg>
+ 
+            {/* Port Harcourt Label with Leader Line */}
+            <div
+              className="absolute flex items-start gap-3"
+              style={{
+                left: `calc(${locations.portHarcourt.x}% + 12px)`,
+                top: `calc(${locations.portHarcourt.y}% + 8px)`,
+              }}
+            >
+              {/* Leader Line */}
+              <svg
+                className="absolute"
+                style={{
+                  left: "-18px",
+                  top: "4px",
+                  width: "16px",
+                  height: "1px",
+                  overflow: "visible",
+                }}
+              >
+                <line
+                  x1="0"
+                  y1="0"
+                  x2="16"
+                  y2="0"
+                  stroke="rgba(255, 255, 255, 0.6)"
+                  strokeWidth="0.8"
+                />
+              </svg>
+ 
+              {/* Label Text */}
+              <div className="mt-0">
+                <p className="text-white font-heading font-bold text-xs">
+                  {locations.portHarcourt.label}
+                </p>
+                <p className="text-white/70 font-body text-xs">
+                  {locations.portHarcourt.rivers}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -711,7 +847,7 @@ function ContactSection() {
                 Plot 25, Trans-Amadi Industrial Layout, Port Harcourt, Rivers State, Nigeria.
               </ContactRow>
               <ContactRow Icon={PhoneIcon} label="Phone">
-                0803 123 4567 &middot; 0810 987 6543
+                07065772394 &middot; 0810 987 6543
               </ContactRow>
               <ContactRow Icon={MailIcon} label="Email">
                 info@sdmembssecurity.com
@@ -725,7 +861,7 @@ function ContactSection() {
                 </ContactRow>
               </div>
               <a
-                href="https://wa.me/2348031234567"
+                href="https://wa.me/2347065772394"
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center justify-center gap-2 bg-[#25D366] text-white font-semibold px-5 py-3 rounded mt-2"
