@@ -66,8 +66,8 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? "h-14 bg-white shadow-lg"
-            : "h-16 bg-white shadow-sm"
+            ? "h-16 bg-white shadow-lg"
+            : "h-18 bg-white shadow-sm"
         }`}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-full">
@@ -215,7 +215,7 @@ export default function Navbar() {
       {/* Spacer for sticky nav */}
       <div
         className={`transition-all duration-300 ${
-          isScrolled ? "h-14" : "h-16"
+          isScrolled ? "h-16" : "h-18"
         }`}
       />
     </>
