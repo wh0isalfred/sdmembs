@@ -56,6 +56,161 @@
   --shadow-card-hover: 0 18px 48px rgba(16, 24, 40, 0.1);
 }
 
+@keyframes pulseRing1 {
+  0% {
+    r: 16;
+    opacity: 0.3;
+  }
+  50% {
+    r: 26;
+    opacity: 0;
+  }
+  100% {
+    r: 16;
+    opacity: 0.3;
+  }
+}
+
+@keyframes pulseRing2 {
+  0% {
+    r: 16;
+    opacity: 0.3;
+  }
+  50% {
+    r: 28; /* Slightly larger than ring 1 for depth */
+    opacity: 0;
+  }
+  100% {
+    r: 16;
+    opacity: 0.3;
+  }
+}
+
+/* Apply to SVG circles with class "pulse-ring-1" and "pulse-ring-2" */
+.pulse-ring-1 {
+  animation: pulseRing1 3s infinite;
+}
+
+.pulse-ring-2 {
+  animation: pulseRing2 3s 1.5s infinite; /* 1.5s delay for stagger */
+}
+
+/* ============================================================================
+   LABEL FADE-IN ANIMATION
+   
+   The Port Harcourt label (name + state) fades in gently from left.
+   Duration: 0.8 seconds
+   Easing: ease-out (starts fast, slows down)
+   
+   Combines opacity + subtle translateX for a smooth entrance.
+========================================================================= */
+
+@keyframes labelFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px); /* Slight left offset */
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.marker-label {
+  animation: labelFadeIn 0.8s ease-out forwards;
+}
+
+/* ============================================================================
+   ACCESSIBILITY: RESPECTS prefers-reduced-motion
+   
+   Users who prefer reduced motion will see static markers and labels.
+   No animations, no jitter, clean professional appearance.
+========================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-ring {
+    animation: none !important;
+  }
+
+  .marker-label {
+    animation: none !important;
+    opacity: 1; /* Ensure label is visible even without fade-in */
+  }
+}
+
+/* ============================================================================
+   SVG STYLING — Subtle, corporate colors
+   
+   States: white at 12% opacity (rgba(255, 255, 255, 0.12))
+   Strokes: white at 25% opacity (rgba(255, 255, 255, 0.25))
+   This keeps the map readable on dark navy background without distraction.
+========================================================================= */
+
+.ng-state {
+  fill: rgba(255, 255, 255, 0.12);
+  stroke: rgba(255, 255, 255, 0.25);
+  stroke-width: 0.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+/* ============================================================================
+   MARKER STYLES
+   
+   Primary marker (Port Harcourt):
+   - White center (r=7)
+   - 2px burgundy border (#7a1530)
+   - Two animated pulse rings
+   
+   Secondary markers (Lagos, Abuja, Umuahia):
+   - White center (r=5, smaller)
+   - 2px burgundy border
+   - No animation (static)
+========================================================================= */
+
+.marker-center {
+  fill: #ffffff;
+  stroke: #7a1530;
+  stroke-width: 2;
+}
+
+.marker-static {
+  fill: #ffffff;
+  stroke: #7a1530;
+  stroke-width: 2;
+}
+
+/* ============================================================================
+   CONNECTION LINES — Subtle dotted lines
+   
+   From Lagos, Abuja, Umuahia toward Port Harcourt.
+   Opacity: 20% (rgba(255, 255, 255, 0.2))
+   Stroke-dasharray: 3px line, 3px gap (dotted pattern)
+   Not distracting, but visible on close inspection.
+========================================================================= */
+
+.connection-line {
+  stroke: rgba(255, 255, 255, 0.2);
+  stroke-width: 1;
+  stroke-dasharray: 3, 3; /* 3px line, 3px gap */
+  fill: none;
+}
+
+/* ============================================================================
+   INTEGRATION NOTE
+   
+   If you're adding this to your existing index.css (Tailwind v4):
+   1. Copy all keyframes and class styles above into index.css
+   2. Place them AFTER your @theme block
+   3. CoverageSection.jsx also includes these in a <style> block
+      (embedded for scope), so you don't strictly need both,
+      but having them in index.css makes them globally available.
+   
+   The component is designed to work without relying on Tailwind utilities,
+   using SVG native attributes and CSS animations for maximum control
+   and premium appearance.
+========================================================================= */
+
 html {
   scroll-behavior: smooth;
 }

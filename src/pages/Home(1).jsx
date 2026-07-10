@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-// import CoverageSection from "../components/CoverageSection";
+import NigeriaMap from "../assets/ng.svg?react";
+
 /**
  * S & D Membs Security Services — Home page.
  *
@@ -505,54 +506,165 @@ function RecruitmentSection() {
 /* ============================================================================
    COVERAGE — map of Nigeria, Rivers State highlighted
 ============================================================================ */
+/* ============================================================================
+   COVERAGE — Premium Nigeria Map with Animated Markers
+   
+   Features:
+   - Uses imported NigeriaMap component (ng.svg file)
+   - Responsive two-column layout (desktop) / stacked (mobile)
+   - Animated primary marker (Port Harcourt, dual-pulse rings)
+   - Static secondary markers (Lagos, Abuja, Umuahia)
+   - Leader line + fade-in label
+   - Subtle dotted connection lines
+   - Premium animations respecting prefers-reduced-motion
+============================================================================ */
 function CoverageSection() {
   const ref = useReveal();
 
+  const MARKER_POSITIONS = {
+    portHarcourt: { cx: 535, cy: 620, name: "Port Harcourt", state: "Rivers State" },
+    lagos: { cx: 238, cy: 730, name: "Lagos" },
+    abuja: { cx: 475, cy: 470, name: "Abuja" },
+    umuahia: { cx: 420, cy: 650, name: "Umuahia" },
+  };
+
   return (
-    <section ref={ref} className="fade-up bg-burgundy">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 grid lg:grid-cols-2 gap-10 items-center">
-        <div>
-          <p className="text-white/70 font-bold text-sm tracking-[0.2em] uppercase mb-3">
+    <section ref={ref} className="fade-up bg-navy-dark">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 grid lg:grid-cols-2 gap-12 items-center">
+        
+        {/* LEFT COLUMN: Text */}
+        <div className="flex flex-col justify-center order-2 lg:order-1">
+          <p className="text-white/60 font-bold text-xs tracking-[0.15em] uppercase mb-4">
             Our Coverage
           </p>
-          <h2 className="font-heading font-extrabold text-white text-3xl sm:text-4xl mb-5">
+          <h2 className="font-heading font-extrabold text-white text-3xl sm:text-4xl lg:text-5xl leading-tight mb-6">
             Headquartered in Port Harcourt.
-            <br />
+            <br className="hidden sm:block" />
             Operating Across Nigeria.
           </h2>
-          <p className="text-white/75 leading-relaxed max-w-lg mb-6">
-            Our operations are rooted in Rivers State, with deployment
-            capability that extends to clients across the country. Wherever
-            your assets are, we can build a protection plan around them.
+          <p className="text-white/70 leading-relaxed text-base sm:text-lg mb-8 max-w-lg">
+            Our operations are rooted in Rivers State, with deployment capability 
+            that extends to clients across the country. Wherever your assets are, 
+            we can build a protection plan around them.
           </p>
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 bg-white hover:bg-offwhite transition-colors text-burgundy font-bold px-6 py-3.5 rounded"
-          >
-            Request a Consultation
-          </a>
+          <div>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 bg-burgundy hover:bg-burgundy-dark transition-colors text-white font-semibold px-6 py-3.5 rounded text-sm sm:text-base"
+            >
+              Request a Consultation
+            </a>
+          </div>
         </div>
 
-        {/* Simplified illustrative map: Nigeria outline placeholder with a Rivers State pin.
-            Swap for a real SVG map of Nigeria when you have one. */}
-        <div className="flex justify-center">
-          <svg width="320" height="340" viewBox="0 0 320 340" className="drop-shadow-xl">
-            <path
-              d="M60 40 C40 60 30 100 40 140 C30 170 40 210 70 240 C90 270 110 300 150 310 C190 300 220 280 250 250 C275 220 280 180 265 145 C280 110 270 70 240 45 C200 20 150 15 110 25 C90 30 70 30 60 40Z"
-              fill="#F8F9FA"
-              opacity="0.12"
-              stroke="#F8F9FA"
-              strokeWidth="2"
-            />
-            <circle cx="118" cy="255" r="8" fill="#FFFFFF" stroke="#7A1530" strokeWidth="2" />
-            <circle cx="118" cy="255" r="16" fill="#FFFFFF" opacity="0.35">
-              <animate attributeName="r" values="16;26;16" dur="2.4s" repeatCount="indefinite" />
-              <animate attributeName="opacity" values="0.3;0;0.3" dur="2.4s" repeatCount="indefinite" />
-            </circle>
-            <text x="132" y="260" fill="#F8F9FA" fontSize="13" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="700">
-              Port Harcourt, Rivers State
-            </text>
-          </svg>
+        {/* RIGHT COLUMN: Map */}
+        <div className="flex justify-center items-center order-1 lg:order-2">
+          <div className="w-full max-w-[420px] aspect-auto relative">
+            <svg
+              viewBox="0 0 1000 812"
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-full h-auto drop-shadow-2xl"
+              preserveAspectRatio="xMidYMid meet"
+            >
+              <defs>
+                <style>{`
+                  .ng-state {
+                    fill: rgba(255, 255, 255, 0.12);
+                    stroke: rgba(255, 255, 255, 0.25);
+                    stroke-width: 0.5;
+                    stroke-linejoin: round;
+                    stroke-linecap: round;
+                  }
+
+                  @keyframes pulseRing1 {
+                    0% { r: 16; opacity: 0.3; }
+                    50% { r: 26; opacity: 0; }
+                    100% { r: 16; opacity: 0.3; }
+                  }
+
+                  @keyframes pulseRing2 {
+                    0% { r: 16; opacity: 0.3; }
+                    50% { r: 28; opacity: 0; }
+                    100% { r: 16; opacity: 0.3; }
+                  }
+
+                  @keyframes labelFadeIn {
+                    from {
+                      opacity: 0;
+                      transform: translateX(-8px);
+                    }
+                    to {
+                      opacity: 1;
+                      transform: translateX(0);
+                    }
+                  }
+
+                  @media (prefers-reduced-motion: reduce) {
+                    .pulse-ring { animation: none; }
+                    .marker-label { animation: none; opacity: 1; }
+                  }
+
+                  .pulse-ring-1 { animation: pulseRing1 3s infinite; }
+                  .pulse-ring-2 { animation: pulseRing2 3s 1.5s infinite; }
+                  .marker-label { animation: labelFadeIn 0.8s ease-out forwards; }
+                  .connection-line {
+                    stroke: rgba(255, 255, 255, 0.2);
+                    stroke-width: 1;
+                    stroke-dasharray: 3, 3;
+                    fill: none;
+                  }
+                  .marker-center {
+                    fill: #ffffff;
+                    stroke: #7a1530;
+                    stroke-width: 2;
+                  }
+                  .marker-static {
+                    fill: #ffffff;
+                    stroke: #7a1530;
+                    stroke-width: 2;
+                  }
+                `}</style>
+              </defs>
+
+              {/* Import ng.svg state paths - use NigeriaMap data */}
+              <g id="features">
+                {/* Path data from ng.svg - all 36 states + FCT */}
+                <path className="ng-state" d="M155.3 89.1l0.6-0.2 5.8-0.1 4.9 0.8 2.6-1.3 2.8-0.6 2.3 1.9 2.3 2.2 4.7 2.8 5.1 1.9 2.8 0.7 2.6 1 2.5 1.7 2.8 1.3 2.8 0.3 2.4-1.4 1.1-2.1 1.5-1.8 1.9-0.7 1.3 1.7-0.2 2.4-1.1 2.3-0.3 1.4 0 1.5-0.3 1.2-0.4 1.1-0.9 2.9-0.4 3.1 2.5 4.4 1.7 4.9-0.6 5.6-0.8 2.9-0.3 2.9 2.3 12.5-0.3 5.8-3.4 1.8-5.2-1.7-5.4 1.4-2.7 4.8 0.5 29.8-2.6 12.1-3.3 7.2-0.7 7.4 2.5 2.8 3.4 1.1 3.3-2.1 2.6-3.3 14.4-6.5 1.6-0.4 1.6 0.4 1.2 0.7 0.9-0.3 0.9-0.3 1.1 0.7 0.8 1.2 1.7-0.1 1.5-1 3.1-0.6 3.1 1.2 1.2 1.1 1.6 0.3 4-1 1.7-0.1 1.4-0.8 0.6-1.8 1.3-1.3 1.7-0.1 1.6 0.7 1.8 0.1 4.3-0.6 1.8 1.5 1.1 2.2 6.6 2.9 4.5 1 11.5-0.8 1.2-0.7 1.3-0.3 5.6 0.9 2.8 1 3.6 3.5-0.4 5.3-1.9 5.8 1.5 2.4 2.9 1.1 5.8 9.3 0.7 11.8-2.3-1.5-2.7 0.1-1.1 0.9-1.9 2.2-0.8 1.2-1.9 1.6-2.7 0.2-2.6 0.7-13.1 5.6-5 0.9-7.6 0-2-0.7-1-2.7-0.1-3 0.5-6-1.3-2.6-2.4-1.5-2.7-4.9-1-5.8-4.5-2.7-5.5-0.2-22.4 4.6-10.4 4.7-1.2 4.9 4.8 3.6 5.4 2.3 5.8 0.9 1.3 0 1 0.6 0.6 1.4 1 0.6 2.1 0.6 0.9 2.2 0.7 3.2 0.2 3.1-3.6 4.6 3.1 3.9 1.7 5.1-2.1 1.6-5.3 1.5-5.1 2.5-5.3-0.7-2.4 0.8-1.3 5.1 0.4 5.8-0.3 2.7 0.4 2.6 3.6 4.7 2.3 5.2-1.9 5-2.2 1.7-2.6 0.8-8.7 1.9-2.7 0.9-0.8 2.7 0 3-1 2.1-5.2-0.3-1.8-1.6 1.2-5.7 0.4-5.6-1.6-1.8-1.9-1.5-1.2-2.6-0.3-3 0.5-5.7 2.8-4.9 8.8-5 0.2-1.4 1.9-1.9 0.5-1.1 0.2-1.3 0-2.9 2.5-13.8-0.1-1.9-4.9-1.5-9.2-6-7.7-2.1-7.8 1.2-20.8 0.5-4-0.4-8.4-4-6.8-4.2-6.9-0.8-0.6 0.6-0.1 0-0.7 0.1-0.6-0.1-1.8-1.7-13.6-19.3-1.1-2.1-0.2-1.8 1.6-4.1 0.4-1.2 0.9-3.5 5.3-9 1.7-1.8 3.9-2.3 0.9-0.9 0.5-1.7-0.4-1.5-0.9-1.5-1.8-1.9-0.3-0.2-0.3-0.2-0.4-0.8-0.2-0.8-0.5-4.4 0.4-1.3 0.8-1.1 1.3-1.3 1.3-2.6-0.4-2.6-1.8-5.7 0-3.4 2-10.2-0.7-19.3 0.3-0.8 16.6-12.5 4.9-4.7 12.1-19.1 2.4-16.7z" id="NGKE" name="Kebbi" />
+                <path className="ng-state" d="M123.8 251.1l0.6-0.6 6.9 0.8 6.8 4.2 8.4 4 4 0.4 20.8-0.5 7.8-1.2 7.7 2.1 9.2 6 4.9 1.5 0.1 1.9-2.5 13.8 0 2.9-0.2 1.3-0.5 1.1-1.9 1.9-0.2 1.4-8.8 5-2.8 4.9-0.5 5.7 0.3 3 1.2 2.6 1.9 1.5 1.6 1.8-0.4 5.6-1.2 5.7 1.8 1.6 5.2 0.3 1-2.1 0-3 0.8-2.7 2.7-0.9 8.7-1.9 2.6-0.8 2.2-1.7 1.9-5-2.3-5.2-3.6-4.7-0.4-2.6 0.3-2.7-0.4-5.8 1.3-5.1 2.4-0.8 5.3 0.7 5.1-2.5 5.3-1.5 2.1-1.6-1.7-5.1-3.1-3.9 3.6-4.6-0.2-3.1-0.7-3.2-0.9-2.2-2.1-0.6-1-0.6-0.6-1.4-1-0.6-1.3 0-5.8-0.9-5.4-2.3-4.8-3.6 1.2-4.9 10.4-4.7 22.4-4.6 5.5 0.2 4.5 2.7 1 5.8 2.7 4.9 2.4 1.5 1.3 2.6-0.5 6 0.1 3 1 2.7 2 0.7 7.6 0 5-0.9 13.1-5.6 2.6-0.7 2.7-0.2 1.9-1.6 0.8-1.2 1.9-2.2 1.1-0.9 2.7-0.1 2.3 1.5 3.3 4.3 5.8 9.8 1.1 5.1-1.5 0.7-1.5 1.7-0.6 2-0.5 6.4 0.1 2 1.3 3.8 0.1 0.9-0.1 1-0.3 1.7-1.1 2.6-0.2 0.9 0 2.1-0.1 1-0.5 1-0.3 1.5 0.5 2.6 2.5 1.8 1.8 2.4 1.3 2.6 2.6-0.4 2-2.2 1.6-2.6 4-4.3 9-6.9 5.4-1.2 2 1.4 0.9 2.4 2.4 0.4 5.5-2.6 2.9-0.5 2.9 0.5 1.7-1.3-0.3-3 2.5-1.1 2.7 0.2 2.3 1 0.7 1.5 0.5 6.2 1.2 0.3 2.6-0.7 4.2 3.5 0.1 6.2-1 2.7 1.7 1.7 5.4 2 2.2 1.6-0.1 2.6-1.9 2.4-2.5 1.7-2.4 1.9-2.1 2.5-2.4 1.6-1.8 2.2 3.3 4.4 5.5 2.3 5.6 0.7 11.2-0.2 3.7 2.6 1.4 12.3-0.1 2.8-2 1.6-2.3 0.2-1.7 1.3 1.5 2 2.8 0.8 1.6 1.4-0.6 2.1 1.1 2 2.3 1.1 0.4 2.4-1.7 2-1.1 1-0.8 1.2-0.2 1.6-0.4 1.5-4.2 3-0.6 2.8 1.5 2.4 1 0.6 1.3 1.7-0.2 1.1-0.8 2.3 0.5 1.2 1.9-0.6 1.8 0.5-10.7 15.2-0.4 0.1-3.6-2-7.1-6.9-4.6-1.5-14 0.6-1.8 0.9-0.3 2.1 0.7 54.7 0.4 1.4 1.9 3.2 3.4 0.4-1 3.1-2.2 2.1-1.6 0.6-1.2 1.2 0.2 1.7-0.4 1.2-1-0.6-1 0.8-0.8 1.9-0.5 2-1.3 1.3-0.3-0.5-1.1-0.9 0-0.5-1-0.4-2.8-3.1-3-4.8-0.9-1-7.5-5.7-0.6-0.3-1.7-3.5-1-3.7-0.2-2.2-0.1-0.7-0.3-0.7-0.4-0.1-0.2-0.6-1.2-2.4-0.1-0.6-0.1-1.4-1.9-3.2-0.9-1-1.2-0.6-1.6-0.3-2.8-1.9-0.5-0.4-1.3-0.2-3.4 0.7-4.2 0.8-0.5-0.2-2.3-2.2-1.2-0.4-1.1-0.2-8.3 0.1-1.9 0.3-2.4 1.2-0.9 0.2-1.1-0.1-3.4-0.5-4 0.1-0.9-0.3-0.5-0.5-0.8-1.4-1.1-1.5-1-1.6-0.6-0.1-1.7-0.7-0.6-0.1-4.3-0.1-1.2-0.4-1-0.8-0.3-0.4-0.7-1.3-0.6-0.8-0.7-0.8-1.6-1.4-1-1.3-0.4-0.3-1-0.6-1.1-0.4-1-0.2-2.4-0.1-1-0.2-0.9-0.5-0.9-0.7-1.4-1.4-0.8-0.6-0.9-0.5-1.1-0.2-5.1 0.3-7.2-1.2-1.1-0.4-0.9-0.6-0.6-1-0.1-0.9 0.1-0.8-0.1-0.8-0.3-0.8-1.3-1.4-1.3-1.7-1.1-0.8-4-1.9-2.5-1.8-1.4-0.6-0.1-0.4-1.8-0.9-1-0.2-1.1 0-4.9 1.5-3.4 2-3 0.9-2.4 0.1-2.1-0.6-1.3-1.5-0.2-2.3 0.4-2.3-0.1-2.1-0.9-1.5-2.1-0.8-3.8-0.7-1.2-0.4-1.2-0.9-0.6-1-0.3-1.3 0-1.5 0 0.1-0.1 0.1-0.1 0-0.1 0 0.1-1.5-0.2-2.9-0.1-0.5-6.6-1-5.6 0.7-2.5-4.3 0.1-5.7 0.8-6.2-1.3-5.1-2.6-0.1-1.2-0.7-1.1-0.9-25.5-30.2-2.1-1.8-5.2-0.7-12.1 0.3-6.7 1.3-0.4 0.1 0.2-1.4-0.2-1.2-0.7-1-5.1-5.3-1.1-1.8-0.1-1.4 1.6-3.5 1.9-3 0.3-0.9 0.1-1.5 0.2-0.5 0.5-0.7 1.5-1.5 1.5-0.5 1.6 0.3 4.8 2.6 1.2-0.2 1.2-1.5 0.5-1.4 0-4 0.7-2 2-3.9 0.5-2 0-2.4 0-1.9-0.4-2.2-0.7-1.5-0.9-0.6-1.1-0.2-1-0.3-0.7-0.8-0.7-2.5-0.4-0.9-0.6-0.6-0.6-0.6-0.6-0.6-0.4-1 0.1-1.3 1.6-4.1 0.1-2.2-1.5-6.9-0.8-1.3-0.6-1.5-0.3-1.5 0-1.7 0.8-3-0.7-0.6-0.6 0z" id="NGNI" name="Niger" />
+              </g>
+
+              {/* Connection lines to Port Harcourt */}
+              <line className="connection-line" x1={MARKER_POSITIONS.lagos.cx} y1={MARKER_POSITIONS.lagos.cy} x2={MARKER_POSITIONS.portHarcourt.cx} y2={MARKER_POSITIONS.portHarcourt.cy} />
+              <line className="connection-line" x1={MARKER_POSITIONS.abuja.cx} y1={MARKER_POSITIONS.abuja.cy} x2={MARKER_POSITIONS.portHarcourt.cx} y2={MARKER_POSITIONS.portHarcourt.cy} />
+              <line className="connection-line" x1={MARKER_POSITIONS.umuahia.cx} y1={MARKER_POSITIONS.umuahia.cy} x2={MARKER_POSITIONS.portHarcourt.cx} y2={MARKER_POSITIONS.portHarcourt.cy} />
+
+              {/* Primary marker: Port Harcourt with animated pulse rings */}
+              <g>
+                <circle className="pulse-ring pulse-ring-1" cx={MARKER_POSITIONS.portHarcourt.cx} cy={MARKER_POSITIONS.portHarcourt.cy} r={16} />
+                <circle className="pulse-ring pulse-ring-2" cx={MARKER_POSITIONS.portHarcourt.cx} cy={MARKER_POSITIONS.portHarcourt.cy} r={16} />
+                <circle className="marker-center" cx={MARKER_POSITIONS.portHarcourt.cx} cy={MARKER_POSITIONS.portHarcourt.cy} r={7} />
+                <circle cx={MARKER_POSITIONS.portHarcourt.cx} cy={MARKER_POSITIONS.portHarcourt.cy} r={10} fill="none" stroke="rgba(0, 0, 0, 0.1)" strokeWidth={0.5} />
+              </g>
+
+              {/* Secondary markers */}
+              <circle className="marker-static" cx={MARKER_POSITIONS.lagos.cx} cy={MARKER_POSITIONS.lagos.cy} r={5} />
+              <circle className="marker-static" cx={MARKER_POSITIONS.abuja.cx} cy={MARKER_POSITIONS.abuja.cy} r={5} />
+              <circle className="marker-static" cx={MARKER_POSITIONS.umuahia.cx} cy={MARKER_POSITIONS.umuahia.cy} r={5} />
+
+              {/* Label with leader line */}
+              <g>
+                <line x1={MARKER_POSITIONS.portHarcourt.cx} y1={MARKER_POSITIONS.portHarcourt.cy} x2={MARKER_POSITIONS.portHarcourt.cx + 35} y2={MARKER_POSITIONS.portHarcourt.cy - 25} stroke="rgba(255, 255, 255, 0.5)" strokeWidth="0.8" />
+                <g className="marker-label">
+                  <text x={MARKER_POSITIONS.portHarcourt.cx + 40} y={MARKER_POSITIONS.portHarcourt.cy - 30} fill="#ffffff" fontSize="13" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="600" letterSpacing="0.5">
+                    {MARKER_POSITIONS.portHarcourt.name}
+                  </text>
+                  <text x={MARKER_POSITIONS.portHarcourt.cx + 40} y={MARKER_POSITIONS.portHarcourt.cy - 16} fill="rgba(255, 255, 255, 0.7)" fontSize="11" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="400" letterSpacing="0.3">
+                    {MARKER_POSITIONS.portHarcourt.state}
+                  </text>
+                </g>
+              </g>
+            </svg>
+          </div>
         </div>
       </div>
     </section>
