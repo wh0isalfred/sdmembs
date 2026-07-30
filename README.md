@@ -60,7 +60,7 @@ src/
 │   ├── About.jsx            # full company story, mission/vision, team (see below)
 │   └── Services.jsx          # detailed breakdown of all 11 services + industries
 └── assets/
-    └── logo.jpg
+    └── logo.webp
 ```
 
 ### Routing decisions
@@ -76,6 +76,7 @@ Defined in `index.css` under `@theme` (Tailwind v4 tokens):
 - **Palette:** navy (`--color-navy` / `#102a43`) + burgundy (`--color-burgundy` / `#7a1530`) + neutrals. No gold, no third accent color — burgundy is the only accent, used on light sections; white/light carries accents on dark sections.
 - **Type:** Plus Jakarta Sans (headings), Source Sans 3 (body).
 - **Shared component classes** (`@layer components`): `.container-page`, `.eyebrow`, `.btn-primary` — these exist because the same Tailwind utility strings were being copy-pasted with small drift across every page. Only patterns with genuine, verified duplication (10+ occurrences) got pulled into a class; one-off patterns intentionally stay as inline utilities rather than being forced into artificial "reusable" classes.
+- **Logo asset (`src/assets/logo.webp`):** must be cropped tight to the visible mark, not sitting in a large padded canvas. An earlier version of this file had the actual logo filling only ~60% of the image, which made it look small in the nav/footer no matter what CSS height was set — the fix was cropping the source file, not just increasing `h-*` classes. If the logo is ever replaced, crop it the same way first.
 
 ---
 
@@ -90,13 +91,26 @@ A few facts that have been wrong in past iterations of this codebase — worth d
 
 ---
 
+## SEO & Favicons
+
+`index.html` has real meta tags — title, description, Open Graph, Twitter card — written from the client's actual business info, not placeholder copy. Favicons (full set: ico, 16/32px png, apple-touch-icon, android-chrome icons) are wired up via `site.webmanifest`.
+
+**Two things in `index.html` are still literal placeholders, not real values — search for `sdmembs.com` and `og-image.jpg`:**
+- `https://www.sdmembs.com/` — used in the canonical link and `og:url`/`og:image`. Swap for the real domain once purchased (2 occurrences).
+- `/og-image.jpg` — the image shown in link previews (WhatsApp/Facebook/X). This file doesn't exist yet. Until it's created, shared links will show a broken image icon rather than nothing, so don't treat this as low-priority.
+
+---
+
 ## Open Items / Roadmap
 
-- [ ] **Photos** — management staff portraits + names/positions, service photos, licence/certification scan, transparent logo. Waiting on the client.
+- [ ] **Photos** — management staff portraits + names/positions, service photos, licence/certification scan. Waiting on the client.
 - [ ] **Contact form** — currently has no submit handler. Plan: wire to Formspree or Web3Forms (no backend needed).
 - [ ] **Office locations section** — Port Harcourt/Abuja/Lagos addresses are mentioned in passing text but have no dedicated section (footer or Contact) yet.
-- [ ] **SEO pass** — meta tags, OG image, per-page titles, sitemap. Best done once a custom domain is attached.
-- [ ] **Domain + email** — currently using a Gmail address for contact; revisit a domain-based email once a custom domain is purchased.
+- [ ] **OG banner image** — see SEO section above, currently a broken link.
+- [ ] **Domain + email** — currently using a Gmail address for contact; once a domain is purchased, update `index.html`'s placeholder URLs (see above) and revisit a domain-based email.
+- [x] ~~Favicons~~ — done.
+- [x] ~~Base SEO meta tags~~ — done, pending the two placeholders above.
+- [x] ~~Logo~~ — cropped and optimized.
 
 ---
 
