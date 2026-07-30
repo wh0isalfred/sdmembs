@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Logo from "../assets/logo.jpg";
+import Logo from "../assets/logo.webp";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -101,7 +101,7 @@ export default function Navbar() {
                 src={Logo}
                 alt="S & D Membs"
                 className={`object-contain transition-all duration-300 ${
-                  isScrolled ? "h-8" : "h-10"
+                  isScrolled ? "h-10" : "h-12"
                 }`}
               />
               <div className="flex flex-col leading-tight">

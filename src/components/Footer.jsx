@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import logo from "../assets/logo.jpg";
+import logo from "../assets/logo.webp";
 
 const QUICK_LINKS = [
   { label: "Home", href: "/", sectionId: null },
@@ -19,7 +19,7 @@ const SERVICES = [
   "CCTV, Access Control & Consultancy",
 ];
 
-const SOCIALS = ["Facebook", "LinkedIn", "Twitter", "Instagram"];
+// const SOCIALS = ["Facebook", "LinkedIn", "Twitter", "Instagram"];
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -57,7 +57,7 @@ export default function Footer() {
         {/* Brand */}
         <div className="sm:col-span-2 lg:col-span-1">
           <div className="flex items-center gap-3">
-            <img src={logo} alt="S & D Membs logo" className="h-11 w-auto object-contain rounded bg-white p-0.5" />
+            <img src={logo} alt="S & D Membs logo" className="h-14 w-auto object-contain rounded bg-white p-1" />
             <span className="leading-tight">
               <span className="block font-heading font-bold text-base">S &amp; D MEMBS</span>
               <span className="block text-[10px] font-semibold tracking-[0.18em] uppercase text-white/60">
@@ -183,16 +183,16 @@ export default function Footer() {
   );
 }
 
-function SocialGlyph({ label }) {
-  const c = { width: 16, height: 16, viewBox: "0 0 24 24", fill: "currentColor" };
-  if (label === "Facebook")
-    return <svg {...c}><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V8c0-.9.25-1.5 1.55-1.5H16.7V3.7C16.16 3.63 14.98 3.5 13.6 3.5c-2.87 0-4.8 1.75-4.8 4.95v2.45H5.9V14H8.8v7h4.7z"/></svg>;
-  if (label === "LinkedIn")
-    return <svg {...c}><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96V21H9z"/></svg>;
-  if (label === "Twitter")
-    return <svg {...c}><path d="M22 5.9c-.7.3-1.5.5-2.3.6.8-.5 1.4-1.3 1.7-2.3-.8.5-1.7.8-2.6 1a4.1 4.1 0 0 0-7 3.7A11.6 11.6 0 0 1 3.2 4.6a4.1 4.1 0 0 0 1.3 5.5c-.6 0-1.3-.2-1.8-.5v.1c0 2 1.4 3.6 3.3 4a4.2 4.2 0 0 1-1.9.1 4.1 4.1 0 0 0 3.8 2.9A8.3 8.3 0 0 1 2 18.6a11.6 11.6 0 0 0 6.3 1.8c7.5 0 11.7-6.3 11.7-11.7v-.5c.8-.6 1.5-1.3 2-2.3z"/></svg>;
-  return <svg {...c}><rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="currentColor" strokeWidth="2"/><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" strokeWidth="2"/><circle cx="17.2" cy="6.8" r="1.1"/></svg>;
-}
+// function SocialGlyph({ label }) {
+//   const c = { width: 16, height: 16, viewBox: "0 0 24 24", fill: "currentColor" };
+//   if (label === "Facebook")
+//     return <svg {...c}><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V8c0-.9.25-1.5 1.55-1.5H16.7V3.7C16.16 3.63 14.98 3.5 13.6 3.5c-2.87 0-4.8 1.75-4.8 4.95v2.45H5.9V14H8.8v7h4.7z"/></svg>;
+//   if (label === "LinkedIn")
+//     return <svg {...c}><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96V21H9z"/></svg>;
+//   if (label === "Twitter")
+//     return <svg {...c}><path d="M22 5.9c-.7.3-1.5.5-2.3.6.8-.5 1.4-1.3 1.7-2.3-.8.5-1.7.8-2.6 1a4.1 4.1 0 0 0-7 3.7A11.6 11.6 0 0 1 3.2 4.6a4.1 4.1 0 0 0 1.3 5.5c-.6 0-1.3-.2-1.8-.5v.1c0 2 1.4 3.6 3.3 4a4.2 4.2 0 0 1-1.9.1 4.1 4.1 0 0 0 3.8 2.9A8.3 8.3 0 0 1 2 18.6a11.6 11.6 0 0 0 6.3 1.8c7.5 0 11.7-6.3 11.7-11.7v-.5c.8-.6 1.5-1.3 2-2.3z"/></svg>;
+//   return <svg {...c}><rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="currentColor" strokeWidth="2"/><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" strokeWidth="2"/><circle cx="17.2" cy="6.8" r="1.1"/></svg>;
+// }
 
 function PinIcon() {
   return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="shrink-0 mt-0.5 text-white/60"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>;

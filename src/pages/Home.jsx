@@ -190,7 +190,7 @@ function AboutSection() {
 
           <div className="grid sm:grid-cols-3 gap-6 mb-8">
             {PILLARS.map(({ title, body, Icon }) => (
-              <div key={title} className="border-t-2 border-navy/15 pt-4">
+              <div key={title}>
                 <Icon />
                 <h3 className="font-heading font-bold text-sm mt-3 mb-1.5">{title}</h3>
                 <p className="text-xs text-charcoal/60 leading-relaxed">{body}</p>
