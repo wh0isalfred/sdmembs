@@ -56,160 +56,85 @@
   --shadow-card-hover: 0 18px 48px rgba(16, 24, 40, 0.1);
 }
 
-@keyframes pulseRing1 {
-  0% {
-    r: 16;
-    opacity: 0.3;
-  }
-  50% {
-    r: 26;
-    opacity: 0;
-  }
-  100% {
-    r: 16;
-    opacity: 0.3;
-  }
-}
+/* ============================================================================
+   COMPONENT CLASSES — shared, repeated UI patterns.
 
-@keyframes pulseRing2 {
-  0% {
-    r: 16;
-    opacity: 0.3;
+   These consolidate the button/eyebrow/card/badge treatments that were
+   copy-pasted (with small drift) across Navbar, Footer, Home, About and
+   Services. Structural layout (grid, spacing, responsive breakpoints) stays
+   as Tailwind utilities in each component — only the *visual identity* that
+   repeats verbatim across pages lives here, using Tailwind v4's @apply so
+   it's still one source of truth (this file) instead of a parallel
+   hand-written CSS system.
+========================================================================= */
+@layer components {
+  /* Page-width content wrapper — used on every section across every page (22 occurrences) */
+  .container-page {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
   }
-  50% {
-    r: 28; /* Slightly larger than ring 1 for depth */
-    opacity: 0;
-  }
-  100% {
-    r: 16;
-    opacity: 0.3;
-  }
-}
 
-/* Apply to SVG circles with class "pulse-ring-1" and "pulse-ring-2" */
-.pulse-ring-1 {
-  animation: pulseRing1 3s infinite;
-}
+  /* Section eyebrow label — burgundy-on-light, the standard treatment used
+     across About, Home and Services (11 occurrences). Alignment/margin stays
+     as a trailing utility class since those genuinely vary by section. */
+  .eyebrow {
+    @apply text-burgundy font-bold text-sm tracking-[0.2em] uppercase;
+  }
 
-.pulse-ring-2 {
-  animation: pulseRing2 3s 1.5s infinite; /* 1.5s delay for stagger */
+  /* Primary CTA button color/hover treatment — every burgundy button on the
+     site shares this exact color+hover+transition combo (8 occurrences).
+     Layout (inline-flex vs block), padding, and font-weight stay local since
+     those genuinely vary — e.g. the mobile menu button is block-display,
+     not inline-flex, so baking layout in here would be inaccurate. */
+  .btn-primary {
+    @apply bg-burgundy hover:bg-burgundy-dark transition-colors text-white;
+  }
 }
 
 /* ============================================================================
-   LABEL FADE-IN ANIMATION
-   
-   The Port Harcourt label (name + state) fades in gently from left.
-   Duration: 0.8 seconds
-   Easing: ease-out (starts fast, slows down)
-   
-   Combines opacity + subtle translateX for a smooth entrance.
-========================================================================= */
+   COVERAGE MAP — Nigeria SVG (Home.jsx CoverageSection)
 
-@keyframes labelFadeIn {
-  from {
-    opacity: 0;
-    transform: translateX(-8px); /* Slight left offset */
+   Real, currently-used styles for the coverage map: neutral states, the 5
+   highlighted coverage states (Rivers, Bayelsa, Lagos, Enugu, FCT), and the
+   pulsing Port Harcourt marker. Lives here instead of an embedded <style>
+   block in the component so it's not duplicated if the map is reused.
+
+   (This replaces an entirely different, unused marker/connection-line system
+   from an earlier version of this component — see git history if that design
+   is ever wanted back. Nothing in the current CoverageSection references
+   .marker-center, .marker-static, .connection-line, or .pulse-ring-1/2.)
+========================================================================= */
+.ng-state {
+  fill: #a09080;
+  stroke: #ffffff;
+  stroke-width: 0.4;
+}
+
+.ng-coverage {
+  fill: #d22d46;
+  stroke: #ffffff;
+  stroke-width: 0.5;
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    r: 11px;
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.9));
   }
-  to {
-    opacity: 1;
-    transform: translateX(0);
+  50% {
+    r: 16px;
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.6));
   }
 }
 
-.marker-label {
-  animation: labelFadeIn 0.8s ease-out forwards;
+.pulse {
+  animation: pulse-dot 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
-
-/* ============================================================================
-   ACCESSIBILITY: RESPECTS prefers-reduced-motion
-   
-   Users who prefer reduced motion will see static markers and labels.
-   No animations, no jitter, clean professional appearance.
-========================================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .pulse-ring {
-    animation: none !important;
-  }
-
-  .marker-label {
-    animation: none !important;
-    opacity: 1; /* Ensure label is visible even without fade-in */
+  .pulse {
+    animation: none;
   }
 }
-
-/* ============================================================================
-   SVG STYLING — Subtle, corporate colors
-   
-   States: white at 12% opacity (rgba(255, 255, 255, 0.12))
-   Strokes: white at 25% opacity (rgba(255, 255, 255, 0.25))
-   This keeps the map readable on dark navy background without distraction.
-========================================================================= */
-
-.ng-state {
-  fill: rgba(255, 255, 255, 0.12);
-  stroke: rgba(255, 255, 255, 0.25);
-  stroke-width: 0.5;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-}
-
-/* ============================================================================
-   MARKER STYLES
-   
-   Primary marker (Port Harcourt):
-   - White center (r=7)
-   - 2px burgundy border (#7a1530)
-   - Two animated pulse rings
-   
-   Secondary markers (Lagos, Abuja, Umuahia):
-   - White center (r=5, smaller)
-   - 2px burgundy border
-   - No animation (static)
-========================================================================= */
-
-.marker-center {
-  fill: #ffffff;
-  stroke: #7a1530;
-  stroke-width: 2;
-}
-
-.marker-static {
-  fill: #ffffff;
-  stroke: #7a1530;
-  stroke-width: 2;
-}
-
-/* ============================================================================
-   CONNECTION LINES — Subtle dotted lines
-   
-   From Lagos, Abuja, Umuahia toward Port Harcourt.
-   Opacity: 20% (rgba(255, 255, 255, 0.2))
-   Stroke-dasharray: 3px line, 3px gap (dotted pattern)
-   Not distracting, but visible on close inspection.
-========================================================================= */
-
-.connection-line {
-  stroke: rgba(255, 255, 255, 0.2);
-  stroke-width: 1;
-  stroke-dasharray: 3, 3; /* 3px line, 3px gap */
-  fill: none;
-}
-
-/* ============================================================================
-   INTEGRATION NOTE
-   
-   If you're adding this to your existing index.css (Tailwind v4):
-   1. Copy all keyframes and class styles above into index.css
-   2. Place them AFTER your @theme block
-   3. CoverageSection.jsx also includes these in a <style> block
-      (embedded for scope), so you don't strictly need both,
-      but having them in index.css makes them globally available.
-   
-   The component is designed to work without relying on Tailwind utilities,
-   using SVG native attributes and CSS animations for maximum control
-   and premium appearance.
-========================================================================= */
 
 html {
   scroll-behavior: smooth;
@@ -238,6 +163,33 @@ h4 {
 .fade-up.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ============================================================================
+   PAGE-ENTER — reveal animation on route navigation.
+
+   Applied to the top-level wrapper of each page (Home/About/Services). Since
+   navigating between distinct pages unmounts the old one and mounts the new
+   one fresh, this animation plays automatically every time someone follows a
+   nav link — no scroll-position tracking or JS observer needed.
+========================================================================= */
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.page-enter {
+  animation: page-in 0.5s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-enter {
+    animation: none;
+  }
 }
 
 /* Consistent, visible keyboard focus (accent, since gold is removed) */

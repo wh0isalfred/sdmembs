@@ -3,21 +3,19 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import Services from "./pages/Services";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/"  element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/aboutus" element={<About />} />
-        {/* Add more routes for Services, Industries, Careers, Contact when ready */}
-        {/* 
         <Route path="/services" element={<Services />} />
-        <Route path="/industries" element={<Industries />} />
-        <Route path="/careers" element={<Careers />} />
-        <Route path="/contact" element={<Contact />} />
-        */}
+        {/* Client decision (final): Industries, Careers, Contact stay as homepage
+            scroll-sections (#industries, #careers, #contact) — no dedicated routes. */}
       </Routes>
       <Footer />
     </BrowserRouter>

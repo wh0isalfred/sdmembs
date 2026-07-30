@@ -1,31 +1,59 @@
+import { useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.jpg";
 
 const QUICK_LINKS = [
-  { label: "Home", href: "#home" },
-  { label: "About Us", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Industries", href: "#industries" },
-  { label: "Careers", href: "#careers" },
-  { label: "Contact Us", href: "#contact" },
+  { label: "Home", href: "/", sectionId: null },
+  { label: "About Us", href: "/aboutus", sectionId: null },
+  { label: "Services", href: "/services", sectionId: null },
+  { label: "Industries", href: "#", sectionId: "industries" },
+  { label: "Careers", href: "#", sectionId: "careers" },
+  { label: "Contact Us", href: "#", sectionId: "contact" },
 ];
 
 const SERVICES = [
   "Residential Security",
-  "Commercial Security",
-  "Armed Security",
+  "Commercial & Industrial Security",
+  "Armed & Unarmed Guards",
   "K9 Security",
   "Mobile Patrol",
-  "Event Security",
+  "CCTV, Access Control & Consultancy",
 ];
 
 const SOCIALS = ["Facebook", "LinkedIn", "Twitter", "Instagram"];
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Handle section navigation - smart routing
+  function handleSectionClick(e, sectionId) {
+    e.preventDefault();
+    
+    if (location.pathname === "/" || location.pathname === "/home") {
+      // Already on home, just scroll
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 50);
+    } else {
+      // Not on home, navigate to home then scroll
+      navigate("/");
+      // Wait longer for page to render
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 500);
+    }
+  }
 
   return (
     <footer className="bg-navy-dark text-white">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
+      <div className="container-page py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
         {/* Brand */}
         <div className="sm:col-span-2 lg:col-span-1">
           <div className="flex items-center gap-3">
@@ -41,6 +69,8 @@ export default function Footer() {
             Professional security solutions you can trust. Protecting people,
             property and peace of mind across Nigeria.
           </p>
+          {/* Social icons removed — client has not yet provided real Facebook/Instagram/LinkedIn URLs.
+              Re-add the SOCIALS.map(...) block below once real links are supplied; don't ship dead "#" links.
           <div className="flex gap-3 mt-5">
             {SOCIALS.map((label) => (
               <a
@@ -53,6 +83,7 @@ export default function Footer() {
               </a>
             ))}
           </div>
+          */}
         </div>
 
         {/* Quick Links */}
@@ -63,7 +94,17 @@ export default function Footer() {
           <ul className="space-y-2.5">
             {QUICK_LINKS.map((l) => (
               <li key={l.href}>
-                <a href={l.href} className="text-sm text-white/75 hover:text-white transition-colors">
+                <a 
+                  href={l.href}
+                  onClick={(e) => {
+                    if (l.sectionId) {
+                      handleSectionClick(e, l.sectionId);
+                    } else {
+                      navigate(l.href);
+                    }
+                  }}
+                  className="text-sm text-white/75 hover:text-white transition-colors"
+                >
                   {l.label}
                 </a>
               </li>
@@ -79,7 +120,11 @@ export default function Footer() {
           <ul className="space-y-2.5">
             {SERVICES.map((s) => (
               <li key={s}>
-                <a href="#services" className="text-sm text-white/75 hover:text-white transition-colors">
+                <a 
+                  href="#"
+                  onClick={(e) => handleSectionClick(e, "services")}
+                  className="text-sm text-white/75 hover:text-white transition-colors"
+                >
                   {s}
                 </a>
               </li>
@@ -95,19 +140,19 @@ export default function Footer() {
           <ul className="space-y-3 text-sm text-white/75">
             <li className="flex gap-2.5">
               <PinIcon />
-              <span>Plot 25, Trans-Amadi Industrial Layout, Port Harcourt, Rivers State, Nigeria.</span>
+              <span>32 Oromenike Street, D/Line, Port Harcourt, Rivers State, Nigeria.</span>
             </li>
             <li className="flex gap-2.5">
               <PhoneIcon />
-              <span>07065772394 &middot; 0810 987 6543</span>
+              <span>0803 709 5470 &middot; 0707 231 6078</span>
             </li>
             <li className="flex gap-2.5">
               <MailIcon />
-              <span>info@sdmembssecurity.com</span>
+              <span>sanddmembs@gmail.com</span>
             </li>
             <li className="flex gap-2.5">
               <ClockIcon />
-              <span>Mon &ndash; Sun: 24 Hours</span>
+              <span>Mon &ndash; Fri: 8am &ndash; 5pm &middot; Field Ops: 24/7</span>
             </li>
           </ul>
         </div>
@@ -115,8 +160,8 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-white/10">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/60">
-          <p>&copy; {year} S &amp; D Membs Security Services Limited. All Rights Reserved.</p>
+        <div className="container-page py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/60">
+          <p>&copy; {year} S &amp; D Membs Security Services Limited &middot; RC 933870. All Rights Reserved.</p>
           <div className="flex gap-5">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
@@ -126,7 +171,7 @@ export default function Footer() {
 
       {/* Floating WhatsApp */}
       <a
-        href="https://wa.me/2347065772394"
+        href="https://wa.me/2349169426900"
         target="_blank"
         rel="noreferrer"
         aria-label="Chat with us on WhatsApp"
