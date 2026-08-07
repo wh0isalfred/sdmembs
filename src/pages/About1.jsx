@@ -1,13 +1,5 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import businessManagerPh from "../assets/team/business-manager-ph.jpeg";
-import generalManagerPh from "../assets/team/general-manager-ph.jpeg";
-import lawrenceTuraki from "../assets/team/lawrence-turaki-admin-abuja.jpeg";
-import marketingManagerAbuja from "../assets/team/marketing-manager-abuja.jpeg";
-import marketingManagerLagos from "../assets/team/marketing-manager-lagos.jpeg";
-import opsManagerBayelsa from "../assets/team/operations-manager-bayelsa.jpeg";
-import opsManager1Ph from "../assets/team/operations-manager-1-ph.jpeg";
-import opsManager2Ph from "../assets/team/operations-manager-2-ph.jpeg";
 
 export default function About() {
   const location = useLocation();
@@ -97,16 +89,67 @@ export default function About() {
         </div>
       </section>
 
+      {/* Meet Our Team - Executive Leadership
+      <section className="py-20 sm:py-28 bg-offwhite">
+        <div className="container-page">
+          <p className="eyebrow mb-2">
+            Our Team
+          </p>
+          <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-navy mb-16">
+            Leadership You Can Rely On
+          </h2>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                name: "Managing Director",
+                title: "Overall company leadership and strategic direction.",
+                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop"
+              },
+              {
+                name: "Operations Director",
+                title: "Day-to-day field operations and deployment.",
+                image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop"
+              },
+              {
+                name: "Head of Training",
+                title: "Personnel training and capability development.",
+                image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop"
+              },
+              {
+                name: "Admin & HR Manager",
+                title: "Recruitment, welfare and administration.",
+                image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=400&auto=format&fit=crop"
+              },
+            ].map((leader, i) => (
+              <div key={i} className="text-center">
+                <img
+                  src={leader.image}
+                  alt={leader.name}
+                  className="w-40 h-40 rounded-full object-cover mx-auto mb-4 shadow-md"
+                />
+                <h3 className="font-heading font-bold text-lg text-navy mb-1">
+                  {leader.name}
+                </h3>
+                <p className="text-charcoal/70 text-sm font-medium">
+                  {leader.title}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section> */}
+
       {/* Why Choose S & D Membs */}
       <section className="py-20 sm:py-28 bg-white">
         <div className="container-page">
-          <p className="eyebrow mb-2 text-center">
+          <p className="eyebrow mb-2">
             Why S &amp; D Membs?
           </p>
-          <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-navy mb-6 max-w-3xl mx-auto text-center">
+          <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-navy mb-6 max-w-3xl">
             Reputation Based on Values of Trust, Integrity &amp; Quality Standards
           </h2>
-          <p className="text-charcoal/70 leading-relaxed mb-12 text-lg max-w-3xl mx-auto text-center">
+          <p className="text-charcoal/70 leading-relaxed mb-12 text-lg max-w-3xl">
             Our goal at S &amp; D Membs is to deliver top-tier security programs for our clients. 
             Since our founding in 2008, we have worked diligently to build our reputation as a 
             respected security provider with the experience and resources to meet your unique goals. 
@@ -185,90 +228,6 @@ export default function About() {
                     {item.desc}
                   </p>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Meet Our Team - Executive Leadership */}
-      <section className="py-20 sm:py-28 bg-offwhite">
-        <div className="container-page">
-          <p className="eyebrow mb-2 text-center">
-            Our Team
-          </p>
-          <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-navy mb-16 text-center">
-            Leadership You Can Rely On
-          </h2>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                // TODO: real full name pending from client — role/location confirmed from filename only
-                name: "Business Manager",
-                title: "Port Harcourt",
-                image: businessManagerPh,
-              },
-              {
-                // TODO: real full name pending from client
-                name: "General Manager",
-                title: "Port Harcourt",
-                image: generalManagerPh,
-              },
-              {
-                name: "Lawrence Turaki",
-                title: "Admin — Abuja Office",
-                image: lawrenceTuraki,
-              },
-              {
-                // TODO: real full name pending from client
-                name: "Marketing Manager",
-                title: "Abuja",
-                image: marketingManagerAbuja,
-              },
-              {
-                // TODO: real full name pending from client
-                name: "Marketing Manager",
-                title: "Lagos",
-                image: marketingManagerLagos,
-              },
-              {
-                // TODO: real full name pending from client
-                name: "Operations Manager",
-                title: "Bayelsa",
-                image: opsManagerBayelsa,
-              },
-              {
-                // TODO: real full name pending from client. Source photo had a
-                // camera-app watermark burned into the bottom-left corner —
-                // the source file itself has been pre-cropped (not via CSS)
-                // to exclude it. If a cleaner photo becomes available, swap it in.
-                name: "Operations Manager",
-                title: "Port Harcourt",
-                image: opsManager1Ph,
-              },
-              {
-                // TODO: real full name pending from client. Source photo was
-                // full-body, not a headshot — the source file itself has been
-                // pre-cropped (not via CSS) to head-and-shoulders. A proper
-                // headshot would look cleaner if one becomes available.
-                name: "Operations Manager",
-                title: "Port Harcourt",
-                image: opsManager2Ph,
-              },
-            ].map((leader, i) => (
-              <div key={i} className="text-center">
-                <img
-                  src={leader.image}
-                  alt={leader.name}
-                  className="w-40 h-40 rounded-full object-cover mx-auto mb-4 shadow-md"
-                />
-                <h3 className="font-heading font-bold text-lg text-navy mb-1">
-                  {leader.name}
-                </h3>
-                <p className="text-charcoal/70 text-sm font-medium">
-                  {leader.title}
-                </p>
               </div>
             ))}
           </div>
