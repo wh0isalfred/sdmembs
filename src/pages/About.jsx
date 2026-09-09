@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import useDocumentMeta from "../hooks/useDocumentMeta";
 import businessManagerPh from "../assets/team/business-manager-ph.jpeg";
 import generalManagerPh from "../assets/team/general-manager-ph.jpeg";
 import lawrenceTuraki from "../assets/team/lawrence-turaki-admin-abuja.jpeg";
@@ -12,6 +13,11 @@ import opsManager2Ph from "../assets/team/operations-manager-2-ph.jpeg";
 export default function About() {
   const location = useLocation();
   const navigate = useNavigate();
+
+  useDocumentMeta({
+    title: "About Us | S & D Membs Security Services",
+    description: "Licensed private security company serving Port Harcourt, Abuja and Lagos since 2009 — our story, leadership, and commitment to trust and integrity.",
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -75,7 +81,7 @@ export default function About() {
                 <span className="text-burgundy">Committed to Excellence.</span>
               </h2>
               <p className="text-charcoal/70 leading-relaxed mb-4 text-lg">
-                S &amp; D Membs Security Services Limited was founded in 2008 on a simple 
+                S &amp; D Membs Security Services Limited was incorporated in 2009 on a simple 
                 yet powerful conviction: every person and organization deserves to feel safe. 
                 What began as an operation in Port Harcourt has grown into a licensed security 
                 provider with offices in Abuja and Lagos.
@@ -108,7 +114,7 @@ export default function About() {
           </h2>
           <p className="text-charcoal/70 leading-relaxed mb-12 text-lg max-w-3xl mx-auto text-center">
             Our goal at S &amp; D Membs is to deliver top-tier security programs for our clients. 
-            Since our founding in 2008, we have worked diligently to build our reputation as a 
+            Since our incorporation in 2009, we have worked diligently to build our reputation as a 
             respected security provider with the experience and resources to meet your unique goals. 
             Through steady, service-led growth, we continually nurture lasting partnerships and 
             seek practical ways to exceed expectations, setting ourselves apart in the security 

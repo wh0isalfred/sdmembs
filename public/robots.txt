@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sanddmembs.org/sitemap.xml
+Sitemap: https://www.sanddmembs.org/sitemap.xml

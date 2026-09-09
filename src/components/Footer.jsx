@@ -161,10 +161,10 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-white/10">
         <div className="container-page py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/60">
-          <p>&copy; {year} S &amp; D Membs Security Services Limited &middot; RC 933870. All Rights Reserved.</p>
+          <p>&copy; {year} S &amp; D Membs Security Services Limited &middot; RC 837824. All Rights Reserved.</p>
           <div className="flex gap-5">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+            <a href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="/terms-of-use" className="hover:text-white transition-colors">Terms of Use</a>
           </div>
         </div>
       </div>

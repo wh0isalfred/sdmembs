@@ -1,9 +1,15 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import useDocumentMeta from "../hooks/useDocumentMeta";
 
 export default function Services() {
   const location = useLocation();
   const navigate = useNavigate();
+
+  useDocumentMeta({
+    title: "Our Services | S & D Membs Security Services",
+    description: "Residential, commercial & industrial security, armed & unarmed guards, K9 units, mobile patrol, CCTV monitoring, access control and security consultancy in Port Harcourt, Nigeria.",
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);

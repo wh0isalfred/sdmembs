@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import useDocumentMeta from "../hooks/useDocumentMeta";
 /**
  * S & D Membs Security Services — Home page.
  *
@@ -44,11 +43,6 @@ function useReveal(threshold = 0.15) {
 }
 
 export default function Home() {
-  useDocumentMeta({
-    title: "S & D Membs Security Services | Professional Security in Port Harcourt, Nigeria",
-    description: "Licensed private security provider headquartered in Port Harcourt with offices in Abuja and Lagos. Residential, commercial & industrial security, armed & unarmed guards, K9 units, CCTV monitoring, mobile patrol and security consultancy.",
-  });
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -332,7 +326,7 @@ function WhyChooseUsSection() {
   const ref = useReveal();
 
   const STATS = [
-    { value: "17+", label: "Years Experience", sub: "Delivering trusted security solutions since 2009." },
+    { value: "17+", label: "Years Experience", sub: "Delivering trusted security solutions since 2008." },
     { value: "5", label: "States Covered", sub: "Operating across Rivers, Lagos, Bayelsa, Enugu & the FCT." },
     { value: "24/7", label: "Support", sub: "Round-the-clock operations and monitoring." },
     { value: "100%", label: "Commitment", sub: "Dedicated to professionalism, safety and excellence." },
@@ -680,27 +674,9 @@ function ContactSection() {
   const inputClass =
     "w-full border border-charcoal/15 rounded px-4 py-3 text-sm text-charcoal placeholder:text-charcoal/40 focus:border-navy focus:ring-1 focus:ring-navy outline-none transition-colors";
 
-  // NOTE: No form backend is connected yet (no Formspree/Web3Forms endpoint
-  // configured). Rather than fake a "message sent" success state that
-  // silently discards the enquiry, this builds a pre-filled mailto: link and
-  // hands off to the visitor's own email client — the enquiry actually goes
-  // somewhere real. Once Alfred wires up a real form provider, replace this
-  // with an actual fetch() to that endpoint and restore a true success state.
   function handleSubmit(e) {
     e.preventDefault();
-    const data = new FormData(e.target);
-    const subject = `Security enquiry: ${data.get("service")} — ${data.get("name")}`;
-    const body = [
-      `Name: ${data.get("name")}`,
-      `Organization: ${data.get("organization") || "—"}`,
-      `Phone: ${data.get("phone")}`,
-      `Email: ${data.get("email")}`,
-      `Service needed: ${data.get("service")}`,
-      "",
-      "Message:",
-      data.get("message"),
-    ].join("\n");
-    window.location.href = `mailto:sanddmembs@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    // Wire this up to your form backend / API route.
     setSubmitted(true);
   }
 
@@ -724,14 +700,10 @@ function ContactSection() {
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                 </div>
-                <h3 className="font-heading font-bold text-xl mb-2">Almost there</h3>
+                <h3 className="font-heading font-bold text-xl mb-2">Message sent</h3>
                 <p className="text-charcoal/60 text-sm max-w-sm">
-                  Your email app should have opened with your enquiry pre-filled —
-                  just hit send. If nothing opened, please email us directly at{" "}
-                  <a href="mailto:sanddmembs@gmail.com" className="text-navy underline">
-                    sanddmembs@gmail.com
-                  </a>{" "}
-                  or reach us by phone or WhatsApp below.
+                  Thank you for reaching out. Our team will contact you shortly
+                  to discuss your security needs.
                 </p>
               </div>
             ) : (

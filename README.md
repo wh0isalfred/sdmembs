@@ -34,13 +34,18 @@ This is a client-side-routed SPA, so **`vercel.json` is required** at the projec
 
 ```json
 {
+  "redirects": [
+    { "source": "/home", "destination": "/", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
 ```
 
-Without this, direct navigation or a hard refresh on any route other than `/` (e.g. `/services`, `/aboutus`) returns a 404, because Vercel tries to match the URL to a real file before React Router ever loads. This applies regardless of domain — a custom domain doesn't change this behavior, since it's a deploy-config rule, not a DNS one.
+Without the rewrite, direct navigation or a hard refresh on any route other than `/` (e.g. `/services`, `/aboutus`) returns a 404, because Vercel tries to match the URL to a real file before React Router ever loads. This applies regardless of domain — a custom domain doesn't change this behavior, since it's a deploy-config rule, not a DNS one.
+
+**Known limitation — the 404 page's HTTP status:** the same rewrite that makes routing work is also why the branded `NotFound` page (`src/pages/NotFound.jsx`, catch-all route `*`) can't return a real HTTP 404 status. Vercel serves `index.html` (HTTP 200) for *any* unmatched path, so React Router decides client-side that the route doesn't exist and renders the 404 UI — but by the time that happens, the server has already responded 200. The page sets `<meta name="robots" content="noindex, follow">` while mounted (via `useDocumentMeta`) so search engines don't index it, but this is a soft-404, not a true one. Fixing this properly would require a Vercel Edge Function or middleware to inspect the path server-side — out of scope for a static Vite SPA deploy. Google generally handles soft-404s reasonably well when `noindex` is present, so this is a known, accepted limitation rather than an unnoticed bug.
 
 ---
 
