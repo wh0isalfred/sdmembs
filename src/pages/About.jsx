@@ -7,7 +7,7 @@ import lawrenceTuraki from "../assets/team/lawrence-turaki-admin-abuja.jpeg";
 import marketingManagerAbuja from "../assets/team/marketing-manager-abuja.jpeg";
 import marketingManagerLagos from "../assets/team/marketing-manager-lagos.jpeg";
 import opsManagerBayelsa from "../assets/team/operations-manager-bayelsa.jpeg";
-import opsManager1Ph from "../assets/team/operations-manager-1-ph.jpeg";
+// import opsManager1Ph from "../assets/team/operations-manager-1-ph.jpeg";
 import opsManager2Ph from "../assets/team/operations-manager-2-ph.jpeg";
 
 export default function About() {
@@ -211,14 +211,14 @@ export default function About() {
             {[
               {
                 // TODO: real full name pending from client — role/location confirmed from filename only
-                name: "Business Manager",
-                title: "Port Harcourt",
+                name: "Chika Sunny Frank",
+                title: "Business Manager — Port Harcourt Office",
                 image: businessManagerPh,
               },
               {
                 // TODO: real full name pending from client
-                name: "General Manager",
-                title: "Port Harcourt",
+                name: "Onyeka Ikechukwu",
+                title: "General Manager — Port Harcourt Office",
                 image: generalManagerPh,
               },
               {
@@ -228,38 +228,38 @@ export default function About() {
               },
               {
                 // TODO: real full name pending from client
-                name: "Marketing Manager",
-                title: "Abuja",
+                name: "Victoria Adunyi Achor.",
+                title: "Marketing Manager — Abuja Office",
                 image: marketingManagerAbuja,
               },
               {
                 // TODO: real full name pending from client
-                name: "Marketing Manager",
-                title: "Lagos",
+                name: "Olanrewaju Cynthia Ayomikun",
+                title: "Marketing Manager — Lagos Office",
                 image: marketingManagerLagos,
               },
               {
                 // TODO: real full name pending from client
-                name: "Operations Manager",
-                title: "Bayelsa",
+                name: "Muna Lele",
+                title: "Operations Manager — Bayelsa Office",
                 image: opsManagerBayelsa,
               },
-              {
-                // TODO: real full name pending from client. Source photo had a
-                // camera-app watermark burned into the bottom-left corner —
-                // the source file itself has been pre-cropped (not via CSS)
-                // to exclude it. If a cleaner photo becomes available, swap it in.
-                name: "Operations Manager",
-                title: "Port Harcourt",
-                image: opsManager1Ph,
-              },
+              // {
+              //   // TODO: real full name pending from client. Source photo had a
+              //   // camera-app watermark burned into the bottom-left corner —
+              //   // the source file itself has been pre-cropped (not via CSS)
+              //   // to exclude it. If a cleaner photo becomes available, swap it in.
+              //   name: "Operations Manager",
+              //   title: "Port Harcourt",
+              //   image: opsManager1Ph,
+              // },
               {
                 // TODO: real full name pending from client. Source photo was
                 // full-body, not a headshot — the source file itself has been
                 // pre-cropped (not via CSS) to head-and-shoulders. A proper
                 // headshot would look cleaner if one becomes available.
-                name: "Operations Manager",
-                title: "Port Harcourt",
+                name: "Omofolarin Ayodeji Ipoola",
+                title: "Operations Manager — Port Harcourt",
                 image: opsManager2Ph,
               },
             ].map((leader, i) => (
