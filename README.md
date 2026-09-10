@@ -82,7 +82,7 @@ The result: `curl https://www.sanddmembs.org/aboutus` returns HTML with `/aboutu
 
 **What this does NOT do:** true server-side rendering, or handle any future dynamic/parameterized route (there are none today — all 6 indexable routes are static paths, so this approach is sufficient). If routes with dynamic segments are ever added, this whole approach needs revisiting.
 
-**Playwright as a devDependency:** this pulls in Chromium as a dev-only dependency. It never ships to production or affects the site's runtime weight — it only runs during `npm run build`. The `postinstall` script installs Chromium for the prerender step.
+**Playwright as a devDependency:** this pulls in Chromium as a dev-only dependency. It never ships to production or affects the site's runtime weight — it only runs during `npm run build`. The `postinstall` script installs Chromium and its required Linux system libraries for the prerender step.
 
 ### Canonical hostname
 
