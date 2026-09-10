@@ -210,7 +210,7 @@ export default function About() {
                 image: lawrenceTuraki,
               },
               {
-                name: "Victoria Adunyi Achor.",
+                name: "Victoria Adunyi Achor",
                 title: "Marketing Manager — Abuja Office",
                 image: marketingManagerAbuja,
               },
