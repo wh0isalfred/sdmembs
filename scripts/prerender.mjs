@@ -32,7 +32,7 @@ import fsSync from "fs";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.join(__dirname, "..", "dist");
 
-const ROUTES = ["/", "/aboutus", "/services", "/privacy-policy", "/terms-of-use"];
+const ROUTES = ["/", "/aboutus", "/services", "/offices", "/privacy-policy", "/terms-of-use"];
 
 const MIME = {
   ".html": "text/html", ".js": "application/javascript", ".css": "text/css",

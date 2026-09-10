@@ -48,8 +48,8 @@ function useReveal(threshold = 0.15) {
 export default function Home() {
   useDocumentMeta({
     path: "/",
-    title: "S & D Membs Security Services | Professional Security in Port Harcourt, Nigeria",
-    description: "Licensed private security provider headquartered in Port Harcourt with offices in Abuja and Lagos. Residential, commercial & industrial security, armed & unarmed guards, K9 units, CCTV monitoring, mobile patrol and security consultancy.",
+    title: "S & D Membs Security Services | Professional Security Across Nigeria",
+    description: "Licensed private security company delivering trained guards, corporate and industrial protection, K9 security, mobile patrol, CCTV monitoring and security consultancy across Nigeria.",
   });
 
   useEffect(() => {
@@ -64,8 +64,8 @@ export default function Home() {
       <WhyChooseUsSection />
       <IndustriesSection />
       <RecruitmentSection />
-      {/* <TestimonialsSection /> */}
       <CoverageSection />
+      <OfficesPreviewSection />
       <CtaBannerSection />
       <ContactSection />
     </div>
@@ -80,7 +80,7 @@ function HeroSection() {
     { label: "Licensed Security Company", Icon: ShieldIcon, to: "/aboutus#licensing" },
     { label: "Highly Trained & Vetted Personnel", Icon: TeamIcon },
     { label: "24/7 Operations & Monitoring", Icon: ClockIcon },
-    { label: "Residential & Commercial Experts", Icon: BuildingIcon },
+    { label: "Nationwide Deployment", Icon: BuildingIcon },
     { label: "Rapid Response Capability", Icon: BoltIcon },
   ];
 
@@ -107,9 +107,9 @@ function HeroSection() {
               <span className="text-white">&amp; Peace of Mind.</span>
             </h1>
             <p className="text-white/80 text-base sm:text-lg leading-relaxed mb-8 max-w-xl">
-              Trusted residential and commercial security services from our
-              Port Harcourt base, delivering trained personnel, mobile
-              patrols and tailored protection solutions across Nigeria.
+              Based in Port Harcourt, serving businesses and institutions
+              across Nigeria with trained personnel, mobile patrols and
+              tailored protection solutions.
             </p>
             <div className="flex flex-wrap gap-4">
               <a
@@ -205,10 +205,9 @@ function AboutSection() {
           </h2>
           <p className="text-charcoal/70 leading-relaxed mb-8">
             S &amp; D Membs Security Services Limited is a licensed private
-            security provider headquartered in Port Harcourt, Rivers State,
-            with offices in Abuja and Lagos. We deliver professional security
-            solutions to individuals, businesses and organizations with
-            integrity, discipline and excellence.
+            security provider based in Port Harcourt, with offices in Abuja
+            and Lagos. We protect businesses, institutions and industrial
+            operations across Nigeria with integrity, discipline and excellence.
           </p>
 
           <div className="grid sm:grid-cols-3 gap-6 mb-8">
@@ -241,18 +240,18 @@ function ServicesSection() {
 
   const SERVICES = [
     {
-      title: "Residential Security",
-      desc: "Estate security, gate officers, visitor management and 24/7 protection.",
-      img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=900&auto=format&fit=crop",
-      alt: "Security officer stationed at a residential estate gate",
-      Icon: HomeIcon,
-    },
-    {
-      title: "Commercial & Industrial Security",
-      desc: "Offices, factories, warehouses, banks, hotels and industrial facilities.",
+      title: "Corporate & Commercial Security",
+      desc: "Professional protection for offices, banks, hotels, hospitals and commercial premises.",
       img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=900&auto=format&fit=crop",
       alt: "Corporate office building entrance",
       Icon: BriefcaseIcon,
+    },
+    {
+      title: "Industrial & Facility Security",
+      desc: "Structured protection for factories, warehouses, construction sites and industrial facilities.",
+      img: "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?q=80&w=900&auto=format&fit=crop",
+      alt: "Large industrial facility requiring coordinated security",
+      Icon: OfficeIcon,
     },
     {
       title: "Armed & Unarmed Guards",
@@ -351,7 +350,7 @@ function WhyChooseUsSection() {
 
   const STATS = [
     { value: "17+", label: "Years Experience", sub: "Delivering trusted security solutions since 2009." },
-    { value: "5", label: "States Covered", sub: "Operating across Rivers, Lagos, Bayelsa, Enugu & the FCT." },
+    { value: "Nationwide", label: "Deployment", sub: "Security personnel and operational support across Nigeria." },
     { value: "24/7", label: "Support", sub: "Round-the-clock operations and monitoring." },
     { value: "100%", label: "Commitment", sub: "Dedicated to professionalism, safety and excellence." },
   ];
@@ -389,13 +388,14 @@ function IndustriesSection() {
     { label: "Hospitals", Icon: HospitalIcon },
     { label: "Banks", Icon: BankIcon },
     { label: "Hotels", Icon: HotelIcon },
-    { label: "Residential Estates", Icon: HouseIcon },
+    { label: "Corporate Offices", Icon: OfficeIcon },
     { label: "Construction Sites", Icon: ConstructionIcon },
     { label: "Shopping Malls", Icon: MallIcon },
     { label: "Government", Icon: GovIcon },
     { label: "Oil & Gas", Icon: OilIcon },
     { label: "Warehouses & Factories", Icon: OfficeIcon },
     { label: "Religious Organizations", Icon: ChurchIcon },
+    { label: "Maritime & Port Facilities", Icon: ShipIcon },
   ];
 
   return (
@@ -484,65 +484,6 @@ function RecruitmentSection() {
 }
 
 /* ============================================================================
-   TESTIMONIALS
-============================================================================ */
-// function TestimonialsSection() {
-//   const ref = useReveal();
-
-//   const TESTIMONIALS = [
-//     {
-//       quote:
-//         "Since we engaged S & D Membs, incidents at our estate have dropped significantly. Their officers are punctual, alert and genuinely professional.",
-//       name: "Estate Management Office",
-//       role: "Residential Client, Port Harcourt",
-//     },
-//     {
-//       quote:
-//         "Their mobile patrol response time has consistently impressed our facilities team. We finally have a security partner we can rely on around the clock.",
-//       name: "Operations Director",
-//       role: "Manufacturing Client, Rivers State",
-//     },
-//     {
-//       quote:
-//         "Professional, disciplined, and always on standby. Their event security team handled our conference of over 800 guests without a single issue.",
-//       name: "Corporate Events Lead",
-//       role: "Hospitality Client",
-//     },
-//   ];
-
-//   return (
-//     <section ref={ref} className="fade-up py-20 sm:py-24 bg-white">
-//       <div className="container-page">
-//         <p className="eyebrow text-center mb-3">
-//           Testimonials
-//         </p>
-//         <h2 className="font-heading font-extrabold text-3xl text-center mb-14">
-//           Trusted by Corporate Clients
-//         </h2>
-
-//         <div className="grid md:grid-cols-3 gap-6">
-//           {TESTIMONIALS.map((t) => (
-//             <div
-//               key={t.name}
-//               className="bg-offwhite rounded-lg p-8 shadow-card hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 flex flex-col"
-//             >
-//               <QuoteIcon />
-//               <p className="text-charcoal/80 leading-relaxed my-5 flex-1">
-//                 &ldquo;{t.quote}&rdquo;
-//               </p>
-//               <div className="border-t border-charcoal/10 pt-4">
-//                 <p className="font-heading font-bold text-sm">{t.name}</p>
-//                 <p className="text-xs text-charcoal/50">{t.role}</p>
-//               </div>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
-
-/* ============================================================================
    COVERAGE — Real Nigeria SVG map with location markers
 ============================================================================ */
 function CoverageSection() {
@@ -562,9 +503,9 @@ function CoverageSection() {
             Operating Across Nigeria.
           </h2>
           <p className="text-white/75 leading-relaxed max-w-lg mb-6">
-            Our operations are rooted in Rivers State, with active coverage
-            in Lagos, Bayelsa, Enugu and the FCT, and deployment capability
-            that extends to clients across the country.
+            From our Port Harcourt base and regional teams, we provide trained
+            personnel and operational support to businesses and institutions
+            wherever their security requirements take them across Nigeria.
           </p>
           <a
             href="#contact"
@@ -644,6 +585,47 @@ function CoverageSection() {
 }
 
 /* ============================================================================
+   OFFICES PREVIEW
+============================================================================ */
+function OfficesPreviewSection() {
+  const ref = useReveal();
+
+  return (
+    <section ref={ref} className="fade-up py-20 sm:py-24 bg-offwhite">
+      <div className="container-page">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5 mb-10">
+          <div className="max-w-2xl">
+            <p className="eyebrow mb-3">Our Offices</p>
+            <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-navy mb-4">
+              Local teams. Nationwide capability.
+            </h2>
+            <p className="text-charcoal/65 leading-relaxed">
+              Connect with our head office, regional offices and operations teams across Nigeria.
+            </p>
+          </div>
+          <Link to="/offices" className="inline-flex items-center gap-2 text-navy hover:text-burgundy font-bold transition-colors">
+            View all offices &amp; contacts <ArrowRightIcon />
+          </Link>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 border-y border-charcoal/10">
+          {COMPANY.offices.map((office) => (
+            <Link
+              key={office.id}
+              to={`/offices#${office.id}`}
+              className="py-6 sm:px-6 border-b sm:border-b-0 sm:border-r last:border-0 border-charcoal/10 hover:bg-white transition-colors"
+            >
+              <p className="text-xs uppercase tracking-wider text-charcoal/45 font-semibold mb-2">{office.type}</p>
+              <h3 className="font-heading font-bold text-lg text-navy">{office.name}</h3>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================================
    CTA BANNER
 ============================================================================ */
 function CtaBannerSection() {
@@ -686,11 +668,13 @@ function ContactSection() {
   const formRef = useRef(null);
 
   const SERVICE_OPTIONS = [
-    "Residential Security",
-    "Commercial Security",
-    "Armed Security",
+    "Corporate & Commercial Security",
+    "Industrial & Facility Security",
+    "Guarding & Authorized Armed Support",
     "K9 Security",
     "Mobile Patrol",
+    "CCTV & Access Control",
+    "Security Consultancy",
     "Event Security",
     "Job Application",
     "Not sure yet",
@@ -711,6 +695,7 @@ function ContactSection() {
       phone: data.get("phone"),
       email: data.get("email"),
       service: data.get("service"),
+      preferredOffice: data.get("preferredOffice"),
       message: data.get("message"),
       // Honeypot — real visitors never see or fill this field (see the
       // hidden input below). If it's non-empty, api/contact.js silently
@@ -789,7 +774,7 @@ function ContactSection() {
                     <span className="block text-xs font-semibold text-charcoal/70 mb-1.5">
                       Organization (optional)
                     </span>
-                    <input type="text" name="organization" disabled={status === "submitting"} className={inputClass} placeholder="Company or estate name" />
+                    <input type="text" name="organization" disabled={status === "submitting"} className={inputClass} placeholder="Company or organization name" />
                   </label>
                 </div>
 
@@ -798,7 +783,7 @@ function ContactSection() {
                     <span className="block text-xs font-semibold text-charcoal/70 mb-1.5">
                       Phone Number
                     </span>
-                    <input type="tel" name="phone" disabled={status === "submitting"} className={inputClass} placeholder="0803 000 0000" />
+                    <input type="tel" name="phone" disabled={status === "submitting"} className={inputClass} placeholder="0903 000 0000" />
                   </label>
                   <label className="block">
                     <span className="block text-xs font-semibold text-charcoal/70 mb-1.5">
@@ -816,6 +801,18 @@ function ContactSection() {
                     <option value="" disabled>Select a service</option>
                     {SERVICE_OPTIONS.map((s) => (
                       <option key={s} value={s}>{s}</option>
+                    ))}
+                  </select>
+                </label>
+
+                <label className="block">
+                  <span className="block text-xs font-semibold text-charcoal/70 mb-1.5">
+                    Preferred Office (optional)
+                  </span>
+                  <select name="preferredOffice" disabled={status === "submitting"} className={inputClass} defaultValue="">
+                    <option value="">General Enquiry</option>
+                    {COMPANY.offices.map((office) => (
+                      <option key={office.id} value={office.name}>{office.name}</option>
                     ))}
                   </select>
                 </label>
@@ -929,9 +926,6 @@ function ArrowRightIcon() {
 /* --- Service card badge icons (render white inside the burgundy circle) --- */
 const badgeSvg = { width: 22, height: 22, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" };
 
-function HomeIcon() {
-  return <svg aria-hidden="true" focusable="false" {...badgeSvg}><path d="m3 11 9-8 9 8" /><path d="M5 10v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V10" /><path d="M9 21v-6h6v6" /></svg>;
-}
 function BriefcaseIcon() {
   return <svg aria-hidden="true" focusable="false" {...badgeSvg}><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>;
 }
@@ -1046,13 +1040,13 @@ function SchoolIcon() { return <svg aria-hidden="true" focusable="false" width="
 function HospitalIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M12 8v6M9 11h6"/></svg>; }
 function BankIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M3 10 12 4l9 6"/><path d="M5 10v9M9 10v9M15 10v9M19 10v9M3 21h18"/></svg>; }
 function HotelIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M2 21V7l7-4v18M9 21V11l7-4v14M16 12h6v9"/></svg>; }
-function HouseIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="m3 12 9-9 9 9"/><path d="M5 10v11h14V10"/></svg>; }
 function ConstructionIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><rect x="2" y="14" width="6" height="7"/><rect x="16" y="14" width="6" height="7"/><path d="M8 21h8M6 14V9l6-5 6 5v5"/></svg>; }
 function MallIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M3 9h18l-1.5 11h-15z"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg>; }
 function GovIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="m3 10 9-6 9 6"/><path d="M5 10v9M19 10v9M3 21h18M9 21v-6h6v6"/></svg>; }
 function OilIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M12 2s5 5.5 5 10a5 5 0 0 1-10 0c0-4.5 5-10 5-10z"/></svg>; }
 function OfficeIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><rect x="4" y="3" width="16" height="18"/><path d="M9 8h1M14 8h1M9 12h1M14 12h1M9 16h1M14 16h1"/></svg>; }
 function ChurchIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M12 2v4M10 4h4"/><path d="M12 8v13M6 21V11l6-5 6 5v10"/><path d="M9 21v-6h6v6"/></svg>; }
+function ShipIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M4 18 2 14l10-4 10 4-2 4"/><path d="M12 10V3M8 5h8M4 18c2 2 4 2 6 0 2 2 4 2 6 0 2 2 4 2 6 0"/></svg>; }
 
 function PinIcon() {
   return (

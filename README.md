@@ -1,6 +1,6 @@
 # S & D Membs Security Services — Website
 
-Marketing website for **S & D Membs Security Services Limited**, a licensed private security provider headquartered in Port Harcourt, Rivers State, with offices in Abuja and Lagos.
+Marketing website for **S & D Membs Security Services Limited**, a licensed private security provider based in Port Harcourt and serving businesses and institutions across Nigeria.
 
 **Production domain:** https://www.sanddmembs.org (canonical host — see "Canonical hostname" below)
 
@@ -48,6 +48,7 @@ vercel dev
 | `/` | Home — hero, trust strip, services teaser, why-choose-us, industries, careers/recruitment, coverage map, CTA, contact |
 | `/aboutus` | Company story, mission/vision, leadership, **Licensing & Compliance** (`#licensing`) |
 | `/services` | All 7 service categories, each with a stable anchor ID (see "Service anchors") |
+| `/offices` | Head office, regional offices, operational contacts and direct phone numbers |
 | `/privacy-policy` | Real content, not boilerplate — see "Legal pages" |
 | `/terms-of-use` | Same |
 | `/home` | Permanently redirects to `/` (see `vercel.json`) |
@@ -59,7 +60,7 @@ Industries, Careers, and Contact are **intentionally** homepage anchor sections 
 
 Each of the 7 service sections on `/services` has a stable `id` so they can be deep-linked (from the footer, from external links, etc.):
 
-`residential-security`, `commercial-industrial-security`, `armed-unarmed-guards`, `k9-security`, `mobile-patrol`, `cctv-access-control`, `security-consultancy`
+`corporate-commercial-security`, `industrial-facility-security`, `armed-unarmed-guards`, `k9-security`, `mobile-patrol`, `cctv-access-control`, `security-consultancy`
 
 Hash scrolling to these (and to `/#industries` etc.) is handled by `src/hooks/useHashScroll.js` — a `MutationObserver`-based hook wired in globally via `App.jsx`, not a fixed-timer hack. It works whether the target already exists on the page or the route just changed and the target hasn't mounted yet.
 
@@ -79,9 +80,9 @@ This is the part most likely to need re-explaining to a future contributor, so i
 
 The result: `curl https://www.sanddmembs.org/aboutus` returns HTML with `/aboutus`'s actual title and canonical tag baked in — verified locally by grepping the generated files, not assumed. The same JS bundle still loads and hydrates over each prerendered file, so client-side routing/navigation continues to work exactly as before.
 
-**What this does NOT do:** true server-side rendering, or handle any future dynamic/parameterized route (there are none today — all 5 indexable routes are static paths, so this approach is sufficient). If routes with dynamic segments are ever added, this whole approach needs revisiting.
+**What this does NOT do:** true server-side rendering, or handle any future dynamic/parameterized route (there are none today — all 6 indexable routes are static paths, so this approach is sufficient). If routes with dynamic segments are ever added, this whole approach needs revisiting.
 
-**Playwright as a devDependency:** this pulls in Chromium (~300MB) as a dev-only dependency. It never ships to production or affects the site's runtime weight — it only runs during `npm run build`. Vercel's build environment needs to download the Chromium binary during the build step (`npx playwright install chromium` — not currently wired into a `postinstall` hook; **if the Vercel build fails on the `postbuild` step with a "browser not found" error, that's why** — see "Remaining tasks" below).
+**Playwright as a devDependency:** this pulls in Chromium as a dev-only dependency. It never ships to production or affects the site's runtime weight — it only runs during `npm run build`. The `postinstall` script installs Chromium for the prerender step.
 
 ### Canonical hostname
 
@@ -97,7 +98,7 @@ The live site redirects the apex domain to `www` (`sanddmembs.org` → `https://
 
 `src/pages/NotFound.jsx` is a real, branded page (matches the design system, generous white space, no giant "404" typography, sets `robots: noindex, follow` via `useDocumentMeta`). Getting this to return an **actual HTTP 404 status** (not just a soft-404 that looks right but returns 200) took real work — worth understanding if this ever needs to change:
 
-- `vercel.json` has **no wildcard SPA rewrite**. Instead, each of the 4 non-root routes has an explicit literal rewrite (`/aboutus` → `/aboutus/index.html`, etc.) pointing at its prerendered file. This was deliberate, not an oversight — testing showed Vercel does **not** automatically resolve a clean URL like `/aboutus` to `/aboutus/index.html` without an explicit rule.
+- `vercel.json` has **no wildcard SPA rewrite**. Instead, each of the 5 non-root routes has an explicit literal rewrite (`/aboutus` → `/aboutus/index.html`, etc.) pointing at its prerendered file. This was deliberate, not an oversight — testing showed Vercel does **not** automatically resolve a clean URL like `/aboutus` to `/aboutus/index.html` without an explicit rule.
 - For any path that matches neither a real static file nor one of those explicit rewrites, Vercel falls through to its documented convention: if a `404.html` exists at the output root, it's served **with a real 404 status code**. `scripts/prerender.mjs` generates that file.
 - **Honesty about verification:** this was verified locally against a hand-written server that faithfully replicates Vercel's *documented* routing order (static file → rewrite → `404.html`-with-404-status) — not against the live Vercel platform, since deploying wasn't part of this task. **Confirm this actually works post-deploy** with:
   ```bash
@@ -120,7 +121,7 @@ The live site redirects the apex domain to `www` (`sanddmembs.org` → `https://
 
 Set these in Vercel: Project Settings → Environment Variables.
 
-**What's implemented:** server-side validation (required: name, email, service, message; optional: organization, phone), a honeypot field, method rejection, no key exposure, no logging of message contents, escaped HTML in the email body, and a frontend with proper loading/success/error states, `aria-live` status, disabled-while-submitting, and preserved field values on failure. An email/phone fallback is always visible on the form regardless of whether the API succeeds.
+**What's implemented:** server-side validation (required: name, email, service, message; optional: organization, phone, preferred office), a honeypot field, method rejection, no key exposure, no logging of message contents, escaped HTML in the email body, and a frontend with proper loading/success/error states, `aria-live` status, disabled-while-submitting, and preserved field values on failure. An email/phone fallback is always visible on the form regardless of whether the API succeeds.
 
 **What's explicitly NOT implemented — by design, not oversight:** rate limiting. An in-memory counter in a serverless function resets on every cold start and provides false confidence, not real protection. If abuse becomes a real problem, add a durable store (Upstash Redis, Vercel's own rate-limiting middleware) — don't paper over this with a fake counter.
 
@@ -167,8 +168,6 @@ Two of the current stock photos are seriously mismatched with their alt text and
 
 These were **not changed** in this pass — an explicit instruction was "do not change the selected images, real assets will be provided later." But these two specifically aren't just "will be replaced with something better eventually" placeholders — they're actively wrong, and worth prioritizing for replacement before real photography arrives, even with a different generic stock photo in the meantime.
 
-Other checked images (e.g., the Residential Security service photo, an actual house exterior) are contextually fine as placeholders.
-
 One more detail tied to the same broken image: `About.jsx` uses this exact photo **twice** on one page (hero background at `w=2000`, "Our Story" image at `w=1200`) — two different crop sizes of the same underlying photo, which means two separate downloads for what's conceptually one image. Deliberately not "fixed" by forcing both to the same size (that would either bloat the smaller usage or under-serve the larger one) — the real fix is replacing this photo, which resolves the duplicate-fetch concern as a side effect.
 
 ---
@@ -188,7 +187,6 @@ The Licensing & Compliance section presents only facts that could be verified ag
 
 Nothing below was guessed at or silently resolved — these need an actual answer from Alfred or the client before they can be finalized.
 
-- [ ] **Address:** the site shows 32 Oromenike Street as the head office. Tax/NUPRC/audited-financials documents show 6B/68 Iriebe Street as the *registered* office. Older 2013 incorporation documents show 8 Peremabiri Street. Is Oromenike still the real operating address? Should Iriebe be shown anywhere as the registered office? Is Peremabiri fully historical?
 - [ ] **PenCom status** — see "Compliance content" above.
 - [ ] **NSCDC licence number** — confirm the exact digits from the original document (two OCR reads disagree).
 - [ ] **ALPSPN membership** — is it still current? What's the actual expiry/renewal status?

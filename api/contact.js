@@ -26,6 +26,7 @@ const MAX_LENGTHS = {
   phone: 30,
   email: 200,
   service: 100,
+  preferredOffice: 60,
   message: 3000,
 };
 
@@ -86,6 +87,7 @@ export default async function handler(req, res) {
   const phone = clean(body.phone, MAX_LENGTHS.phone);
   const email = clean(body.email, MAX_LENGTHS.email);
   const service = clean(body.service, MAX_LENGTHS.service);
+  const preferredOffice = clean(body.preferredOffice, MAX_LENGTHS.preferredOffice);
   const message = clean(body.message, MAX_LENGTHS.message);
 
   const errors = {};
@@ -106,6 +108,7 @@ export default async function handler(req, res) {
     `Phone: ${phone || "—"}`,
     `Email: ${email}`,
     `Service needed: ${service}`,
+    `Preferred office: ${preferredOffice || "General Enquiry"}`,
     "",
     "Message:",
     message,
@@ -117,6 +120,7 @@ export default async function handler(req, res) {
     <p><strong>Phone:</strong> ${escapeHtml(phone || "—")}</p>
     <p><strong>Email:</strong> ${escapeHtml(email)}</p>
     <p><strong>Service needed:</strong> ${escapeHtml(service)}</p>
+    <p><strong>Preferred office:</strong> ${escapeHtml(preferredOffice || "General Enquiry")}</p>
     <p><strong>Message:</strong></p>
     <p>${escapeHtml(message).replace(/\n/g, "<br/>")}</p>
   `;

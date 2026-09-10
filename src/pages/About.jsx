@@ -14,7 +14,7 @@ export default function About() {
   useDocumentMeta({
     path: "/aboutus",
     title: "About Us | S & D Membs Security Services",
-    description: "Licensed private security company serving Port Harcourt, Abuja and Lagos since 2009 — our story, leadership, and commitment to trust and integrity.",
+    description: "Licensed private security company protecting businesses, institutions and industrial operations across Nigeria since 2009.",
   });
 
   useEffect(() => {
@@ -68,16 +68,15 @@ export default function About() {
               <p className="text-charcoal/70 leading-relaxed mb-4 text-lg">
                 S &amp; D Membs Security Services Limited was incorporated in 2009 on a simple 
                 yet powerful conviction: every person and organization deserves to feel safe. 
-                What began as an operation in Port Harcourt has grown into a licensed security 
-                provider with offices in Abuja and Lagos.
+                What began as an operation in Port Harcourt has grown into a licensed security
+                provider serving businesses and institutions across Nigeria.
               </p>
               <p className="text-charcoal/70 leading-relaxed mb-6 text-lg">
                 Over 17 years in business, we've built our reputation on unwavering integrity, 
                 professional excellence, and a genuine commitment to the safety of our clients. 
                 We don't just provide security—we provide peace of mind. Today, we're proud to 
-                serve clients across Rivers, Lagos, Bayelsa, Enugu and the FCT, from residential 
-                estates to businesses and public institutions, with a team dedicated to the 
-                highest standards of professionalism and care.
+                serve businesses, industrial operations and public institutions across Nigeria,
+                supported by our head office, regional offices and operational teams.
               </p>
               <p className="text-charcoal/70 leading-relaxed text-lg">
                 We measure our success not only by our performance metrics and uptime record, 

@@ -6,6 +6,7 @@ const QUICK_LINKS = [
   { label: "Home", to: "/" },
   { label: "About Us", to: "/aboutus" },
   { label: "Services", to: "/services" },
+  { label: "Offices", to: "/offices" },
   { label: "Industries", to: "/#industries" },
   { label: "Careers", to: "/#careers" },
   { label: "Contact Us", to: "/#contact" },
@@ -13,8 +14,8 @@ const QUICK_LINKS = [
 ];
 
 const SERVICES = [
-  { label: "Residential Security", id: "residential-security" },
-  { label: "Commercial & Industrial Security", id: "commercial-industrial-security" },
+  { label: "Corporate & Commercial Security", id: "corporate-commercial-security" },
+  { label: "Industrial & Facility Security", id: "industrial-facility-security" },
   { label: "Armed & Unarmed Guards", id: "armed-unarmed-guards" },
   { label: "K9 Security", id: "k9-security" },
   { label: "Mobile Patrol", id: "mobile-patrol" },
@@ -83,16 +84,20 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Head Office */}
+        {/* Offices */}
         <div>
           <h3 className="text-sm font-heading font-bold uppercase tracking-wider text-white/60 mb-4">
-            Head Office
+            Our Offices
           </h3>
           <ul className="space-y-3 text-sm text-white/75">
-            <li className="flex gap-2.5">
-              <PinIcon />
-              <span>{COMPANY.headOfficeAddress}.</span>
-            </li>
+            {COMPANY.offices.map((office) => (
+              <li key={office.id} className="flex gap-2.5">
+                <PinIcon />
+                <Link to={`/offices#${office.id}`} className="hover:text-white transition-colors">
+                  {office.name} <span className="text-white/50">— {office.type}</span>
+                </Link>
+              </li>
+            ))}
             <li className="flex gap-2.5">
               <PhoneIcon />
               <span>

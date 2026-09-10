@@ -20,19 +20,56 @@ export const COMPANY = {
   incorporationDate: "11 August 2009",
   incorporationYear: 2009,
 
-  // Operational head office as currently displayed on the site. Note: the
-  // company's registered office per its tax certificate and audited
-  // financials cover page is a DIFFERENT address (6B/68 Iriebe Street,
-  // D/Line, Port Harcourt). Whether both should be shown, and which is
-  // which, is an open question for Alfred — see README checklist. Do not
-  // change this value to "resolve" that question; it needs a real answer.
   headOfficeAddress: "32 Oromenike Street, D/Line, Port Harcourt, Rivers State, Nigeria",
 
   phone: {
-    main: { display: "0803 709 5470", href: "tel:+2348037095470" },
+    main: { display: "0903 507 7567", href: "tel:+2349035077567" },
     secondary: { display: "0707 231 6078", href: "tel:+2347072316078" },
     emergency: { display: "0703 653 2697", href: "tel:+2347036532697" },
   },
+
+  offices: [
+    {
+      id: "port-harcourt",
+      name: "Port Harcourt",
+      type: "Head Office",
+      address: "32 Oromenike Street, D/Line, Port Harcourt, Rivers State, Nigeria",
+      contacts: [
+        { role: "Company General Manager", display: "0903 507 7567", href: "tel:+2349035077567" },
+        { role: "Business & Finance Manager", display: "0916 942 6900", href: "tel:+2349169426900" },
+        { role: "Operations Manager I", display: "0703 653 2697", href: "tel:+2347036532697" },
+        { role: "Operations Manager II", display: "0707 854 4897", href: "tel:+2347078544897" },
+        { role: "Company Secretary", display: "0707 231 6078", href: "tel:+2347072316078" },
+      ],
+    },
+    {
+      id: "abuja",
+      name: "Abuja",
+      type: "Office",
+      address: "CS 27 Harmonic Plaza, Plot 354 Mike Akhigbe Way, Jabi, Abuja, Nigeria",
+      contacts: [
+        { role: "Abuja Office", display: "0707 225 8681", href: "tel:+2347072258681" },
+      ],
+    },
+    {
+      id: "lagos",
+      name: "Lagos",
+      type: "Office",
+      address: "Suite 40, Aderonke Plaza, 20 Oluwu Street, off Toyin Street, Ikeja, Lagos, Nigeria",
+      contacts: [
+        { role: "Lagos Office", display: "0810 408 1386", href: "tel:+2348104081386" },
+      ],
+    },
+    {
+      id: "bayelsa",
+      name: "Bayelsa",
+      type: "Regional Operations",
+      address: null,
+      contacts: [
+        { role: "Bayelsa Coordinator", display: "0916 004 9189", href: "tel:+2349160049189" },
+      ],
+    },
+  ],
 
   whatsapp: { display: "+234 916 942 6900", href: "https://wa.me/2349169426900" },
 
@@ -44,7 +81,7 @@ export const COMPANY = {
     emergencyLine: "24/7 for active incidents",
   },
 
-  areasServed: ["Rivers State", "Bayelsa State", "Lagos State", "Enugu State", "Federal Capital Territory"],
+  areasServed: ["Nigeria"],
 
   canonicalOrigin: "https://www.sanddmembs.org",
 };

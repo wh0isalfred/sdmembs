@@ -9,7 +9,7 @@ export default function Services() {
   useDocumentMeta({
     path: "/services",
     title: "Our Services | S & D Membs Security Services",
-    description: "Residential, commercial & industrial security, armed & unarmed guards, K9 units, mobile patrol, CCTV monitoring, access control and security consultancy in Port Harcourt, Nigeria.",
+    description: "Corporate and industrial security, trained guards, authorized armed support, K9 services, mobile patrol, CCTV monitoring and security consultancy across Nigeria.",
   });
 
   useEffect(() => {
@@ -34,20 +34,20 @@ export default function Services() {
 
   const SERVICES = [
     {
-      id: "residential-security",
-      title: "Residential Security",
-      desc: "Dedicated protection for homes, estates and communities — trained gate officers, visitor management, and smart access control systems that keep your household safe around the clock.",
-      img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
-      alt: "Security officer stationed at a residential estate gate",
-      Icon: HomeIcon,
-    },
-    {
-      id: "commercial-industrial-security",
-      title: "Commercial & Industrial Security",
-      desc: "Tailored security solutions for offices, retail stores, warehouses, factories and other business environments — built around how your operation actually runs, not a one-size template.",
+      id: "corporate-commercial-security",
+      title: "Corporate & Commercial Security",
+      desc: "Tailored protection for offices, banks, hotels, hospitals, retail premises and other commercial environments — designed around how your organization actually operates.",
       img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
       alt: "Corporate office building entrance",
       Icon: BriefcaseIcon,
+    },
+    {
+      id: "industrial-facility-security",
+      title: "Industrial & Facility Security",
+      desc: "Structured guarding, access control and operational oversight for factories, warehouses, construction sites, oil and gas facilities and other high-value industrial environments.",
+      img: "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?q=80&w=1200&auto=format&fit=crop",
+      alt: "Large industrial facility requiring coordinated security",
+      Icon: OfficeIcon,
     },
     {
       id: "armed-unarmed-guards",
@@ -68,7 +68,7 @@ export default function Services() {
     {
       id: "mobile-patrol",
       title: "Mobile Patrol & Rapid Response",
-      desc: "24/7 mobile patrols and rapid response services, coordinated by two-way radio, to ensure quick intervention across residential, commercial and industrial sites whenever you need it.",
+      desc: "24/7 mobile patrols and rapid response services, coordinated by two-way radio, to support commercial, institutional and industrial sites whenever intervention is needed.",
       img: "https://images.unsplash.com/photo-1617886322168-72b886573c5f?q=80&w=1200&auto=format&fit=crop",
       alt: "Security patrol vehicle",
       Icon: CarIcon,
@@ -100,7 +100,8 @@ export default function Services() {
     { label: "Government", Icon: GovIcon },
     { label: "Oil & Gas", Icon: OilIcon },
     { label: "Construction Sites", Icon: ConstructionIcon },
-    { label: "Residential Estates", Icon: HouseIcon },
+    { label: "Corporate Offices", Icon: OfficeIcon },
+    { label: "Maritime & Port Facilities", Icon: ShipIcon },
     { label: "Warehouses & Factories", Icon: OfficeIcon },
     { label: "Religious Organizations", Icon: ChurchIcon },
   ];
@@ -119,8 +120,8 @@ export default function Services() {
               You Can Rely On
             </h1>
             <p className="text-charcoal/65 text-base sm:text-lg leading-relaxed max-w-md">
-              We deliver professional, reliable and proactive security services
-              tailored to protect what matters most to you.
+              We protect businesses, institutions and industrial operations
+              with dependable security services available across Nigeria.
             </p>
           </div>
 
@@ -241,9 +242,6 @@ export default function Services() {
 ============================================================================ */
 const badgeSvg = { width: 22, height: 22, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" };
 
-function HomeIcon() {
-  return <svg aria-hidden="true" focusable="false" {...badgeSvg}><path d="m3 11 9-8 9 8" /><path d="M5 10v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V10" /><path d="M9 21v-6h6v6" /></svg>;
-}
 function BriefcaseIcon() {
   return <svg aria-hidden="true" focusable="false" {...badgeSvg}><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>;
 }
@@ -276,10 +274,10 @@ function SchoolIcon() { return <svg aria-hidden="true" focusable="false" width="
 function HospitalIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M12 8v6M9 11h6"/></svg>; }
 function BankIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M3 10 12 4l9 6"/><path d="M5 10v9M9 10v9M15 10v9M19 10v9M3 21h18"/></svg>; }
 function HotelIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M2 21V7l7-4v18M9 21V11l7-4v14M16 12h6v9"/></svg>; }
-function HouseIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="m3 12 9-9 9 9"/><path d="M5 10v11h14V10"/></svg>; }
 function ConstructionIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><rect x="2" y="14" width="6" height="7"/><rect x="16" y="14" width="6" height="7"/><path d="M8 21h8M6 14V9l6-5 6 5v5"/></svg>; }
 function MallIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M3 9h18l-1.5 11h-15z"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg>; }
 function GovIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="m3 10 9-6 9 6"/><path d="M5 10v9M19 10v9M3 21h18M9 21v-6h6v6"/></svg>; }
 function OilIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M12 2s5 5.5 5 10a5 5 0 0 1-10 0c0-4.5 5-10 5-10z"/></svg>; }
 function OfficeIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><rect x="4" y="3" width="16" height="18"/><path d="M9 8h1M14 8h1M9 12h1M14 12h1M9 16h1M14 16h1"/></svg>; }
 function ChurchIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M12 2v4M10 4h4"/><path d="M12 8v13M6 21V11l6-5 6 5v10"/><path d="M9 21v-6h6v6"/></svg>; }
+function ShipIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M4 18 2 14l10-4 10 4-2 4"/><path d="M12 10V3M8 5h8M4 18c2 2 4 2 6 0 2 2 4 2 6 0 2 2 4 2 6 0"/></svg>; }
