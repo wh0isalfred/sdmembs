@@ -1,109 +1,105 @@
-// scripts/prerender.mjs
-//
-// Runs after `vite build`. Starts a tiny static file server over dist/,
-// visits each real (indexable) route with a headless browser, waits for
-// useDocumentMeta to update <title>/<meta>/<link> tags for that route, and
-// writes the resulting HTML to dist/<route>/index.html.
-//
-// Why this exists: a plain Vite SPA build only produces one dist/index.html
-// — every route shares the same static <head> until React Router mounts
-// client-side and useDocumentMeta patches the tags in the live DOM. That's
-// enough for real browsers and JS-executing crawlers, but a plain HTTP
-// request (curl, or a crawler that doesn't run JS) only ever sees the
-// homepage's tags for every route. This script closes that gap without a
-// framework migration: each route gets its own real, correct static HTML
-// file, and the same JS bundle still hydrates over it for full SPA
-// behavior once loaded.
-//
-// This does NOT prerender /home (redirects before rendering) or the 404
-// catch-all (infinite path space, and it's noindex anyway).
-//
-// Uses only Playwright (already a devDependency for this pattern — see
-// package.json) and Node's built-in http/fs — no new dependency added just
-// for this static server.
-
-import { chromium } from "playwright";
-import { createServer } from "http";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 import path from "path";
 import fs from "fs/promises";
-import fsSync from "fs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const distDir = path.join(__dirname, "..", "dist");
+const projectDir = path.join(__dirname, "..");
+const distDir = path.join(projectDir, "dist");
+const ssrDir = path.join(projectDir, "dist-ssr");
+const origin = "https://www.sanddmembs.org";
 
-const ROUTES = ["/", "/aboutus", "/services", "/offices", "/privacy-policy", "/terms-of-use"];
-
-const MIME = {
-  ".html": "text/html", ".js": "application/javascript", ".css": "text/css",
-  ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
-  ".webp": "image/webp", ".svg": "image/svg+xml", ".ico": "image/x-icon",
-  ".json": "application/json", ".xml": "application/xml", ".txt": "text/plain",
-  ".webmanifest": "application/manifest+json",
+const ROUTES = {
+  "/": {
+    title: "S & D Membs Security Services | Professional Security Across Nigeria",
+    description: "Licensed private security company delivering trained guards, corporate and industrial protection, K9 security, mobile patrol, CCTV monitoring and security consultancy across Nigeria.",
+  },
+  "/aboutus": {
+    title: "About Us | S & D Membs Security Services",
+    description: "Licensed private security company protecting businesses, institutions and industrial operations across Nigeria since 2009.",
+  },
+  "/services": {
+    title: "Our Services | S & D Membs Security Services",
+    description: "Corporate and industrial security, trained guards, authorized armed support, K9 services, mobile patrol, CCTV monitoring and security consultancy across Nigeria.",
+  },
+  "/offices": {
+    title: "Our Offices | S & D Membs Security Services",
+    description: "Contact S & D Membs offices and operations teams in Port Harcourt, Abuja, Lagos and Bayelsa for professional security services across Nigeria.",
+  },
+  "/privacy-policy": {
+    title: "Privacy Policy | S & D Membs Security Services",
+    description: "How S & D Membs Security Services collects, uses and protects information from visitors to this website.",
+  },
+  "/terms-of-use": {
+    title: "Terms of Use | S & D Membs Security Services",
+    description: "The terms that govern your use of the S & D Membs Security Services website.",
+  },
 };
 
-function serveStatic(req, res) {
-  const urlPath = decodeURIComponent(req.url.split("?")[0]);
-  let filePath = path.join(distDir, urlPath);
+const NOT_FOUND = {
+  title: "Page Not Found | S & D Membs Security Services",
+  description: "The page you're looking for doesn't exist.",
+  robots: "noindex, follow",
+};
 
-  // SPA fallback: if the exact file doesn't exist, serve index.html so
-  // client-side routing still works for any route not yet prerendered.
-  if (!fsSync.existsSync(filePath) || fsSync.statSync(filePath).isDirectory()) {
-    filePath = path.join(distDir, "index.html");
-  }
+function escapeHtml(value) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
 
-  const ext = path.extname(filePath);
-  res.setHeader("Content-Type", MIME[ext] || "application/octet-stream");
-  fsSync.createReadStream(filePath).pipe(res);
+const META_PATTERNS = {
+  description: /(<meta name="description" content=")[^"]*(" \/>)/,
+  robots: /(<meta name="robots" content=")[^"]*(" \/>)/,
+  canonical: /(<link rel="canonical" href=")[^"]*(" \/>)/,
+  ogTitle: /(<meta property="og:title" content=")[^"]*(" \/>)/,
+  ogDescription: /(<meta property="og:description" content=")[^"]*(" \/>)/,
+  ogUrl: /(<meta property="og:url" content=")[^"]*(" \/>)/,
+  twitterTitle: /(<meta name="twitter:title" content=")[^"]*(" \/>)/,
+  twitterDescription: /(<meta name="twitter:description" content=")[^"]*(" \/>)/,
+};
+
+function replaceMeta(html, key, value) {
+  return html.replace(META_PATTERNS[key], `$1${escapeHtml(value)}$2`);
+}
+
+function buildHtml(template, body, route, meta) {
+  const url = `${origin}${route === "/" ? "/" : route}`;
+  let html = template.replace('<div id="root"></div>', `<div id="root">${body}</div>`);
+  html = html.replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(meta.title)}</title>`);
+  html = replaceMeta(html, "description", meta.description);
+  html = replaceMeta(html, "robots", meta.robots || "index, follow");
+  html = replaceMeta(html, "canonical", url);
+  html = replaceMeta(html, "ogTitle", meta.title);
+  html = replaceMeta(html, "ogDescription", meta.description);
+  html = replaceMeta(html, "ogUrl", url);
+  html = replaceMeta(html, "twitterTitle", meta.title);
+  html = replaceMeta(html, "twitterDescription", meta.description);
+  return html;
 }
 
 async function main() {
-  const server = createServer(serveStatic);
-  await new Promise((resolve) => server.listen(0, resolve));
-  const port = server.address().port;
-  const baseUrl = `http://localhost:${port}`;
+  const template = await fs.readFile(path.join(distDir, "index.html"), "utf8");
+  const entryUrl = pathToFileURL(path.join(ssrDir, "entry-server.js")).href;
+  const { render } = await import(entryUrl);
 
-  const browser = await chromium.launch();
-  const page = await browser.newPage();
-
-  for (const route of ROUTES) {
-    await page.goto(`${baseUrl}${route}`, { waitUntil: "networkidle" });
-    // Give useDocumentMeta's effect a tick to run after mount.
-    await page.waitForTimeout(150);
-
-    const html = await page.content();
-
+  for (const [route, meta] of Object.entries(ROUTES)) {
+    const html = buildHtml(template, render(route), route, meta);
     const outDir = route === "/" ? distDir : path.join(distDir, route.slice(1));
     await fs.mkdir(outDir, { recursive: true });
-    await fs.writeFile(path.join(outDir, "index.html"), html, "utf-8");
-
-    // Sanity check: confirm the title actually changed per route, so a
-    // silent failure (e.g. the hook not running) doesn't go unnoticed.
-    const title = await page.title();
-    console.log(`prerendered ${route.padEnd(16)} -> ${path.relative(distDir, outDir) || "."}/index.html   <title>${title}</title>`);
+    await fs.writeFile(path.join(outDir, "index.html"), html, "utf8");
+    console.log(`prerendered ${route.padEnd(16)} -> ${path.relative(distDir, outDir) || "."}/index.html   <title>${meta.title}</title>`);
   }
 
-  // Also prerender the branded Not Found page as dist/404.html. Vercel's
-  // static file serving has a documented convention: for a request that
-  // matches no real file and no rewrite/redirect, if a 404.html exists at
-  // the output root, Vercel serves it WITH a genuine HTTP 404 status —
-  // no wildcard SPA rewrite needed for that to work. See vercel.json (the
-  // old catch-all "/(.*) -> /index.html" rewrite was removed specifically
-  // because it would otherwise intercept every unknown path before Vercel
-  // ever got to apply this 404 behavior) and the README's "404 handling"
-  // section for the full explanation, including the one remaining edge
-  // case this doesn't cover.
-  await page.goto(`${baseUrl}/this-path-does-not-exist-and-never-will`, { waitUntil: "networkidle" });
-  await page.waitForTimeout(150);
-  const notFoundHtml = await page.content();
-  await fs.writeFile(path.join(distDir, "404.html"), notFoundHtml, "utf-8");
-  console.log(`prerendered 404              -> 404.html   <title>${await page.title()}</title>`);
-
-  await browser.close();
-  server.close();
+  const missingRoute = "/this-path-does-not-exist-and-never-will";
+  const notFoundHtml = buildHtml(template, render(missingRoute), "/404", NOT_FOUND);
+  await fs.writeFile(path.join(distDir, "404.html"), notFoundHtml, "utf8");
+  await fs.rm(ssrDir, { recursive: true, force: true });
+  console.log(`prerendered 404              -> 404.html   <title>${NOT_FOUND.title}</title>`);
 }
 
-main().catch((err) => {
-  console.error("Prerender failed:", err);
+main().catch((error) => {
+  console.error("Prerender failed:", error);
   process.exit(1);
 });

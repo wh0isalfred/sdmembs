@@ -10,7 +10,7 @@ import TermsOfUse from "./pages/TermsOfUse";
 import NotFound from "./pages/NotFound";
 import useHashScroll from "./hooks/useHashScroll";
 
-function AppLayout() {
+export function AppLayout() {
   // Needs to run inside <BrowserRouter> since it reads location/hash.
   useHashScroll();
 

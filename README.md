@@ -15,9 +15,9 @@ Marketing website for **S & D Membs Security Services Limited**, a licensed priv
 | Routing    | react-router-dom v7             |
 | Hosting    | Vercel                          |
 | Contact API | Vercel serverless function + Resend |
-| Prerendering | Playwright (dev-only, build step) |
+| Prerendering | React SSR through Vite (build step) |
 
-No component library, no animation library — icons are hand-rolled inline SVG, and animations (page transitions, the coverage-map pulse, scroll reveals) are plain CSS keyframes. Fonts are self-hosted (see "Fonts" below). Kept deliberately dependency-light — Playwright is the one significant devDependency, added specifically for the prerender step (see "SEO & prerendering").
+No component library or animation library — icons are hand-rolled inline SVG, and animations (page transitions, the coverage-map pulse, scroll reveals) are plain CSS keyframes. Fonts are self-hosted (see "Fonts" below). The build remains dependency-light and uses React's own server renderer for static route generation.
 
 ---
 
@@ -76,13 +76,11 @@ This is the part most likely to need re-explaining to a future contributor, so i
 
 1. **`src/hooks/useDocumentMeta.js`** — called by every page component with a `title`, `description`, and `path`. On mount, it patches `<title>`, `<meta name="description">`, `<meta name="robots">`, `<link rel="canonical">`, and the Open Graph/Twitter title/description/url/image tags — and restores the previous values on unmount. This fixes metadata for anyone whose browser actually executes the JS.
 
-2. **`scripts/prerender.mjs`** — runs automatically after every `npm run build` (via the `postbuild` script in `package.json`). It starts a tiny local static server over `dist/`, opens each real route in headless Chromium via Playwright, waits for `useDocumentMeta` to patch the tags, and writes the **fully resolved HTML** to `dist/<route>/index.html`. It also visits a nonexistent path to capture the rendered `NotFound` page and writes it to `dist/404.html`.
+2. **`src/entry-server.jsx` + `scripts/prerender.mjs`** — the build creates a temporary Vite SSR bundle, renders each static route with React's server renderer, injects the resulting markup and route metadata into its HTML file, and writes the branded `NotFound` page to `dist/404.html`. The temporary server bundle is removed after prerendering.
 
 The result: `curl https://www.sanddmembs.org/aboutus` returns HTML with `/aboutus`'s actual title and canonical tag baked in — verified locally by grepping the generated files, not assumed. The same JS bundle still loads and hydrates over each prerendered file, so client-side routing/navigation continues to work exactly as before.
 
-**What this does NOT do:** true server-side rendering, or handle any future dynamic/parameterized route (there are none today — all 6 indexable routes are static paths, so this approach is sufficient). If routes with dynamic segments are ever added, this whole approach needs revisiting.
-
-**Playwright as a devDependency:** this pulls in Chromium as a dev-only dependency. It never ships to production or affects the site's runtime weight — it only runs during `npm run build`. The `postinstall` script installs Chromium and its required Linux system libraries for the prerender step.
+**What this does NOT do:** request-time server rendering, or handle any future dynamic/parameterized route automatically (there are none today — all 6 indexable routes are static paths, so this approach is sufficient). New static routes must be added to both the React router and the prerender route map.
 
 ### Canonical hostname
 
@@ -146,7 +144,7 @@ Plus Jakarta Sans and Source Sans 3 are self-hosted (`src/assets/fonts/*.woff2`)
 ## Performance
 
 - Hero images (Home, Services, About) are marked `loading="eager"` + `fetchPriority="high"` — they're each page's LCP element. Every other image is `loading="lazy"`, including the footer logo (below the fold on every page).
-- **No explicit `width`/`height` HTML attributes were added to `<img>` tags.** This was a deliberate decision, not an oversight: every image already sits in a Tailwind fixed-height box (`h-[420px]`, `h-64`, etc.) that's resolved before the image finishes loading, so the space is already reserved. Adding HTML width/height attributes on top would risk conflicting with the *responsive* height classes (which change at `sm:`/`lg:` breakpoints — a single HTML attribute can't express that). This was verified empirically, not assumed: real Cumulative Layout Shift was measured via the browser's own Layout Instability API (Playwright + `PerformanceObserver`) on `/`, `/aboutus`, and `/services` at a mobile viewport — **CLS = 0 on all three.**
+- **No explicit `width`/`height` HTML attributes were added to `<img>` tags.** Every image already sits in a Tailwind fixed-height box (`h-[420px]`, `h-64`, etc.) that's resolved before the image finishes loading, so the layout space is reserved responsively.
 - `<link rel="preconnect">` added for `images.unsplash.com` and `www.google.com` (Maps embed) — the only two external origins actually in use now that fonts are self-hosted.
 
 ## Security headers (`vercel.json`)
@@ -195,5 +193,4 @@ Nothing below was guessed at or silently resolved — these need an actual answe
 - [ ] **Resend domain verification** — needs to be done in Resend's dashboard before `CONTACT_FROM_EMAIL` will deliver reliably.
 - [ ] **Google Search Console** — not touched in this pass (explicitly out of scope). Once ready: add a Domain property for `sanddmembs.org`, verify via DNS, submit `https://www.sanddmembs.org/sitemap.xml`.
 - [ ] **Legal review** — the Privacy Policy and Terms of Use are written to accurately describe the site as it actually operates, but have not had a lawyer review them. Recommended before treating them as final.
-- [ ] **Playwright on Vercel's build** — confirm the `postbuild` prerender step actually succeeds on Vercel's build infrastructure (see the SEO/Prerendering section's Playwright note) — this could not be tested without deploying.
 - [ ] **True 404 status** — confirm with `curl -I` post-deploy (see "404 handling" above).

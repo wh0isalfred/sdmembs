@@ -14,8 +14,8 @@ import { COMPANY } from "../data/company";
  * present in the raw HTML Vercel serves for a fresh request — plain HTTP
  * clients and crawlers that don't execute JS would still see index.html's
  * homepage tags. That gap is closed by scripts/prerender.mjs, which visits
- * each route with a real browser (after this hook has run), captures the
- * fully-updated HTML, and writes it as that route's static output — see the
+ * renders each route during the build and writes the matching metadata into
+ * that route's static output — see the
  * README's SEO/prerender section for the full explanation.
  */
 export default function useDocumentMeta({
