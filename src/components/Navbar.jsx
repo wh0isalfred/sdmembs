@@ -1,13 +1,23 @@
-import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import Logo from "../assets/logo.webp";
+import { COMPANY } from "../data/company";
+
+const navLinks = [
+  { label: "Home", to: "/" },
+  { label: "About Us", to: "/aboutus" },
+  { label: "Services", to: "/services" },
+  { label: "Industries", to: "/#industries" },
+  { label: "Careers", to: "/#careers" },
+  { label: "Contact Us", to: "/#contact" },
+];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
+  const menuButtonRef = useRef(null);
+  const menuPanelRef = useRef(null);
 
   useEffect(() => {
     function handleScroll() {
@@ -19,39 +29,15 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  function handleLinkClick() {
+  function closeMenu() {
     setIsOpen(false);
-  }
-
-  // Handle section navigation - smart routing
-  function handleSectionClick(e, sectionId) {
-    e.preventDefault();
-    
-    if (location.pathname === "/" || location.pathname === "/home") {
-      // Already on home, just scroll
-      setTimeout(() => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
-      }, 50);
-    } else {
-      // Not on home, navigate to home then scroll
-      navigate("/");
-      // Wait longer for page to render
-      setTimeout(() => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
-      }, 500);
-    }
   }
 
   useEffect(() => {
     function handleEscape(e) {
       if (e.key === "Escape" && isOpen) {
         setIsOpen(false);
+        menuButtonRef.current?.focus();
       }
     }
     window.addEventListener("keydown", handleEscape);
@@ -68,22 +54,24 @@ export default function Navbar() {
     return () => window.removeEventListener("click", handleClickOutside);
   }, [isOpen]);
 
+  // Body scroll lock while the mobile menu is open, restored on close AND
+  // on unmount (defensive — avoids leaving scroll permanently locked if the
+  // component were ever unmounted while the menu was open).
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
-  const navLinks = [
-    { label: "Home", href: "/", sectionId: null },
-    { label: "About Us", href: "/aboutus", sectionId: null },
-    { label: "Services", href: "#", sectionId: "services" },
-    { label: "Industries", href: "#", sectionId: "industries" },
-    { label: "Careers", href: "#", sectionId: "careers" },
-    { label: "Contact Us", href: "#", sectionId: "contact" },
-  ];
+  // Focus management: move focus into the menu when it opens, return focus
+  // to the trigger button when it closes.
+  useEffect(() => {
+    if (isOpen) {
+      const firstLink = menuPanelRef.current?.querySelector("a, button");
+      firstLink?.focus();
+    }
+  }, [isOpen]);
 
   return (
     <>
@@ -96,7 +84,7 @@ export default function Navbar() {
       >
         <div className="container-page h-full">
           <div className="flex items-center justify-between h-full">
-            <a href="/" className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <Link to="/" className="flex items-center gap-2 sm:gap-3 shrink-0">
               <img
                 src={Logo}
                 alt="S & D Membs"
@@ -120,30 +108,23 @@ export default function Navbar() {
                   SECURITY SERVICES LIMITED
                 </span>
               </div>
-            </a>
+            </Link>
 
             <div className="hidden lg:flex items-center gap-8">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.label}
-                  href={link.href}
-                  onClick={(e) => {
-                    if (link.sectionId) {
-                      handleSectionClick(e, link.sectionId);
-                    } else {
-                      navigate(link.href);
-                    }
-                  }}
+                  to={link.to}
                   className="text-charcoal hover:text-burgundy font-medium text-sm transition-colors"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
             </div>
 
             <div className="flex items-center gap-3 sm:gap-4">
               <a
-                href="tel:+2348037095470"
+                href={COMPANY.phone.main.href}
                 className="hidden sm:inline-flex items-center gap-2 btn-primary font-bold px-5 sm:px-6 py-2 rounded text-xs sm:text-sm"
               >
                 <svg
@@ -155,28 +136,36 @@ export default function Navbar() {
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  aria-hidden="true"
+                  focusable="false"
                 >
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
-                0803 709 5470
+                {COMPANY.phone.main.display}
               </a>
 
               <button
+                ref={menuButtonRef}
                 onClick={() => setIsOpen(!isOpen)}
                 className="lg:hidden flex flex-col gap-1.5 w-5 h-5 justify-center"
                 aria-label="Toggle menu"
+                aria-expanded={isOpen}
+                aria-controls="mobile-menu"
               >
                 <span
+                  aria-hidden="true"
                   className={`h-0.5 w-full bg-charcoal transition-all duration-300 ${
                     isOpen ? "rotate-45 translate-y-2" : ""
                   }`}
                 />
                 <span
+                  aria-hidden="true"
                   className={`h-0.5 w-full bg-charcoal transition-opacity duration-300 ${
                     isOpen ? "opacity-0" : ""
                   }`}
                 />
                 <span
+                  aria-hidden="true"
                   className={`h-0.5 w-full bg-charcoal transition-all duration-300 ${
                     isOpen ? "-rotate-45 -translate-y-2" : ""
                   }`}
@@ -186,34 +175,29 @@ export default function Navbar() {
           </div>
 
           <div
+            id="mobile-menu"
+            ref={menuPanelRef}
             className={`absolute top-full left-0 right-0 bg-white border-t border-charcoal/10 shadow-lg overflow-hidden transition-all duration-300 lg:hidden ${
               isOpen ? "max-h-96" : "max-h-0"
             }`}
           >
             <div className="px-4 sm:px-6 py-3 space-y-1">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.label}
-                  href={link.href}
-                  onClick={(e) => {
-                    handleLinkClick();
-                    if (link.sectionId) {
-                      handleSectionClick(e, link.sectionId);
-                    } else {
-                      navigate(link.href);
-                    }
-                  }}
+                  to={link.to}
+                  onClick={closeMenu}
                   className="block text-charcoal hover:text-burgundy hover:bg-offwhite font-medium text-sm px-3 py-2 rounded transition-colors"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
               <a
-                href="tel:+2348037095470"
-                onClick={handleLinkClick}
+                href={COMPANY.phone.main.href}
+                onClick={closeMenu}
                 className="block w-full text-center btn-primary font-bold px-3 py-2 rounded text-sm mt-3"
               >
-                Call: 0803 709 5470
+                Call: {COMPANY.phone.main.display}
               </a>
             </div>
           </div>
@@ -238,6 +222,8 @@ export default function Navbar() {
           strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
+          aria-hidden="true"
+          focusable="false"
         >
           <polyline points="18 15 12 9 6 15" />
         </svg>

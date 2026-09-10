@@ -7,6 +7,7 @@ export default function Services() {
   const navigate = useNavigate();
 
   useDocumentMeta({
+    path: "/services",
     title: "Our Services | S & D Membs Security Services",
     description: "Residential, commercial & industrial security, armed & unarmed guards, K9 units, mobile patrol, CCTV monitoring, access control and security consultancy in Port Harcourt, Nigeria.",
   });
@@ -33,6 +34,7 @@ export default function Services() {
 
   const SERVICES = [
     {
+      id: "residential-security",
       title: "Residential Security",
       desc: "Dedicated protection for homes, estates and communities — trained gate officers, visitor management, and smart access control systems that keep your household safe around the clock.",
       img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
@@ -40,6 +42,7 @@ export default function Services() {
       Icon: HomeIcon,
     },
     {
+      id: "commercial-industrial-security",
       title: "Commercial & Industrial Security",
       desc: "Tailored security solutions for offices, retail stores, warehouses, factories and other business environments — built around how your operation actually runs, not a one-size template.",
       img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
@@ -47,13 +50,15 @@ export default function Services() {
       Icon: BriefcaseIcon,
     },
     {
+      id: "armed-unarmed-guards",
       title: "Armed & Unarmed Guards",
-      desc: "Highly trained, licensed and disciplined personnel available in both armed and unarmed capacities, matched to the risk level of your site and ready to deter and respond effectively.",
+      desc: "Trained, disciplined unarmed guards for day-to-day site protection. For higher-risk locations, armed response is coordinated through authorized personnel rather than provided directly by unlicensed staff — matched to your site's actual risk profile.",
       img: "https://images.unsplash.com/photo-1595535373587-8b0b0dae2bfc?q=80&w=1200&auto=format&fit=crop",
       alt: "Licensed security officer on duty",
       Icon: ArmedIcon,
     },
     {
+      id: "k9-security",
       title: "K9 Security Services",
       desc: "Our specialized K9 units provide effective deterrence, detection and response for high-risk situations, working alongside our handlers on patrol and search operations.",
       img: "https://images.unsplash.com/photo-1568572933382-74d440642117?q=80&w=1200&auto=format&fit=crop",
@@ -61,6 +66,7 @@ export default function Services() {
       Icon: PawIcon,
     },
     {
+      id: "mobile-patrol",
       title: "Mobile Patrol & Rapid Response",
       desc: "24/7 mobile patrols and rapid response services, coordinated by two-way radio, to ensure quick intervention across residential, commercial and industrial sites whenever you need it.",
       img: "https://images.unsplash.com/photo-1617886322168-72b886573c5f?q=80&w=1200&auto=format&fit=crop",
@@ -68,6 +74,7 @@ export default function Services() {
       Icon: CarIcon,
     },
     {
+      id: "cctv-access-control",
       title: "CCTV Monitoring & Access Control",
       desc: "Advanced surveillance systems and access control solutions for real-time monitoring, giving you visibility over your property and a clear record whenever you need one.",
       img: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200&auto=format&fit=crop",
@@ -75,6 +82,7 @@ export default function Services() {
       Icon: CctvIcon,
     },
     {
+      id: "security-consultancy",
       title: "Security Consultancy",
       desc: "We assess your risk profile and provide expert advice — including investigations and the supply of two-way communication equipment — to develop a security strategy tailored to your site.",
       img: "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1200&auto=format&fit=crop",
@@ -121,6 +129,8 @@ export default function Services() {
               src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=1400&auto=format&fit=crop"
               alt="S & D Membs security officer on duty beside a patrol vehicle"
               className="w-full h-full object-cover rounded-lg lg:rounded-none lg:rounded-l-2xl shadow-card"
+              loading="eager"
+              fetchPriority="high"
             />
             {/* Soft blend into the white hero on large screens */}
             <div className="hidden lg:block absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent" />
@@ -145,10 +155,11 @@ export default function Services() {
           </div>
 
           <div className="space-y-16 sm:space-y-20">
-            {SERVICES.map(({ title, desc, img, alt, Icon }, i) => (
+            {SERVICES.map(({ id, title, desc, img, alt, Icon }, i) => (
               <div
-                key={title}
-                className={`grid lg:grid-cols-2 gap-8 lg:gap-14 items-center ${
+                key={id}
+                id={id}
+                className={`grid lg:grid-cols-2 gap-8 lg:gap-14 items-center scroll-mt-24 ${
                   i % 2 === 1 ? "lg:[direction:rtl]" : ""
                 }`}
               >
@@ -156,6 +167,7 @@ export default function Services() {
                   <img
                     src={img}
                     alt={alt}
+                    loading="lazy"
                     className="w-full h-64 sm:h-80 object-cover rounded-lg shadow-card"
                   />
                 </div>
@@ -230,29 +242,29 @@ export default function Services() {
 const badgeSvg = { width: 22, height: 22, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" };
 
 function HomeIcon() {
-  return <svg {...badgeSvg}><path d="m3 11 9-8 9 8" /><path d="M5 10v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V10" /><path d="M9 21v-6h6v6" /></svg>;
+  return <svg aria-hidden="true" focusable="false" {...badgeSvg}><path d="m3 11 9-8 9 8" /><path d="M5 10v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V10" /><path d="M9 21v-6h6v6" /></svg>;
 }
 function BriefcaseIcon() {
-  return <svg {...badgeSvg}><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>;
+  return <svg aria-hidden="true" focusable="false" {...badgeSvg}><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>;
 }
 function ArmedIcon() {
-  return <svg {...badgeSvg}><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z" /><path d="M12 8v5M9.5 10.5h5" /></svg>;
+  return <svg aria-hidden="true" focusable="false" {...badgeSvg}><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z" /><path d="M12 8v5M9.5 10.5h5" /></svg>;
 }
 function PawIcon() {
-  return <svg {...badgeSvg}><circle cx="7" cy="9" r="1.6" /><circle cx="12" cy="6.5" r="1.6" /><circle cx="17" cy="9" r="1.6" /><path d="M12 12c-2.5 0-4.5 2-4.5 4 0 1.4 1.1 2.3 2.4 2.3.9 0 1.5-.4 2.1-.4s1.2.4 2.1.4c1.3 0 2.4-.9 2.4-2.3 0-2-2-4-4.5-4z" /></svg>;
+  return <svg aria-hidden="true" focusable="false" {...badgeSvg}><circle cx="7" cy="9" r="1.6" /><circle cx="12" cy="6.5" r="1.6" /><circle cx="17" cy="9" r="1.6" /><path d="M12 12c-2.5 0-4.5 2-4.5 4 0 1.4 1.1 2.3 2.4 2.3.9 0 1.5-.4 2.1-.4s1.2.4 2.1.4c1.3 0 2.4-.9 2.4-2.3 0-2-2-4-4.5-4z" /></svg>;
 }
 function CarIcon() {
-  return <svg {...badgeSvg}><path d="M5 13l1.5-4.5A2 2 0 0 1 8.4 7h7.2a2 2 0 0 1 1.9 1.5L19 13" /><path d="M4 13h16v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H7v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z" /><circle cx="7.5" cy="15.5" r="0.6" /><circle cx="16.5" cy="15.5" r="0.6" /></svg>;
+  return <svg aria-hidden="true" focusable="false" {...badgeSvg}><path d="M5 13l1.5-4.5A2 2 0 0 1 8.4 7h7.2a2 2 0 0 1 1.9 1.5L19 13" /><path d="M4 13h16v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H7v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z" /><circle cx="7.5" cy="15.5" r="0.6" /><circle cx="16.5" cy="15.5" r="0.6" /></svg>;
 }
 function CctvIcon() {
-  return <svg {...badgeSvg}><path d="M3 7l9-4 9 4" /><rect x="5" y="7" width="14" height="4" rx="1" /><path d="M12 11v10M8 21h8" /><circle cx="17" cy="9" r="1" fill="currentColor" stroke="none" /></svg>;
+  return <svg aria-hidden="true" focusable="false" {...badgeSvg}><path d="M3 7l9-4 9 4" /><rect x="5" y="7" width="14" height="4" rx="1" /><path d="M12 11v10M8 21h8" /><circle cx="17" cy="9" r="1" fill="currentColor" stroke="none" /></svg>;
 }
 function ConsultIcon() {
-  return <svg {...badgeSvg}><circle cx="11" cy="11" r="7" /><path d="m21 21-4.3-4.3" /><path d="M9 11h4M11 9v4" /></svg>;
+  return <svg aria-hidden="true" focusable="false" {...badgeSvg}><circle cx="11" cy="11" r="7" /><path d="m21 21-4.3-4.3" /><path d="M9 11h4M11 9v4" /></svg>;
 }
 function ArrowRightIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
       <line x1="5" y1="12" x2="19" y2="12" />
       <polyline points="12 5 19 12 12 19" />
     </svg>
@@ -260,14 +272,14 @@ function ArrowRightIcon() {
 }
 
 const industryStroke = { fill: "none", stroke: "#1F4A8A", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" };
-function SchoolIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="m22 10-10-5L2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg>; }
-function HospitalIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M12 8v6M9 11h6"/></svg>; }
-function BankIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M3 10 12 4l9 6"/><path d="M5 10v9M9 10v9M15 10v9M19 10v9M3 21h18"/></svg>; }
-function HotelIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M2 21V7l7-4v18M9 21V11l7-4v14M16 12h6v9"/></svg>; }
-function HouseIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="m3 12 9-9 9 9"/><path d="M5 10v11h14V10"/></svg>; }
-function ConstructionIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><rect x="2" y="14" width="6" height="7"/><rect x="16" y="14" width="6" height="7"/><path d="M8 21h8M6 14V9l6-5 6 5v5"/></svg>; }
-function MallIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M3 9h18l-1.5 11h-15z"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg>; }
-function GovIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="m3 10 9-6 9 6"/><path d="M5 10v9M19 10v9M3 21h18M9 21v-6h6v6"/></svg>; }
-function OilIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M12 2s5 5.5 5 10a5 5 0 0 1-10 0c0-4.5 5-10 5-10z"/></svg>; }
-function OfficeIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><rect x="4" y="3" width="16" height="18"/><path d="M9 8h1M14 8h1M9 12h1M14 12h1M9 16h1M14 16h1"/></svg>; }
-function ChurchIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M12 2v4M10 4h4"/><path d="M12 8v13M6 21V11l6-5 6 5v10"/><path d="M9 21v-6h6v6"/></svg>; }
+function SchoolIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="m22 10-10-5L2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg>; }
+function HospitalIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M12 8v6M9 11h6"/></svg>; }
+function BankIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M3 10 12 4l9 6"/><path d="M5 10v9M9 10v9M15 10v9M19 10v9M3 21h18"/></svg>; }
+function HotelIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M2 21V7l7-4v18M9 21V11l7-4v14M16 12h6v9"/></svg>; }
+function HouseIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="m3 12 9-9 9 9"/><path d="M5 10v11h14V10"/></svg>; }
+function ConstructionIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><rect x="2" y="14" width="6" height="7"/><rect x="16" y="14" width="6" height="7"/><path d="M8 21h8M6 14V9l6-5 6 5v5"/></svg>; }
+function MallIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M3 9h18l-1.5 11h-15z"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg>; }
+function GovIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="m3 10 9-6 9 6"/><path d="M5 10v9M19 10v9M3 21h18M9 21v-6h6v6"/></svg>; }
+function OilIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M12 2s5 5.5 5 10a5 5 0 0 1-10 0c0-4.5 5-10 5-10z"/></svg>; }
+function OfficeIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><rect x="4" y="3" width="16" height="18"/><path d="M9 8h1M14 8h1M9 12h1M14 12h1M9 16h1M14 16h1"/></svg>; }
+function ChurchIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M12 2v4M10 4h4"/><path d="M12 8v13M6 21V11l6-5 6 5v10"/><path d="M9 21v-6h6v6"/></svg>; }

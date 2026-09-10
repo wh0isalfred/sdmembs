@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useDocumentMeta from "../hooks/useDocumentMeta";
+import { COMPANY } from "../data/company";
 
 export default function PrivacyPolicy() {
   const navigate = useNavigate();
 
   useDocumentMeta({
+    path: "/privacy-policy",
     title: "Privacy Policy | S & D Membs Security Services",
     description: "How S & D Membs Security Services collects, uses and protects information from visitors to this website.",
   });
@@ -40,11 +42,13 @@ export default function PrivacyPolicy() {
               <h2 className="font-heading font-bold text-xl text-navy mb-3">2. Information You Provide</h2>
               <p className="mb-3">
                 The Contact section of this website includes a form asking for your name,
-                organization (optional), phone number, email address, the service you&rsquo;re
-                interested in, and a message. When you submit it, your device opens your own
-                email application with that information pre-filled, addressed to our inbox —
-                the message is sent from your email account, not stored on our servers or in
-                any database we control. We only see what you choose to actually send.
+                organization (optional), phone number (optional), email address, the service
+                you&rsquo;re interested in, and a message. When you submit it, this information
+                is sent to our email inbox via Resend, an email-delivery service we use to
+                reliably route enquiries — Resend processes the content of your submission
+                solely to deliver that one email and does not use it for any other purpose.
+                We do not store form submissions in a separate database beyond the resulting
+                email.
               </p>
               <p>
                 If you contact us by phone, WhatsApp, or by emailing us directly, we receive
@@ -77,13 +81,21 @@ export default function PrivacyPolicy() {
 
             <section>
               <h2 className="font-heading font-bold text-xl text-navy mb-3">5. Cookies &amp; Tracking</h2>
-              <p>
+              <p className="mb-3">
                 As of this policy&rsquo;s last update, this website does not use analytics
                 tools (such as Google Analytics), advertising trackers, or non-essential
-                cookies. We haven&rsquo;t added a cookie-consent banner because there is
-                currently nothing on this site that requires one. If that changes — for
-                example, if we add analytics in the future — we will update this policy and
-                put the appropriate consent mechanism in place first.
+                cookies of our own. We haven&rsquo;t added a cookie-consent banner because
+                there is currently nothing on this site that requires one. If that changes —
+                for example, if we add analytics in the future — we will update this policy
+                and put the appropriate consent mechanism in place first.
+              </p>
+              <p>
+                The Contact section of this website embeds a Google Map showing our office
+                location. Loading that embed causes your browser to make a request directly
+                to Google, which may set its own cookies or process technical information
+                (such as your IP address) under Google&rsquo;s own privacy policy, independent
+                of this site. This is the one third-party embed on the site; the fonts used
+                elsewhere are self-hosted rather than loaded from Google&rsquo;s font servers.
               </p>
             </section>
 
@@ -140,16 +152,10 @@ export default function PrivacyPolicy() {
               <h2 className="font-heading font-bold text-xl text-navy mb-3">11. Contact Us</h2>
               <p>
                 For privacy-related questions or requests, contact us at{" "}
-                <a href="mailto:sanddmembs@gmail.com" className="text-navy underline">sanddmembs@gmail.com</a>{" "}
-                or 0803 709 5470.
+                <a href={`mailto:${COMPANY.email}`} className="text-navy underline">{COMPANY.email}</a>{" "}
+                or {COMPANY.phone.main.display}.
               </p>
             </section>
-
-            <div className="pt-6 border-t border-charcoal/10 text-sm text-charcoal/50">
-              This policy is written to accurately describe this website as it currently
-              operates. It has not yet received formal legal review, which is recommended
-              before final publication.
-            </div>
           </div>
 
           <button

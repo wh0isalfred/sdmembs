@@ -1,4 +1,24 @@
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Source+Sans+3:wght@400;500;600&display=swap");
+/* Self-hosted fonts (previously loaded from fonts.googleapis.com/fonts.gstatic.com).
+   Both are variable fonts — one file each covers the whole weight range we
+   use, via `font-weight: <min> <max>` range syntax, rather than needing a
+   separate file per weight. Self-hosting removes a third-party network
+   dependency entirely (privacy, one less DNS/TLS handshake, no dependency
+   on Google's font CDN being reachable) and lets the CSP's style-src stay
+   scoped to 'self' with no external font-host allowance needed. */
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 500 800;
+  font-display: swap;
+  src: url("./assets/fonts/plus-jakarta-sans.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Source Sans 3";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("./assets/fonts/source-sans-3.woff2") format("woff2");
+}
 @import "tailwindcss";
 
 /* ---------------------------------------------------------------------------

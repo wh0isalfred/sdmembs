@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useDocumentMeta from "../hooks/useDocumentMeta";
 import businessManagerPh from "../assets/team/business-manager-ph.jpeg";
 import generalManagerPh from "../assets/team/general-manager-ph.jpeg";
@@ -11,10 +11,8 @@ import opsManagerBayelsa from "../assets/team/operations-manager-bayelsa.jpeg";
 import opsManager2Ph from "../assets/team/operations-manager-2-ph.jpeg";
 
 export default function About() {
-  const location = useLocation();
-  const navigate = useNavigate();
-
   useDocumentMeta({
+    path: "/aboutus",
     title: "About Us | S & D Membs Security Services",
     description: "Licensed private security company serving Port Harcourt, Abuja and Lagos since 2009 — our story, leadership, and commitment to trust and integrity.",
   });
@@ -23,22 +21,6 @@ export default function About() {
     window.scrollTo(0, 0);
   }, []);
 
-  // Same smart-scroll pattern used in Navbar/Footer/Services — needed because
-  // this page has no #contact section of its own to jump to.
-  function handleContactClick(e) {
-    e.preventDefault();
-    if (location.pathname === "/" || location.pathname === "/home") {
-      const el = document.getElementById("contact");
-      if (el) el.scrollIntoView({ behavior: "smooth" });
-    } else {
-      navigate("/");
-      setTimeout(() => {
-        const el = document.getElementById("contact");
-        if (el) el.scrollIntoView({ behavior: "smooth" });
-      }, 500);
-    }
-  }
-
   return (
     <div className="page-enter">
       {/* Hero Section - Full width with background image overlay */}
@@ -46,8 +28,10 @@ export default function About() {
         <div className="absolute inset-0 opacity-20">
           <img
             src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop"
-            alt="background"
+            alt=""
             className="w-full h-full object-cover"
+            loading="eager"
+            fetchPriority="high"
           />
         </div>
         <div className="relative container-page">
@@ -67,6 +51,7 @@ export default function About() {
                 src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop"
                 alt="S & D Membs headquarters"
                 className="w-full h-[450px] object-cover rounded-lg shadow-card"
+                loading="lazy"
               />
             </div>
 
@@ -126,7 +111,7 @@ export default function About() {
             {[
               {
                 icon: (
-                  <svg className="w-12 h-12 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg aria-hidden="true" focusable="false" className="w-12 h-12 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 ),
@@ -135,7 +120,7 @@ export default function About() {
               },
               {
                 icon: (
-                  <svg className="w-12 h-12 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg aria-hidden="true" focusable="false" className="w-12 h-12 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 ),
@@ -144,7 +129,7 @@ export default function About() {
               },
               {
                 icon: (
-                  <svg className="w-12 h-12 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg aria-hidden="true" focusable="false" className="w-12 h-12 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                   </svg>
                 ),
@@ -153,16 +138,16 @@ export default function About() {
               },
               {
                 icon: (
-                  <svg className="w-12 h-12 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg aria-hidden="true" focusable="false" className="w-12 h-12 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                   </svg>
                 ),
                 title: "Account Support",
-                desc: "As our client, you have a primary point of contact who oversees your security program. They do this through frequent communication and site visits, and 24/7 availability."
+                desc: "As our client, you have a primary point of contact who oversees your security program through frequent communication and site visits, backed by our 24/7 emergency line for urgent matters."
               },
               {
                 icon: (
-                  <svg className="w-12 h-12 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg aria-hidden="true" focusable="false" className="w-12 h-12 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                   </svg>
                 ),
@@ -171,7 +156,7 @@ export default function About() {
               },
               {
                 icon: (
-                  <svg className="w-12 h-12 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg aria-hidden="true" focusable="false" className="w-12 h-12 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 ),
@@ -210,13 +195,11 @@ export default function About() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                // TODO: real full name pending from client — role/location confirmed from filename only
                 name: "Chika Sunny Frank",
                 title: "Business Manager — Port Harcourt Office",
                 image: businessManagerPh,
               },
               {
-                // TODO: real full name pending from client
                 name: "Onyeka Ikechukwu",
                 title: "General Manager — Port Harcourt Office",
                 image: generalManagerPh,
@@ -227,37 +210,35 @@ export default function About() {
                 image: lawrenceTuraki,
               },
               {
-                // TODO: real full name pending from client
                 name: "Victoria Adunyi Achor.",
                 title: "Marketing Manager — Abuja Office",
                 image: marketingManagerAbuja,
               },
               {
-                // TODO: real full name pending from client
                 name: "Olanrewaju Cynthia Ayomikun",
                 title: "Marketing Manager — Lagos Office",
                 image: marketingManagerLagos,
               },
               {
-                // TODO: real full name pending from client
                 name: "Muna Lele",
                 title: "Operations Manager — Bayelsa Office",
                 image: opsManagerBayelsa,
               },
+              // Still awaiting this person's name from the client — do not
+              // enable until confirmed. Source photo had a camera-app
+              // watermark burned into the bottom-left corner; the source
+              // file itself has been pre-cropped (not via CSS) to exclude
+              // it, so it's ready to go the moment a name is confirmed.
               // {
-              //   // TODO: real full name pending from client. Source photo had a
-              //   // camera-app watermark burned into the bottom-left corner —
-              //   // the source file itself has been pre-cropped (not via CSS)
-              //   // to exclude it. If a cleaner photo becomes available, swap it in.
               //   name: "Operations Manager",
               //   title: "Port Harcourt",
               //   image: opsManager1Ph,
               // },
               {
-                // TODO: real full name pending from client. Source photo was
-                // full-body, not a headshot — the source file itself has been
-                // pre-cropped (not via CSS) to head-and-shoulders. A proper
-                // headshot would look cleaner if one becomes available.
+                // Source photo was full-body, not a headshot — the source
+                // file itself has been pre-cropped (not via CSS) to
+                // head-and-shoulders. A proper headshot would look cleaner
+                // if one becomes available.
                 name: "Omofolarin Ayodeji Ipoola",
                 title: "Operations Manager — Port Harcourt",
                 image: opsManager2Ph,
@@ -267,6 +248,7 @@ export default function About() {
                 <img
                   src={leader.image}
                   alt={leader.name}
+                  loading="lazy"
                   className="w-40 h-40 rounded-full object-cover mx-auto mb-4 shadow-md"
                 />
                 <h3 className="font-heading font-bold text-lg text-navy mb-1">
@@ -313,6 +295,83 @@ export default function About() {
         </div>
       </section>
 
+      {/* Licensing & Compliance */}
+      <section id="licensing" className="py-20 sm:py-28 bg-white scroll-mt-24">
+        <div className="container-page max-w-3xl">
+          <p className="eyebrow mb-3 text-center">Licensing &amp; Compliance</p>
+          <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-navy mb-6 text-center">
+            A Regulated, Verifiable Company
+          </h2>
+          <p className="text-charcoal/70 leading-relaxed mb-12 text-center">
+            S &amp; D Membs Security Services Limited is registered with Nigeria&rsquo;s
+            Corporate Affairs Commission and operates under the regulatory oversight that
+            applies to private guard companies in Nigeria. We maintain personnel screening,
+            structured training, active supervision, and regular regulatory reporting as a
+            matter of course, not as a marketing claim.
+          </p>
+
+          <dl className="divide-y divide-charcoal/10 border-t border-b border-charcoal/10">
+            <div className="grid sm:grid-cols-3 gap-2 py-5">
+              <dt className="text-sm font-semibold text-navy">Corporate registration</dt>
+              <dd className="sm:col-span-2 text-sm text-charcoal/70">
+                Corporate Affairs Commission (CAC) — RC 837824, incorporated 11 August 2009
+              </dd>
+            </div>
+            <div className="grid sm:grid-cols-3 gap-2 py-5">
+              <dt className="text-sm font-semibold text-navy">Private guard licensing</dt>
+              <dd className="sm:col-span-2 text-sm text-charcoal/70">
+                Licensed Private Guard Company under the Private Guard Companies Act,
+                regulated by the Nigeria Security &amp; Civil Defence Corps (NSCDC), current
+                licence renewal valid through November 2026
+              </dd>
+            </div>
+            <div className="grid sm:grid-cols-3 gap-2 py-5">
+              <dt className="text-sm font-semibold text-navy">Tax compliance</dt>
+              <dd className="sm:col-span-2 text-sm text-charcoal/70">
+                Tax Clearance Certificate valid through 31 December 2026
+              </dd>
+            </div>
+            <div className="grid sm:grid-cols-3 gap-2 py-5">
+              <dt className="text-sm font-semibold text-navy">Pension &amp; employee compensation</dt>
+              <dd className="sm:col-span-2 text-sm text-charcoal/70">
+                PenCom Pension Clearance Certificate and NSITF Employees&rsquo; Compensation
+                clearance, both valid through 31 December 2026
+              </dd>
+            </div>
+            <div className="grid sm:grid-cols-3 gap-2 py-5">
+              <dt className="text-sm font-semibold text-navy">Sector-specific permits</dt>
+              <dd className="sm:col-span-2 text-sm text-charcoal/70">
+                NUPRC Oil &amp; Gas Industry Service Permit (consultancy, private guards,
+                security equipment, pipeline surveillance) valid through July 2027; NIMASA
+                approval to operate as a Guard Force Company in Nigeria&rsquo;s maritime
+                sector under the ISPS Code, current renewal valid through November 2026
+              </dd>
+            </div>
+            <div className="grid sm:grid-cols-3 gap-2 py-5">
+              <dt className="text-sm font-semibold text-navy">Insurance</dt>
+              <dd className="sm:col-span-2 text-sm text-charcoal/70">
+                Professional indemnity and fidelity guarantee cover in place through
+                February 2027
+              </dd>
+            </div>
+          </dl>
+
+          <p className="text-sm text-charcoal/50 mt-8 text-center">
+            Full verification documents are available to clients and their compliance teams
+            during procurement and due diligence.
+          </p>
+
+          <div className="text-center mt-8">
+            <Link
+              to="/#contact"
+              className="inline-flex items-center gap-2 btn-primary font-semibold px-7 py-3 rounded"
+            >
+              Request Compliance Documents
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section - Impressive & Bold */}
       <section className="relative py-16 sm:py-20 overflow-hidden">
         {/* Background gradient */}
@@ -340,23 +399,22 @@ export default function About() {
               href="tel:+2348037095470"
               className="group inline-flex items-center justify-center gap-2 bg-burgundy hover:bg-burgundy-dark text-white font-bold px-7 sm:px-9 py-3 sm:py-3.5 rounded-lg text-base sm:text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
               </svg>
               <span>Call Now</span>
             </a>
 
             {/* Secondary Button */}
-            <a
-              href="#contact"
-              onClick={handleContactClick}
+            <Link
+              to="/#contact"
               className="group inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold px-7 sm:px-9 py-3 sm:py-3.5 rounded-lg text-base sm:text-lg border border-white/30 hover:border-white/60 transition-all duration-300 backdrop-blur-sm"
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
               </svg>
               <span>Consultation</span>
-            </a>
+            </Link>
           </div>
         </div>
       </section>

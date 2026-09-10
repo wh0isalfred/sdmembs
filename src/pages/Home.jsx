@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import useDocumentMeta from "../hooks/useDocumentMeta";
+import { COMPANY } from "../data/company";
 /**
  * S & D Membs Security Services — Home page.
  *
@@ -45,6 +47,7 @@ function useReveal(threshold = 0.15) {
 
 export default function Home() {
   useDocumentMeta({
+    path: "/",
     title: "S & D Membs Security Services | Professional Security in Port Harcourt, Nigeria",
     description: "Licensed private security provider headquartered in Port Harcourt with offices in Abuja and Lagos. Residential, commercial & industrial security, armed & unarmed guards, K9 units, CCTV monitoring, mobile patrol and security consultancy.",
   });
@@ -74,7 +77,7 @@ export default function Home() {
 ============================================================================ */
 function HeroSection() {
   const TRUST_ITEMS = [
-    { label: "Licensed Security Company", Icon: ShieldIcon },
+    { label: "Licensed Security Company", Icon: ShieldIcon, to: "/aboutus#licensing" },
     { label: "Highly Trained & Vetted Personnel", Icon: TeamIcon },
     { label: "24/7 Operations & Monitoring", Icon: ClockIcon },
     { label: "Residential & Commercial Experts", Icon: BuildingIcon },
@@ -89,6 +92,8 @@ function HeroSection() {
           src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=1800&auto=format&fit=crop"
           alt="S & D Membs security officers standing professionally beside a patrol vehicle"
           className="absolute inset-0 w-full h-full object-cover"
+          loading="eager"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/80 to-charcoal/30" />
 
@@ -127,12 +132,23 @@ function HeroSection() {
       {/* Trust strip — overlaps hero bottom edge on larger screens */}
       <div className="relative container-page">
         <div className="bg-white shadow-card rounded-lg sm:-mt-10 relative z-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 divide-x-0 sm:divide-x divide-charcoal/10 py-8">
-          {TRUST_ITEMS.map(({ label, Icon }) => (
-            <div key={label} className="flex flex-col items-center text-center gap-3 px-4 py-3">
-              <Icon />
-              <p className="text-xs sm:text-sm font-semibold text-charcoal max-w-[10rem]">{label}</p>
-            </div>
-          ))}
+          {TRUST_ITEMS.map(({ label, Icon, to }) => {
+            const content = (
+              <>
+                <Icon />
+                <p className="text-xs sm:text-sm font-semibold text-charcoal max-w-[10rem]">{label}</p>
+              </>
+            );
+            return to ? (
+              <Link key={label} to={to} className="flex flex-col items-center text-center gap-3 px-4 py-3 hover:bg-offwhite transition-colors rounded">
+                {content}
+              </Link>
+            ) : (
+              <div key={label} className="flex flex-col items-center text-center gap-3 px-4 py-3">
+                {content}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -175,6 +191,7 @@ function AboutSection() {
             src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=1200&auto=format&fit=crop"
             alt="Security officer monitoring live CCTV feeds in the operations room"
             className="w-full h-[420px] sm:h-[480px] object-cover rounded-lg shadow-card"
+            loading="lazy"
           />
         </div>
 
@@ -239,7 +256,7 @@ function ServicesSection() {
     },
     {
       title: "Armed & Unarmed Guards",
-      desc: "Licensed armed and unarmed officers for sites of every risk level.",
+      desc: "Trained unarmed guards for day-to-day protection, with armed response coordinated through authorized personnel for higher-risk sites.",
       img: "https://images.unsplash.com/photo-1595535373587-8b0b0dae2bfc?q=80&w=900&auto=format&fit=crop",
       alt: "Licensed security officer on duty",
       Icon: ArmedIcon,
@@ -292,6 +309,7 @@ function ServicesSection() {
                   <img
                     src={img}
                     alt={alt}
+                    loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
@@ -381,7 +399,7 @@ function IndustriesSection() {
   ];
 
   return (
-    <section id="industries" ref={ref} className="fade-up py-20 sm:py-24 bg-white">
+    <section id="industries" ref={ref} className="fade-up scroll-mt-24 py-20 sm:py-24 bg-white">
       <div className="container-page">
         <p className="eyebrow text-center mb-3">
           Industries We Serve
@@ -419,7 +437,7 @@ function RecruitmentSection() {
   ];
 
   return (
-    <section id="careers" ref={ref} className="fade-up py-20 sm:py-24 bg-offwhite">
+    <section id="careers" ref={ref} className="fade-up scroll-mt-24 py-20 sm:py-24 bg-offwhite">
       <div className="container-page grid lg:grid-cols-2 gap-12 items-center">
         <div>
           <p className="eyebrow mb-3">
@@ -457,6 +475,7 @@ function RecruitmentSection() {
             src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1100&auto=format&fit=crop"
             alt="Security officers lined up for a uniform inspection"
             className="w-full h-[380px] sm:h-[440px] object-cover rounded-lg shadow-card"
+            loading="lazy"
           />
         </div>
       </div>
@@ -559,12 +578,9 @@ function CoverageSection() {
         <div className="flex justify-center">
           <div className="relative w-full max-w-[300px]">
             {/* Nigeria Map — Coverage States Highlighted */}
-            <svg
+            <svg aria-hidden="true" focusable="false"
               viewBox="0 0 1000 812"
-              className="w-full h-auto"
-              style={{
-                filter: "drop-shadow(0 24px 32px rgba(0, 0, 0, 0.2))",
-              }}
+              className="w-full h-auto drop-shadow-[0_24px_32px_rgba(0,0,0,0.2)]"
             >
               {/* All 36 states + FCT — full accurate Nigeria map (source: simplemaps ng.svg) */}
               <path className="ng-state" d="M155.3 89.1l0.6-0.2 5.8-0.1 4.9 0.8 2.6-1.3 2.8-0.6 2.3 1.9 2.3 2.2 4.7 2.8 5.1 1.9 2.8 0.7 2.6 1 2.5 1.7 2.8 1.3 2.8 0.3 2.4-1.4 1.1-2.1 1.5-1.8 1.9-0.7 1.3 1.7-0.2 2.4-1.1 2.3-0.3 1.4 0 1.5-0.3 1.2-0.4 1.1-0.9 2.9-0.4 3.1 2.5 4.4 1.7 4.9-0.6 5.6-0.8 2.9-0.3 2.9 2.3 12.5-0.3 5.8-3.4 1.8-5.2-1.7-5.4 1.4-2.7 4.8 0.5 29.8-2.6 12.1-3.3 7.2-0.7 7.4 2.5 2.8 3.4 1.1 3.3-2.1 2.6-3.3 14.4-6.5 1.6-0.4 1.6 0.4 1.2 0.7 0.9-0.3 0.9-0.3 1.1 0.7 0.8 1.2 1.7-0.1 1.5-1 3.1-0.6 3.1 1.2 1.2 1.1 1.6 0.3 4-1 1.7-0.1 1.4-0.8 0.6-1.8 1.3-1.3 1.7-0.1 1.6 0.7 1.8 0.1 4.3-0.6 1.8 1.5 1.1 2.2 6.6 2.9 4.5 1 11.5-0.8 1.2-0.7 1.3-0.3 5.6 0.9 2.8 1 3.6 3.5-0.4 5.3-1.9 5.8 1.5 2.4 2.9 1.1 5.8 9.3 0.7 11.8-2.3-1.5-2.7 0.1-1.1 0.9-1.9 2.2-0.8 1.2-1.9 1.6-2.7 0.2-2.6 0.7-13.1 5.6-5 0.9-7.6 0-2-0.7-1-2.7-0.1-3 0.5-6-1.3-2.6-2.4-1.5-2.7-4.9-1-5.8-4.5-2.7-5.5-0.2-22.4 4.6-10.4 4.7-1.2 4.9 4.8 3.6 5.4 2.3 5.8 0.9 1.3 0 1 0.6 0.6 1.4 1 0.6 2.1 0.6 0.9 2.2 0.7 3.2 0.2 3.1-3.6 4.6 3.1 3.9 1.7 5.1-2.1 1.6-5.3 1.5-5.1 2.5-5.3-0.7-2.4 0.8-1.3 5.1 0.4 5.8-0.3 2.7 0.4 2.6 3.6 4.7 2.3 5.2-1.9 5-2.2 1.7-2.6 0.8-8.7 1.9-2.7 0.9-0.8 2.7 0 3-1 2.1-5.2-0.3-1.8-1.6 1.2-5.7 0.4-5.6-1.6-1.8-1.9-1.5-1.2-2.6-0.3-3 0.5-5.7 2.8-4.9 8.8-5 0.2-1.4 1.9-1.9 0.5-1.1 0.2-1.3 0-2.9 2.5-13.8-0.1-1.9-4.9-1.5-9.2-6-7.7-2.1-7.8 1.2-20.8 0.5-4-0.4-8.4-4-6.8-4.2-6.9-0.8-0.6 0.6-0.1 0-0.7 0.1-0.6-0.1-1.8-1.7-13.6-19.3-1.1-2.1-0.2-1.8 1.6-4.1 0.4-1.2 0.9-3.5 5.3-9 1.7-1.8 3.9-2.3 0.9-0.9 0.5-1.7-0.4-1.5-0.9-1.5-1.8-1.9-0.3-0.2-0.3-0.2-0.4-0.8-0.2-0.8-0.5-4.4 0.4-1.3 0.8-1.1 1.3-1.3 1.3-2.6-0.4-2.6-1.8-5.7 0-3.4 2-10.2-0.7-19.3 0.3-0.8 16.6-12.5 4.9-4.7 12.1-19.1 2.4-16.7z" />
@@ -612,7 +628,7 @@ function CoverageSection() {
             {/* Coverage Legend */}
             <div className="mt-6 space-y-2 px-2">
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "rgba(210, 45, 70, 0.75)" }} />
+                <div className="w-3 h-3 rounded-full bg-[rgba(210,45,70,0.75)]" />
                 <p className="text-white/70 text-xs font-semibold">Service Coverage Areas</p>
               </div>
               <div className="flex items-center gap-2">
@@ -637,6 +653,7 @@ function CtaBannerSection() {
         src="https://images.unsplash.com/photo-1553406830-ef2513450d76?q=80&w=1600&auto=format&fit=crop"
         alt="Security officer communicating on a two-way radio"
         className="absolute inset-0 w-full h-full object-cover opacity-25"
+        loading="lazy"
       />
       <div className="relative container-page py-14 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="text-center md:text-left">
@@ -664,7 +681,9 @@ function CtaBannerSection() {
 ============================================================================ */
 function ContactSection() {
   const ref = useReveal();
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | submitting | success | error
+  const [errorMessage, setErrorMessage] = useState("");
+  const formRef = useRef(null);
 
   const SERVICE_OPTIONS = [
     "Residential Security",
@@ -680,32 +699,48 @@ function ContactSection() {
   const inputClass =
     "w-full border border-charcoal/15 rounded px-4 py-3 text-sm text-charcoal placeholder:text-charcoal/40 focus:border-navy focus:ring-1 focus:ring-navy outline-none transition-colors";
 
-  // NOTE: No form backend is connected yet (no Formspree/Web3Forms endpoint
-  // configured). Rather than fake a "message sent" success state that
-  // silently discards the enquiry, this builds a pre-filled mailto: link and
-  // hands off to the visitor's own email client — the enquiry actually goes
-  // somewhere real. Once Alfred wires up a real form provider, replace this
-  // with an actual fetch() to that endpoint and restore a true success state.
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    setStatus("submitting");
+    setErrorMessage("");
+
     const data = new FormData(e.target);
-    const subject = `Security enquiry: ${data.get("service")} — ${data.get("name")}`;
-    const body = [
-      `Name: ${data.get("name")}`,
-      `Organization: ${data.get("organization") || "—"}`,
-      `Phone: ${data.get("phone")}`,
-      `Email: ${data.get("email")}`,
-      `Service needed: ${data.get("service")}`,
-      "",
-      "Message:",
-      data.get("message"),
-    ].join("\n");
-    window.location.href = `mailto:sanddmembs@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setSubmitted(true);
+    const payload = {
+      name: data.get("name"),
+      organization: data.get("organization"),
+      phone: data.get("phone"),
+      email: data.get("email"),
+      service: data.get("service"),
+      message: data.get("message"),
+      // Honeypot — real visitors never see or fill this field (see the
+      // hidden input below). If it's non-empty, api/contact.js silently
+      // discards the submission without sending an email.
+      company_website: data.get("company_website"),
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = await res.json().catch(() => ({}));
+
+      if (res.ok && result.ok) {
+        setStatus("success");
+        formRef.current?.reset();
+      } else {
+        setStatus("error");
+        setErrorMessage(result.error || "Something went wrong. Please try again, or email/call us directly.");
+      }
+    } catch {
+      setStatus("error");
+      setErrorMessage("We couldn't reach the server. Please check your connection, or email/call us directly.");
+    }
   }
 
   return (
-    <section id="contact" ref={ref} className="fade-up py-20 sm:py-24 bg-offwhite">
+    <section id="contact" ref={ref} className="fade-up scroll-mt-24 py-20 sm:py-24 bg-offwhite">
       <div className="container-page">
         <p className="eyebrow text-center mb-3">
           Contact Us
@@ -717,52 +752,59 @@ function ContactSection() {
         <div className="grid lg:grid-cols-5 gap-10">
           {/* Form */}
           <div className="lg:col-span-3 bg-white rounded-lg shadow-card p-7 sm:p-9">
-            {submitted ? (
-              <div className="h-full flex flex-col items-center justify-center text-center py-10">
+            {status === "success" ? (
+              <div className="h-full flex flex-col items-center justify-center text-center py-10" role="status" aria-live="polite">
                 <div className="w-14 h-14 rounded-full bg-navy/10 flex items-center justify-center mb-4">
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1F4A8A" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                  <svg aria-hidden="true" focusable="false" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1F4A8A" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                 </div>
-                <h3 className="font-heading font-bold text-xl mb-2">Almost there</h3>
+                <h3 className="font-heading font-bold text-xl mb-2">Message sent</h3>
                 <p className="text-charcoal/60 text-sm max-w-sm">
-                  Your email app should have opened with your enquiry pre-filled —
-                  just hit send. If nothing opened, please email us directly at{" "}
-                  <a href="mailto:sanddmembs@gmail.com" className="text-navy underline">
-                    sanddmembs@gmail.com
-                  </a>{" "}
-                  or reach us by phone or WhatsApp below.
+                  Thank you for reaching out — we&rsquo;ve received your enquiry and will
+                  be in touch shortly. If it&rsquo;s urgent, call our emergency line below.
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-5" noValidate>
+                {/* Honeypot — hidden from sighted and screen-reader users alike;
+                    a real visitor will never focus or fill this. */}
+                <input
+                  type="text"
+                  name="company_website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="absolute w-px h-px opacity-0 -left-[9999px]"
+                />
+
                 <div className="grid sm:grid-cols-2 gap-5">
                   <label className="block">
                     <span className="block text-xs font-semibold text-charcoal/70 mb-1.5">
                       Full Name <span className="text-burgundy">*</span>
                     </span>
-                    <input type="text" name="name" required className={inputClass} placeholder="John Doe" />
+                    <input type="text" name="name" required disabled={status === "submitting"} className={inputClass} placeholder="John Doe" />
                   </label>
                   <label className="block">
                     <span className="block text-xs font-semibold text-charcoal/70 mb-1.5">
                       Organization (optional)
                     </span>
-                    <input type="text" name="organization" className={inputClass} placeholder="Company or estate name" />
+                    <input type="text" name="organization" disabled={status === "submitting"} className={inputClass} placeholder="Company or estate name" />
                   </label>
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-5">
                   <label className="block">
                     <span className="block text-xs font-semibold text-charcoal/70 mb-1.5">
-                      Phone Number <span className="text-burgundy">*</span>
+                      Phone Number
                     </span>
-                    <input type="tel" name="phone" required className={inputClass} placeholder="0803 000 0000" />
+                    <input type="tel" name="phone" disabled={status === "submitting"} className={inputClass} placeholder="0803 000 0000" />
                   </label>
                   <label className="block">
                     <span className="block text-xs font-semibold text-charcoal/70 mb-1.5">
                       Email Address <span className="text-burgundy">*</span>
                     </span>
-                    <input type="email" name="email" required className={inputClass} placeholder="you@example.com" />
+                    <input type="email" name="email" required disabled={status === "submitting"} className={inputClass} placeholder="you@example.com" />
                   </label>
                 </div>
 
@@ -770,7 +812,7 @@ function ContactSection() {
                   <span className="block text-xs font-semibold text-charcoal/70 mb-1.5">
                     Service Needed <span className="text-burgundy">*</span>
                   </span>
-                  <select name="service" required className={inputClass} defaultValue="">
+                  <select name="service" required disabled={status === "submitting"} className={inputClass} defaultValue="">
                     <option value="" disabled>Select a service</option>
                     {SERVICE_OPTIONS.map((s) => (
                       <option key={s} value={s}>{s}</option>
@@ -782,15 +824,29 @@ function ContactSection() {
                   <span className="block text-xs font-semibold text-charcoal/70 mb-1.5">
                     Message <span className="text-burgundy">*</span>
                   </span>
-                  <textarea name="message" required rows={4} className={inputClass} placeholder="Tell us briefly what you need help with" />
+                  <textarea name="message" required rows={4} disabled={status === "submitting"} className={inputClass} placeholder="Tell us briefly what you need help with" />
                 </label>
+
+                {status === "error" && (
+                  <p role="alert" aria-live="assertive" className="text-sm text-burgundy-dark bg-burgundy/5 border border-burgundy/20 rounded px-4 py-3">
+                    {errorMessage}
+                  </p>
+                )}
 
                 <button
                   type="submit"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 btn-primary font-semibold px-8 py-3.5 rounded"
+                  disabled={status === "submitting"}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 btn-primary font-semibold px-8 py-3.5 rounded disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Send Message
+                  {status === "submitting" ? "Sending…" : "Send Message"}
                 </button>
+
+                <p className="text-xs text-charcoal/50">
+                  Prefer email or phone? Reach us directly at{" "}
+                  <a href={`mailto:${COMPANY.email}`} className="text-navy underline">{COMPANY.email}</a>
+                  {" "}or{" "}
+                  <a href={COMPANY.phone.main.href} className="text-navy underline">{COMPANY.phone.main.display}</a>.
+                </p>
               </form>
             )}
           </div>
@@ -799,33 +855,35 @@ function ContactSection() {
           <div className="lg:col-span-2 flex flex-col gap-6">
             <div className="bg-navy text-white rounded-lg p-7 space-y-5">
               <ContactRow Icon={PinIcon} label="Office Address">
-                32 Oromenike Street, D/Line, Port Harcourt, Rivers State, Nigeria.
+                {COMPANY.headOfficeAddress}.
               </ContactRow>
               <ContactRow Icon={PhoneIcon} label="Phone">
-                0803 709 5470 &middot; 0707 231 6078
+                {COMPANY.phone.main.display} &middot; {COMPANY.phone.secondary.display}
               </ContactRow>
               <ContactRow Icon={MailIcon} label="Email">
-                sanddmembs@gmail.com
+                {COMPANY.email}
               </ContactRow>
               <ContactRow Icon={ClockIcon} label="Hours">
-                Mon &ndash; Fri: 8am &ndash; 5pm &middot; Field Ops: 24/7
+                {COMPANY.hours.office} &middot; Field Ops: {COMPANY.hours.fieldOps}
               </ContactRow>
               <div className="border-t border-white/15 pt-5">
                 <ContactRow Icon={AlertIcon} label="Emergency Contact">
-                  <span className="text-white font-semibold">0703 653 2697</span> &mdash; available 24/7 for active incidents.
+                  <span className="text-white font-semibold">{COMPANY.phone.emergency.display}</span> &mdash; {COMPANY.hours.emergencyLine}.
                 </ContactRow>
               </div>
               <a
-                href="https://wa.me/2349169426900"
+                href={COMPANY.whatsapp.href}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 bg-[#25D366] text-white font-semibold px-5 py-3 rounded mt-2"
               >
                 Chat on WhatsApp
               </a>
             </div>
 
-            {/* Map placeholder — Google Maps embed (no API key needed) */}
+            {/* Map — Google Maps embed (no API key needed). This is a
+                third-party resource: see Privacy Policy §5 and the CSP in
+                vercel.json for how it's disclosed/allowed. */}
             <div className="rounded-lg overflow-hidden shadow-card h-56 sm:h-64">
               <iframe
                 title="S & D Membs office location map"
@@ -861,7 +919,7 @@ function ContactRow({ Icon, label, children }) {
 ============================================================================ */
 function ArrowRightIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
       <line x1="5" y1="12" x2="19" y2="12" />
       <polyline points="12 5 19 12 12 19" />
     </svg>
@@ -872,22 +930,22 @@ function ArrowRightIcon() {
 const badgeSvg = { width: 22, height: 22, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" };
 
 function HomeIcon() {
-  return <svg {...badgeSvg}><path d="m3 11 9-8 9 8" /><path d="M5 10v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V10" /><path d="M9 21v-6h6v6" /></svg>;
+  return <svg aria-hidden="true" focusable="false" {...badgeSvg}><path d="m3 11 9-8 9 8" /><path d="M5 10v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V10" /><path d="M9 21v-6h6v6" /></svg>;
 }
 function BriefcaseIcon() {
-  return <svg {...badgeSvg}><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>;
+  return <svg aria-hidden="true" focusable="false" {...badgeSvg}><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>;
 }
 function ArmedIcon() {
-  return <svg {...badgeSvg}><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z" /><path d="M12 8v5M9.5 10.5h5" /></svg>;
+  return <svg aria-hidden="true" focusable="false" {...badgeSvg}><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z" /><path d="M12 8v5M9.5 10.5h5" /></svg>;
 }
 function PawIcon() {
-  return <svg {...badgeSvg}><circle cx="7" cy="9" r="1.6" /><circle cx="12" cy="6.5" r="1.6" /><circle cx="17" cy="9" r="1.6" /><path d="M12 12c-2.5 0-4.5 2-4.5 4 0 1.4 1.1 2.3 2.4 2.3.9 0 1.5-.4 2.1-.4s1.2.4 2.1.4c1.3 0 2.4-.9 2.4-2.3 0-2-2-4-4.5-4z" /></svg>;
+  return <svg aria-hidden="true" focusable="false" {...badgeSvg}><circle cx="7" cy="9" r="1.6" /><circle cx="12" cy="6.5" r="1.6" /><circle cx="17" cy="9" r="1.6" /><path d="M12 12c-2.5 0-4.5 2-4.5 4 0 1.4 1.1 2.3 2.4 2.3.9 0 1.5-.4 2.1-.4s1.2.4 2.1.4c1.3 0 2.4-.9 2.4-2.3 0-2-2-4-4.5-4z" /></svg>;
 }
 function CarIcon() {
-  return <svg {...badgeSvg}><path d="M5 13l1.5-4.5A2 2 0 0 1 8.4 7h7.2a2 2 0 0 1 1.9 1.5L19 13" /><path d="M4 13h16v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H7v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z" /><circle cx="7.5" cy="15.5" r="0.6" /><circle cx="16.5" cy="15.5" r="0.6" /></svg>;
+  return <svg aria-hidden="true" focusable="false" {...badgeSvg}><path d="M5 13l1.5-4.5A2 2 0 0 1 8.4 7h7.2a2 2 0 0 1 1.9 1.5L19 13" /><path d="M4 13h16v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H7v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z" /><circle cx="7.5" cy="15.5" r="0.6" /><circle cx="16.5" cy="15.5" r="0.6" /></svg>;
 }
 function GroupIcon() {
-  return <svg {...badgeSvg}><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" /><circle cx="10" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></svg>;
+  return <svg aria-hidden="true" focusable="false" {...badgeSvg}><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" /><circle cx="10" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></svg>;
 }
 
 function iconWrap(children) {
@@ -900,7 +958,7 @@ function iconWrap(children) {
 
 function ShieldIcon() {
   return iconWrap(
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z" />
       <path d="m9 12 2 2 4-4" />
     </svg>
@@ -908,7 +966,7 @@ function ShieldIcon() {
 }
 function TeamIcon() {
   return iconWrap(
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" />
       <circle cx="10" cy="7" r="4" />
       <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
@@ -917,7 +975,7 @@ function TeamIcon() {
 }
 function ClockIcon() {
   return iconWrap(
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <circle cx="12" cy="12" r="10" />
       <path d="M12 6v6l4 2" />
     </svg>
@@ -925,7 +983,7 @@ function ClockIcon() {
 }
 function BuildingIcon() {
   return iconWrap(
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <path d="M6 22V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v18" />
       <path d="M6 12H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2M18 12h2a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2" />
       <path d="M10 6h4M10 10h4M10 14h4M10 18h4" />
@@ -934,7 +992,7 @@ function BuildingIcon() {
 }
 function BoltIcon() {
   return iconWrap(
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <polygon points="13 2 3 14 11 14 11 22 21 10 13 10 13 2" />
     </svg>
   );
@@ -942,7 +1000,7 @@ function BoltIcon() {
 
 function TargetIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F4A8A" strokeWidth="2">
+    <svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F4A8A" strokeWidth="2">
       <circle cx="12" cy="12" r="9" />
       <circle cx="12" cy="12" r="5" />
       <circle cx="12" cy="12" r="1" fill="#1F4A8A" />
@@ -951,7 +1009,7 @@ function TargetIcon() {
 }
 function EyeIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F4A8A" strokeWidth="2">
+    <svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F4A8A" strokeWidth="2">
       <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
       <circle cx="12" cy="12" r="3" />
     </svg>
@@ -959,7 +1017,7 @@ function EyeIcon() {
 }
 function ShieldCheckIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F4A8A" strokeWidth="2">
+    <svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F4A8A" strokeWidth="2">
       <path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z" />
       <path d="m9 12 2 2 4-4" />
     </svg>
@@ -968,7 +1026,7 @@ function ShieldCheckIcon() {
 
 function CheckIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A1530" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5">
+    <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A1530" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5">
       <polyline points="20 6 9 17 4 12" />
     </svg>
   );
@@ -976,7 +1034,7 @@ function CheckIcon() {
 
 // function QuoteIcon() {
 //   return (
-//     <svg width="32" height="32" viewBox="0 0 24 24" fill="#7A1530">
+//     <svg aria-hidden="true" focusable="false" width="32" height="32" viewBox="0 0 24 24" fill="#7A1530">
 //       <path d="M9.5 5C6 6.5 4 9.5 4 13.5c0 2.5 1.5 4 3.5 4S11 16 11 13.5c0-2-1.2-3.3-3-3.5.3-1.5 1.5-2.8 3-3.5L9.5 5zM18 5c-3.5 1.5-5.5 4.5-5.5 8.5 0 2.5 1.5 4 3.5 4s3.5-1.5 3.5-4c0-2-1.2-3.3-3-3.5.3-1.5 1.5-2.8 3-3.5L18 5z" />
 //     </svg>
 //   );
@@ -984,21 +1042,21 @@ function CheckIcon() {
 
 const industryStroke = { fill: "none", stroke: "#1F4A8A", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" };
 
-function SchoolIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="m22 10-10-5L2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg>; }
-function HospitalIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M12 8v6M9 11h6"/></svg>; }
-function BankIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M3 10 12 4l9 6"/><path d="M5 10v9M9 10v9M15 10v9M19 10v9M3 21h18"/></svg>; }
-function HotelIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M2 21V7l7-4v18M9 21V11l7-4v14M16 12h6v9"/></svg>; }
-function HouseIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="m3 12 9-9 9 9"/><path d="M5 10v11h14V10"/></svg>; }
-function ConstructionIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><rect x="2" y="14" width="6" height="7"/><rect x="16" y="14" width="6" height="7"/><path d="M8 21h8M6 14V9l6-5 6 5v5"/></svg>; }
-function MallIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M3 9h18l-1.5 11h-15z"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg>; }
-function GovIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="m3 10 9-6 9 6"/><path d="M5 10v9M19 10v9M3 21h18M9 21v-6h6v6"/></svg>; }
-function OilIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M12 2s5 5.5 5 10a5 5 0 0 1-10 0c0-4.5 5-10 5-10z"/></svg>; }
-function OfficeIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><rect x="4" y="3" width="16" height="18"/><path d="M9 8h1M14 8h1M9 12h1M14 12h1M9 16h1M14 16h1"/></svg>; }
-function ChurchIcon() { return <svg width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M12 2v4M10 4h4"/><path d="M12 8v13M6 21V11l6-5 6 5v10"/><path d="M9 21v-6h6v6"/></svg>; }
+function SchoolIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="m22 10-10-5L2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg>; }
+function HospitalIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M12 8v6M9 11h6"/></svg>; }
+function BankIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M3 10 12 4l9 6"/><path d="M5 10v9M9 10v9M15 10v9M19 10v9M3 21h18"/></svg>; }
+function HotelIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M2 21V7l7-4v18M9 21V11l7-4v14M16 12h6v9"/></svg>; }
+function HouseIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="m3 12 9-9 9 9"/><path d="M5 10v11h14V10"/></svg>; }
+function ConstructionIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><rect x="2" y="14" width="6" height="7"/><rect x="16" y="14" width="6" height="7"/><path d="M8 21h8M6 14V9l6-5 6 5v5"/></svg>; }
+function MallIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M3 9h18l-1.5 11h-15z"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg>; }
+function GovIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="m3 10 9-6 9 6"/><path d="M5 10v9M19 10v9M3 21h18M9 21v-6h6v6"/></svg>; }
+function OilIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M12 2s5 5.5 5 10a5 5 0 0 1-10 0c0-4.5 5-10 5-10z"/></svg>; }
+function OfficeIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><rect x="4" y="3" width="16" height="18"/><path d="M9 8h1M14 8h1M9 12h1M14 12h1M9 16h1M14 16h1"/></svg>; }
+function ChurchIcon() { return <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" {...industryStroke}><path d="M12 2v4M10 4h4"/><path d="M12 8v13M6 21V11l6-5 6 5v10"/><path d="M9 21v-6h6v6"/></svg>; }
 
 function PinIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
       <circle cx="12" cy="10" r="3" />
     </svg>
@@ -1006,14 +1064,14 @@ function PinIcon() {
 }
 function PhoneIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
     </svg>
   );
 }
 function MailIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <rect x="2" y="4" width="20" height="16" rx="2" />
       <path d="m22 6-10 7L2 6" />
     </svg>
@@ -1021,7 +1079,7 @@ function MailIcon() {
 }
 function AlertIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2">
+    <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2">
       <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
       <line x1="12" y1="9" x2="12" y2="13" />
       <line x1="12" y1="17" x2="12.01" y2="17" />

@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useDocumentMeta from "../hooks/useDocumentMeta";
+import { COMPANY } from "../data/company";
 
 export default function TermsOfUse() {
   const navigate = useNavigate();
 
   useDocumentMeta({
+    path: "/terms-of-use",
     title: "Terms of Use | S & D Membs Security Services",
     description: "The terms that govern your use of the S & D Membs Security Services website.",
   });
@@ -134,16 +136,10 @@ export default function TermsOfUse() {
               <h2 className="font-heading font-bold text-xl text-navy mb-3">12. Contact Us</h2>
               <p>
                 Questions about these terms can be sent to{" "}
-                <a href="mailto:sanddmembs@gmail.com" className="text-navy underline">sanddmembs@gmail.com</a>{" "}
-                or 0803 709 5470.
+                <a href={`mailto:${COMPANY.email}`} className="text-navy underline">{COMPANY.email}</a>{" "}
+                or {COMPANY.phone.main.display}.
               </p>
             </section>
-
-            <div className="pt-6 border-t border-charcoal/10 text-sm text-charcoal/50">
-              These terms are written to accurately describe this website as it currently
-              operates. They have not yet received formal legal review, which is recommended
-              before final publication.
-            </div>
           </div>
 
           <button
