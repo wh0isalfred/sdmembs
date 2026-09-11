@@ -3,14 +3,11 @@ import logo from "../assets/logo.webp";
 import { COMPANY } from "../data/company";
 
 const QUICK_LINKS = [
-  { label: "Home", to: "/" },
   { label: "About Us", to: "/aboutus" },
   { label: "Services", to: "/services" },
   { label: "Offices", to: "/offices" },
-  { label: "Industries", to: "/#industries" },
   { label: "Careers", to: "/#careers" },
   { label: "Contact Us", to: "/#contact" },
-  { label: "Licensing & Compliance", to: "/aboutus#licensing" },
 ];
 
 const SERVICES = [
@@ -18,9 +15,7 @@ const SERVICES = [
   { label: "Industrial & Facility Security", id: "industrial-facility-security" },
   { label: "Armed & Unarmed Guards", id: "armed-unarmed-guards" },
   { label: "K9 Security", id: "k9-security" },
-  { label: "Mobile Patrol", id: "mobile-patrol" },
   { label: "CCTV & Access Control", id: "cctv-access-control" },
-  { label: "Security Consultancy", id: "security-consultancy" },
 ];
 
 export default function Footer() {
@@ -28,11 +23,11 @@ export default function Footer() {
 
   return (
     <footer className="bg-navy-dark text-white">
-      <div className="container-page py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
+      <div className="container-page py-14 sm:py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.35fr_0.75fr_1.1fr_1.3fr] gap-x-10 xl:gap-x-14 gap-y-12">
         {/* Brand */}
         <div className="sm:col-span-2 lg:col-span-1">
           <div className="flex items-center gap-3">
-            <img src={logo} alt="S & D Membs logo" loading="lazy" className="h-14 w-auto object-contain rounded bg-white p-1" />
+            <img src={logo} alt="S & D Membs logo" loading="lazy" className="h-12 w-12 object-contain rounded-md bg-white p-1.5 ring-1 ring-white/15" />
             <span className="leading-tight">
               <span className="block font-heading font-bold text-base">S &amp; D MEMBS</span>
               <span className="block text-[10px] font-semibold tracking-[0.18em] uppercase text-white/60">
@@ -40,10 +35,16 @@ export default function Footer() {
               </span>
             </span>
           </div>
-          <p className="mt-4 text-sm text-white/70 leading-relaxed max-w-xs">
+          <p className="mt-5 text-sm text-white/70 leading-relaxed max-w-sm">
             Professional security solutions you can trust. Protecting people,
             property and peace of mind across Nigeria.
           </p>
+          <Link
+            to="/aboutus#licensing"
+            className="inline-flex mt-5 text-sm font-semibold text-white/85 hover:text-white transition-colors"
+          >
+            Licensing &amp; Compliance <span aria-hidden="true" className="ml-2">&rarr;</span>
+          </Link>
           {/* No social profile links here yet — client has not supplied real
               Facebook/Instagram/LinkedIn URLs. Add them once real links exist
               rather than shipping placeholder "#" links. */}
@@ -81,30 +82,27 @@ export default function Footer() {
                 </Link>
               </li>
             ))}
+            <li className="pt-1">
+              <Link to="/services" className="text-sm font-semibold text-white/90 hover:text-white transition-colors">
+                View all services <span aria-hidden="true">&rarr;</span>
+              </Link>
+            </li>
           </ul>
         </div>
 
-        {/* Offices */}
+        {/* Contact */}
         <div>
           <h3 className="text-sm font-heading font-bold uppercase tracking-wider text-white/60 mb-4">
-            Our Offices
+            Contact
           </h3>
           <ul className="space-y-3 text-sm text-white/75">
-            {COMPANY.offices.map((office) => (
-              <li key={office.id} className="flex gap-2.5">
-                <PinIcon />
-                <Link to={`/offices#${office.id}`} className="hover:text-white transition-colors">
-                  {office.name} <span className="text-white/50">— {office.type}</span>
-                </Link>
-              </li>
-            ))}
+            <li className="flex gap-2.5">
+              <PinIcon />
+              <span className="leading-relaxed">{COMPANY.headOfficeAddress}</span>
+            </li>
             <li className="flex gap-2.5">
               <PhoneIcon />
-              <span>
-                <a href={COMPANY.phone.main.href} className="hover:text-white transition-colors">{COMPANY.phone.main.display}</a>
-                {" "}&middot;{" "}
-                <a href={COMPANY.phone.secondary.href} className="hover:text-white transition-colors">{COMPANY.phone.secondary.display}</a>
-              </span>
+              <a href={COMPANY.phone.main.href} className="hover:text-white transition-colors">{COMPANY.phone.main.display}</a>
             </li>
             <li className="flex gap-2.5">
               <MailIcon />
@@ -116,15 +114,20 @@ export default function Footer() {
               <ClockIcon />
               <span>{COMPANY.hours.office} &middot; Field Ops: {COMPANY.hours.fieldOps}</span>
             </li>
+            <li className="pt-1">
+              <Link to="/offices" className="font-semibold text-white/90 hover:text-white transition-colors">
+                View all offices <span aria-hidden="true">&rarr;</span>
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
 
       {/* Bottom bar */}
       <div className="border-t border-white/10">
-        <div className="container-page py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/60">
-          <p>&copy; {year} {COMPANY.legalName} &middot; {COMPANY.rcNumber}. All Rights Reserved.</p>
-          <div className="flex gap-5">
+        <div className="container-page pt-5 pb-24 sm:py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-white/60">
+          <p>&copy; {year} {COMPANY.legalName} &middot; {COMPANY.rcNumber}. All rights reserved.</p>
+          <div className="flex flex-wrap gap-x-5 gap-y-2">
             <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link to="/terms-of-use" className="hover:text-white transition-colors">Terms of Use</Link>
           </div>
