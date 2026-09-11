@@ -760,7 +760,7 @@ function ContactSection() {
                   tabIndex={-1}
                   autoComplete="off"
                   aria-hidden="true"
-                  className="absolute w-px h-px opacity-0 -left-[9999px]"
+                  className="fixed top-0 left-0 w-px h-px opacity-0 pointer-events-none"
                 />
 
                 <div className="grid sm:grid-cols-2 gap-5">
@@ -903,9 +903,9 @@ function ContactRow({ Icon, label, children }) {
       <div className="shrink-0 mt-0.5">
         <Icon />
       </div>
-      <div>
+      <div className="min-w-0">
         <p className="text-xs uppercase tracking-wider text-white/60 font-semibold mb-0.5">{label}</p>
-        <p className="text-sm text-white/85 leading-relaxed">{children}</p>
+        <p className="text-sm text-white/85 leading-relaxed break-words">{children}</p>
       </div>
     </div>
   );

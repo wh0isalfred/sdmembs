@@ -76,6 +76,22 @@
   --shadow-card-hover: 0 18px 48px rgba(16, 24, 40, 0.1);
 }
 
+@layer base {
+  html,
+  body,
+  #root {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-x: clip;
+  }
+
+  img,
+  iframe {
+    max-width: 100%;
+  }
+}
+
 /* ============================================================================
    COMPONENT CLASSES — shared, repeated UI patterns.
 
