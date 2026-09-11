@@ -11,7 +11,7 @@ const origin = "https://www.sanddmembs.org";
 const ROUTES = {
   "/": {
     title: "S & D Membs Security Services | Professional Security Across Nigeria",
-    description: "Licensed private security company delivering trained guards, corporate and industrial protection, K9 security, mobile patrol, CCTV monitoring and security consultancy across Nigeria.",
+    description: "Licensed private security company delivering trained guards, corporate and industrial protection, security dogs, mobile patrol, CCTV monitoring and security consultancy across Nigeria.",
   },
   "/aboutus": {
     title: "About Us | S & D Membs Security Services",
@@ -19,7 +19,7 @@ const ROUTES = {
   },
   "/services": {
     title: "Our Services | S & D Membs Security Services",
-    description: "Corporate and industrial security, trained guards, authorized armed support, K9 services, mobile patrol, CCTV monitoring and security consultancy across Nigeria.",
+    description: "Corporate and industrial security, trained guards, authorized armed support, security dogs, mobile patrol, CCTV monitoring and security consultancy across Nigeria.",
   },
   "/offices": {
     title: "Our Offices | S & D Membs Security Services",

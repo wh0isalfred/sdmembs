@@ -68,8 +68,8 @@ export default function About() {
               <p className="text-charcoal/70 leading-relaxed mb-4 text-lg">
                 S &amp; D Membs Security Services Limited was incorporated in 2009 on a simple 
                 yet powerful conviction: every person and organization deserves to feel safe. 
-                What began as an operation in Port Harcourt has grown into a licensed security
-                provider serving businesses and institutions across Nigeria.
+                Since then, we have grown into a licensed security provider serving businesses
+                and institutions across Nigeria.
               </p>
               <p className="text-charcoal/70 leading-relaxed mb-6 text-lg">
                 Over 17 years in business, we've built our reputation on unwavering integrity, 

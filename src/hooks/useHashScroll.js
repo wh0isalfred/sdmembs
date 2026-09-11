@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
  * change (including the initial load). Works whether the target element
  * already exists (same-page hash change) or doesn't exist yet because the
  * new route hasn't rendered it (cross-page navigation, e.g. clicking
- * /services#k9-security from the homepage) — in the second case it waits
+ * /services#security-dogs from the homepage) — in the second case it waits
  * for the element to actually appear in the DOM via MutationObserver,
  * rather than guessing how long rendering will take with a fixed timer.
  *

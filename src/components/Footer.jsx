@@ -14,7 +14,7 @@ const SERVICES = [
   { label: "Corporate & Commercial Security", id: "corporate-commercial-security" },
   { label: "Industrial & Facility Security", id: "industrial-facility-security" },
   { label: "Armed & Unarmed Guards", id: "armed-unarmed-guards" },
-  { label: "K9 Security", id: "k9-security" },
+  { label: "Security Dogs", id: "security-dogs" },
   { label: "CCTV & Access Control", id: "cctv-access-control" },
 ];
 

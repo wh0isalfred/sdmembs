@@ -9,7 +9,7 @@ export default function Services() {
   useDocumentMeta({
     path: "/services",
     title: "Our Services | S & D Membs Security Services",
-    description: "Corporate and industrial security, trained guards, authorized armed support, K9 services, mobile patrol, CCTV monitoring and security consultancy across Nigeria.",
+    description: "Corporate and industrial security, trained guards, authorized armed support, security dogs, mobile patrol, CCTV monitoring and security consultancy across Nigeria.",
   });
 
   useEffect(() => {
@@ -58,11 +58,11 @@ export default function Services() {
       Icon: ArmedIcon,
     },
     {
-      id: "k9-security",
-      title: "K9 Security Services",
-      desc: "Our specialized K9 units provide effective deterrence, detection and response for high-risk situations, working alongside our handlers on patrol and search operations.",
+      id: "security-dogs",
+      title: "Security Dogs",
+      desc: "Our trained security dogs work with professional handlers to provide deterrence, detection and support for patrol and search operations in higher-risk environments.",
       img: "https://images.unsplash.com/photo-1568572933382-74d440642117?q=80&w=1200&auto=format&fit=crop",
-      alt: "K9 security unit on patrol",
+      alt: "Security dog and professional handler on patrol",
       Icon: PawIcon,
     },
     {

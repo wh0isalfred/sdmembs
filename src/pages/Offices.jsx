@@ -25,8 +25,8 @@ export default function Offices() {
             Our Offices &amp; Contacts
           </h1>
           <p className="text-white/75 text-lg leading-relaxed max-w-2xl">
-            Based in Port Harcourt, serving businesses and institutions across Nigeria.
-            Contact the office or operational lead closest to your requirements.
+            Serving businesses and institutions across Nigeria through coordinated offices
+            and operational teams. Contact the team closest to your requirements.
           </p>
         </div>
       </section>

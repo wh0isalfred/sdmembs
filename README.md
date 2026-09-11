@@ -1,6 +1,6 @@
 # S & D Membs Security Services — Website
 
-Marketing website for **S & D Membs Security Services Limited**, a licensed private security provider based in Port Harcourt and serving businesses and institutions across Nigeria.
+Marketing website for **S & D Membs Security Services Limited**, a licensed private security provider serving businesses and institutions across Nigeria.
 
 **Production domain:** https://www.sanddmembs.org (canonical host — see "Canonical hostname" below)
 
@@ -60,7 +60,7 @@ Industries, Careers, and Contact are **intentionally** homepage anchor sections 
 
 Each of the 7 service sections on `/services` has a stable `id` so they can be deep-linked (from the footer, from external links, etc.):
 
-`corporate-commercial-security`, `industrial-facility-security`, `armed-unarmed-guards`, `k9-security`, `mobile-patrol`, `cctv-access-control`, `security-consultancy`
+`corporate-commercial-security`, `industrial-facility-security`, `armed-unarmed-guards`, `security-dogs`, `mobile-patrol`, `cctv-access-control`, `security-consultancy`
 
 Hash scrolling to these (and to `/#industries` etc.) is handled by `src/hooks/useHashScroll.js` — a `MutationObserver`-based hook wired in globally via `App.jsx`, not a fixed-timer hack. It works whether the target already exists on the page or the route just changed and the target hasn't mounted yet.
 
