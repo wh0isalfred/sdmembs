@@ -65,7 +65,6 @@ export default function Home() {
       <IndustriesSection />
       <RecruitmentSection />
       <CoverageSection />
-      <OfficesPreviewSection />
       <CtaBannerSection />
       <ContactSection />
     </div>
@@ -578,47 +577,6 @@ function CoverageSection() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ============================================================================
-   OFFICES PREVIEW
-============================================================================ */
-function OfficesPreviewSection() {
-  const ref = useReveal();
-
-  return (
-    <section ref={ref} className="fade-up py-20 sm:py-24 bg-offwhite">
-      <div className="container-page">
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5 mb-10">
-          <div className="max-w-2xl">
-            <p className="eyebrow mb-3">Our Offices</p>
-            <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-navy mb-4">
-              Local teams. Nationwide capability.
-            </h2>
-            <p className="text-charcoal/65 leading-relaxed">
-              Connect with our head office, regional offices and operations teams across Nigeria.
-            </p>
-          </div>
-          <Link to="/offices" className="inline-flex items-center gap-2 text-navy hover:text-burgundy font-bold transition-colors">
-            View all offices &amp; contacts <ArrowRightIcon />
-          </Link>
-        </div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 border-y border-charcoal/10">
-          {COMPANY.offices.map((office) => (
-            <Link
-              key={office.id}
-              to={`/offices#${office.id}`}
-              className="py-6 sm:px-6 border-b sm:border-b-0 sm:border-r last:border-0 border-charcoal/10 hover:bg-white transition-colors"
-            >
-              <p className="text-xs uppercase tracking-wider text-charcoal/45 font-semibold mb-2">{office.type}</p>
-              <h3 className="font-heading font-bold text-lg text-navy">{office.name}</h3>
-            </Link>
-          ))}
         </div>
       </div>
     </section>
