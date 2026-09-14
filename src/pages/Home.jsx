@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import useDocumentMeta from "../hooks/useDocumentMeta";
 import { COMPANY } from "../data/company";
+import hero from "../assets/hero.webp";
 /**
  * S & D Membs Security Services — Home page.
  *
@@ -88,8 +89,8 @@ function HeroSection() {
       <div className="relative bg-charcoal min-h-[640px] sm:min-h-[600px] flex items-end sm:items-center">
         {/* Placeholder photography: officers standing professionally beside a patrol vehicle */}
         <img
-          src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=1800&auto=format&fit=crop"
-          alt="S & D Membs security officers standing professionally beside a patrol vehicle"
+          src={hero}
+          alt="S & D Membs security officers standing professionally"
           className="absolute inset-0 w-full h-full object-cover"
           loading="eager"
           fetchPriority="high"
