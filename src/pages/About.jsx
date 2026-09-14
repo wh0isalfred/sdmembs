@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import useDocumentMeta from "../hooks/useDocumentMeta";
 import businessManagerPh from "../assets/team/business-manager-ph.jpeg";
 import generalManagerPh from "../assets/team/general-manager-ph.jpeg";
-import lawrenceTuraki from "../assets/team/lawrence-turaki-admin-abuja.jpeg";
+import lawrenceTuraki from "../assets/team/lawrence-turaki-admin-abuja.webp";
 import marketingManagerAbuja from "../assets/team/marketing-manager-abuja.jpeg";
-import marketingManagerLagos from "../assets/team/marketing-manager-lagos.jpeg";
-import opsManagerBayelsa from "../assets/team/operations-manager-bayelsa.jpeg";
+import marketingManagerLagos from "../assets/team/marketing-manager-lagos.webp";
+import opsManagerBayelsa from "../assets/team/operations-manager-bayelsa.webp";
 // import opsManager1Ph from "../assets/team/operations-manager-1-ph.jpeg";
-import opsManager2Ph from "../assets/team/operations-manager-2-ph.jpeg";
+import opsManager2Ph from "../assets/team/operations-manager-2-ph.webp";
 
 export default function About() {
   useDocumentMeta({
