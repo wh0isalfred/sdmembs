@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import useDocumentMeta from "../hooks/useDocumentMeta";
 import { COMPANY } from "../data/company";
 import hero from "../assets/hero.webp";
+import commerce from "../assets/services/commerce.jpg";
 /**
  * S & D Membs Security Services — Home page.
  *
@@ -242,7 +243,7 @@ function ServicesSection() {
     {
       title: "Corporate & Commercial Security",
       desc: "Professional protection for offices, banks, hotels, hospitals and commercial premises.",
-      img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=900&auto=format&fit=crop",
+      img: commerce,
       alt: "Corporate office building entrance",
       Icon: BriefcaseIcon,
     },
