@@ -312,7 +312,7 @@ function ServicesSection() {
                     src={img}
                     alt={alt}
                     loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <div className="absolute left-1/2 -translate-x-1/2 -bottom-6 w-12 h-12 rounded-full bg-text text-white flex items-center justify-center shadow-md ring-4 ring-white">

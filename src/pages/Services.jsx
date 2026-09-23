@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import useDocumentMeta from "../hooks/useDocumentMeta";
 import hero from "../assets/hero.webp";
+import commerce from "../assets/services/commerce.jpg";
 
 export default function Services() {
   const location = useLocation();
@@ -38,8 +39,8 @@ export default function Services() {
       id: "corporate-commercial-security",
       title: "Corporate & Commercial Security",
       desc: "Tailored protection for offices, banks, hotels, hospitals, retail premises and other commercial environments — designed around how your organization actually operates.",
-      img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
-      alt: "Corporate office building entrance",
+      img: commerce,
+      alt: "Security officer on duty at commercial building entrance",
       Icon: BriefcaseIcon,
     },
     {
@@ -170,7 +171,7 @@ export default function Services() {
                     src={img}
                     alt={alt}
                     loading="lazy"
-                    className="w-full h-64 sm:h-80 object-cover rounded-lg shadow-card"
+                    className="w-full h-64 sm:h-80 object-cover object-center rounded-lg shadow-card"
                   />
                 </div>
                 <div className={i % 2 === 1 ? "lg:[direction:ltr]" : ""}>
