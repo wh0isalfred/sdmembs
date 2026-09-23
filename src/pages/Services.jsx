@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import useDocumentMeta from "../hooks/useDocumentMeta";
+import hero from "../assets/hero.webp";
+import commerce from "../assets/services/commerce.jpg";
 
 export default function Services() {
   const location = useLocation();
@@ -37,8 +39,8 @@ export default function Services() {
       id: "corporate-commercial-security",
       title: "Corporate & Commercial Security",
       desc: "Tailored protection for offices, banks, hotels, hospitals, retail premises and other commercial environments — designed around how your organization actually operates.",
-      img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
-      alt: "Corporate office building entrance",
+      img: commerce,
+      alt: "Security officer on duty at commercial building entrance",
       Icon: BriefcaseIcon,
     },
     {
@@ -127,8 +129,8 @@ export default function Services() {
 
           <div className="relative h-[280px] sm:h-[380px] lg:h-[440px]">
             <img
-              src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=1400&auto=format&fit=crop"
-              alt="S & D Membs security officer on duty beside a patrol vehicle"
+              src={hero}
+              alt="S & D Membs security officers standing with a security dog"
               className="w-full h-full object-cover rounded-lg lg:rounded-none lg:rounded-l-2xl shadow-card"
               loading="eager"
               fetchPriority="high"
@@ -169,7 +171,7 @@ export default function Services() {
                     src={img}
                     alt={alt}
                     loading="lazy"
-                    className="w-full h-64 sm:h-80 object-cover rounded-lg shadow-card"
+                    className="w-full h-64 sm:h-80 object-cover object-center rounded-lg shadow-card"
                   />
                 </div>
                 <div className={i % 2 === 1 ? "lg:[direction:ltr]" : ""}>
