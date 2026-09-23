@@ -9,7 +9,6 @@ import marketingManagerLagos from "../assets/team/marketing-manager-lagos.webp";
 import opsManagerBayelsa from "../assets/team/operations-manager-bayelsa.webp";
 // import opsManager1Ph from "../assets/team/operations-manager-1-ph.jpeg";
 import opsManager2Ph from "../assets/team/operations-manager-2-ph.webp";
-import hero from "../assets/hero.webp";
 
 export default function About() {
   useDocumentMeta({
@@ -26,15 +25,11 @@ export default function About() {
     <div className="page-enter">
       {/* Hero Section - Full width with background image overlay */}
       <section className="relative bg-navy-dark text-white pt-32 pb-32 sm:pt-48 sm:pb-40 overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <img
-                    src={hero}
-                    alt="S & D Membs security officers standing professionally "
-                    className="absolute inset-0 w-full h-full object-cover"
-                    loading="eager"
-                    fetchPriority="high"
-                  />
-        </div>
+        {/* PLACEHOLDER: the About hero photo is pending. Until it arrives the
+            hero is plain navy. To add it, import the image and render it here:
+            <div className="absolute inset-0 opacity-20">
+              <img src={aboutHero} alt="..." className="absolute inset-0 w-full h-full object-cover" loading="eager" fetchPriority="high" />
+            </div> */}
         <div className="relative container-page">
           <h1 className="font-heading font-extrabold text-5xl sm:text-6xl lg:text-7xl leading-tight max-w-3xl">
             About Us
