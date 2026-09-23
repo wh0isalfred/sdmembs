@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import useDocumentMeta from "../hooks/useDocumentMeta";
+import hero from "../assets/hero.webp";
 
 export default function Services() {
   const location = useLocation();
@@ -127,8 +128,8 @@ export default function Services() {
 
           <div className="relative h-[280px] sm:h-[380px] lg:h-[440px]">
             <img
-              src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=1400&auto=format&fit=crop"
-              alt="S & D Membs security officer on duty beside a patrol vehicle"
+              src={hero}
+              alt="S & D Membs security officers standing with a security dog"
               className="w-full h-full object-cover rounded-lg lg:rounded-none lg:rounded-l-2xl shadow-card"
               loading="eager"
               fetchPriority="high"
