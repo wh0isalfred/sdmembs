@@ -4,6 +4,7 @@ import useDocumentMeta from "../hooks/useDocumentMeta";
 import { COMPANY } from "../data/company";
 import hero from "../assets/hero.webp";
 import commerce from "../assets/services/commerce.jpg";
+import cctvImage from "../assets/CCTv_image.jpg";
 /**
  * S & D Membs Security Services — Home page.
  *
@@ -93,7 +94,7 @@ function HeroSection() {
             The top-weighted position keeps faces in frame on wide screens. */}
         <img
           src={hero}
-          alt="S & D Membs security officers standing professionally with gaurd"
+          alt="S & D Membs security officers standing professionally with guard"
           className="absolute inset-0 w-full h-full object-cover lg:left-[15%] lg:w-[85%] lg:object-[30%_20%] lg:[mask-image:linear-gradient(to_right,transparent,black_20%)]"
           loading="eager"
           fetchPriority="high"
@@ -191,7 +192,7 @@ function AboutSection() {
         <div className="relative">
           {/* Placeholder photography: CCTV monitoring room */}
           <img
-            src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=1200&auto=format&fit=crop"
+            src={cctvImage}
             alt="Security officer monitoring live CCTV feeds in the operations room"
             className="w-full h-[420px] sm:h-[480px] object-cover rounded-lg shadow-card"
             loading="lazy"
