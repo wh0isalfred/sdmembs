@@ -4,7 +4,7 @@ import useDocumentMeta from "../hooks/useDocumentMeta";
 import { COMPANY } from "../data/company";
 import hero from "../assets/hero.webp";
 import commerce from "../assets/services/commerce.jpg";
-import cctvImage from "../assets/CCTv_image.jpg";
+import cctvImage from "../assets/CCTV_image.jpg";
 /**
  * S & D Membs Security Services — Home page.
  *
@@ -258,7 +258,7 @@ function ServicesSection() {
       Icon: OfficeIcon,
     },
     {
-      title: "Armed & Unarmed Guards",
+      title: "Armed & Unarmed Personnel",
       desc: "Trained unarmed guards for day-to-day protection, with armed response coordinated through authorized personnel for higher-risk sites.",
       img: "https://images.unsplash.com/photo-1595535373587-8b0b0dae2bfc?q=80&w=900&auto=format&fit=crop",
       alt: "Licensed security officer on duty",
