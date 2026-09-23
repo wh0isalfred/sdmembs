@@ -93,7 +93,7 @@ function HeroSection() {
             The top-weighted position keeps faces in frame on wide screens. */}
         <img
           src={hero}
-          alt="S & D Membs security officers standing professionally"
+          alt="S & D Membs security officers standing professionally with gaurd dog"
           className="absolute inset-0 w-full h-full object-cover lg:left-[15%] lg:w-[85%] lg:object-[30%_20%] lg:[mask-image:linear-gradient(to_right,transparent,black_20%)]"
           loading="eager"
           fetchPriority="high"
