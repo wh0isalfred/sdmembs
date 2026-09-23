@@ -88,11 +88,13 @@ function HeroSection() {
   return (
     <section id="home" className="relative">
       <div className="relative bg-charcoal min-h-[640px] sm:min-h-[600px] flex items-end sm:items-center">
-        {/* Placeholder photography: officers standing professionally beside a patrol vehicle */}
+        {/* On desktop the photo is offset right so the dog handler clears the
+            headline; its left edge fades into the charcoal behind the overlay.
+            The top-weighted position keeps faces in frame on wide screens. */}
         <img
           src={hero}
           alt="S & D Membs security officers standing professionally"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover lg:left-[15%] lg:w-[85%] lg:object-[30%_20%] lg:[mask-image:linear-gradient(to_right,transparent,black_20%)]"
           loading="eager"
           fetchPriority="high"
         />
