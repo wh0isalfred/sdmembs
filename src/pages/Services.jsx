@@ -3,6 +3,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useDocumentMeta from "../hooks/useDocumentMeta";
 import hero from "../assets/hero.webp";
 import commerce from "../assets/services/commerce.jpg";
+import cctv_control_image from "../assets/services/Install_cctv.png";
+import personnel_image from "../assets/services/armed and unarmed(cropped).png";
+import industrial_image from "../assets/services/Industrial_Facility.png";
+import mobile_patrol_image from "../assets/services/mobile_police.png";
+
 
 export default function Services() {
   const location = useLocation();
@@ -47,7 +52,7 @@ export default function Services() {
       id: "industrial-facility-security",
       title: "Industrial & Facility Security",
       desc: "Structured guarding, access control and operational oversight for factories, warehouses, construction sites, oil and gas facilities and other high-value industrial environments.",
-      img: "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?q=80&w=1200&auto=format&fit=crop",
+      img: industrial_image,
       alt: "Large industrial facility requiring coordinated security",
       Icon: OfficeIcon,
     },
@@ -55,7 +60,7 @@ export default function Services() {
       id: "armed-unarmed-guards",
       title: "Armed & Unarmed Guards",
       desc: "Trained, disciplined unarmed guards for day-to-day site protection. For higher-risk locations, armed response is coordinated through authorized personnel rather than provided directly by unlicensed staff — matched to your site's actual risk profile.",
-      img: "https://images.unsplash.com/photo-1595535373587-8b0b0dae2bfc?q=80&w=1200&auto=format&fit=crop",
+      img: personnel_image,
       alt: "Licensed security officer on duty",
       Icon: ArmedIcon,
     },
@@ -71,7 +76,7 @@ export default function Services() {
       id: "mobile-patrol",
       title: "Mobile Patrol & Rapid Response",
       desc: "24/7 mobile patrols and rapid response services, coordinated by two-way radio, to support commercial, institutional and industrial sites whenever intervention is needed.",
-      img: "https://images.unsplash.com/photo-1617886322168-72b886573c5f?q=80&w=1200&auto=format&fit=crop",
+      img: mobile_patrol_image,
       alt: "Security patrol vehicle",
       Icon: CarIcon,
     },
@@ -79,7 +84,7 @@ export default function Services() {
       id: "cctv-access-control",
       title: "CCTV Monitoring & Access Control",
       desc: "Advanced surveillance systems and access control solutions for real-time monitoring, giving you visibility over your property and a clear record whenever you need one.",
-      img: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200&auto=format&fit=crop",
+      img: cctv_control_image,
       alt: "Security operations monitoring room with CCTV screens",
       Icon: CctvIcon,
     },

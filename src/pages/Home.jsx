@@ -5,6 +5,11 @@ import { COMPANY } from "../data/company";
 import hero from "../assets/hero.webp";
 import commerce from "../assets/services/commerce.jpg";
 import cctvImage from "../assets/CCTV_image.jpg";
+import cctv_control_image from "../assets/services/Install_cctv.png";
+import personnel_image from "../assets/services/armed and unarmed(cropped).png";
+import industrial_image from "../assets/services/Industrial_Facility.png";
+import mobile_patrol_image from "../assets/services/mobile_police.png";
+import join_team from "../assets/join_team.png";
 /**
  * S & D Membs Security Services — Home page.
  *
@@ -253,14 +258,14 @@ function ServicesSection() {
     {
       title: "Industrial & Facility Security",
       desc: "Structured protection for factories, warehouses, construction sites and industrial facilities.",
-      img: "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?q=80&w=900&auto=format&fit=crop",
+      img: industrial_image,
       alt: "Large industrial facility requiring coordinated security",
       Icon: OfficeIcon,
     },
     {
       title: "Armed & Unarmed Personnel",
       desc: "Trained unarmed guards for day-to-day protection, with armed response coordinated through authorized personnel for higher-risk sites.",
-      img: "https://images.unsplash.com/photo-1595535373587-8b0b0dae2bfc?q=80&w=900&auto=format&fit=crop",
+      img: personnel_image,
       alt: "Licensed security officer on duty",
       Icon: ArmedIcon,
     },
@@ -274,14 +279,14 @@ function ServicesSection() {
     {
       title: "Mobile Patrol",
       desc: "Vehicle patrols, random inspections and rapid response across sites.",
-      img: "https://images.unsplash.com/photo-1617886322168-72b886573c5f?q=80&w=900&auto=format&fit=crop",
+      img: mobile_patrol_image,
       alt: "Security patrol vehicle",
       Icon: CarIcon,
     },
     {
       title: "CCTV, Access Control & Consultancy",
       desc: "Monitoring, access control systems and expert security consultancy.",
-      img: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=900&auto=format&fit=crop",
+      img: cctv_control_image,
       alt: "Security operations monitoring room",
       Icon: GroupIcon,
     },
@@ -476,7 +481,7 @@ function RecruitmentSection() {
         <div>
           {/* Placeholder photography: uniform inspection */}
           <img
-            src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1100&auto=format&fit=crop"
+            src={join_team}
             alt="Security officers lined up for a uniform inspection"
             className="w-full h-[380px] sm:h-[440px] object-cover rounded-lg shadow-card"
             loading="lazy"
@@ -595,7 +600,7 @@ function CtaBannerSection() {
   return (
     <section className="relative bg-navy-dark overflow-hidden">
       <img
-        src="https://images.unsplash.com/photo-1553406830-ef2513450d76?q=80&w=1600&auto=format&fit=crop"
+        src={join_team}
         alt="Security officer communicating on a two-way radio"
         className="absolute inset-0 w-full h-full object-cover opacity-25"
         loading="lazy"
