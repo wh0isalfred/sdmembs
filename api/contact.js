@@ -54,8 +54,10 @@ export default async function handler(req, res) {
 
   const { RESEND_API_KEY, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL } = process.env;
   if (!RESEND_API_KEY || !CONTACT_TO_EMAIL || !CONTACT_FROM_EMAIL) {
-    // Do not leak which specific variable is missing to the client.
-    console.error("contact API misconfigured: missing one or more required env vars");
+    // Do not leak which specific variable is missing to the client — but do
+    // name it (never its value) in the server log so it can be fixed.
+    const missing = ["RESEND_API_KEY", "CONTACT_TO_EMAIL", "CONTACT_FROM_EMAIL"].filter((key) => !process.env[key]);
+    console.error(`contact API misconfigured: missing env var(s): ${missing.join(", ")}`);
     return res.status(500).json({
       ok: false,
       error: "The contact form isn't fully configured yet. Please email or call us directly instead.",
@@ -74,12 +76,18 @@ export default async function handler(req, res) {
     return res.status(400).json({ ok: false, error: "Invalid request body." });
   }
 
-  // Honeypot: a field real visitors never see or fill. Bots that
-  // autofill every input will populate it; reject silently-but-honestly
-  // (200 OK so the bot doesn't learn anything useful, but we don't send
-  // the email).
+  // Honeypot: a field real visitors never see or fill (it's display:none, so
+  // browser autofill skips it too). Bots that fill every input populate it.
+  // Reject with an error, never a fake success: this used to answer 200
+  // { ok: true } without sending anything, so when browser autofill filled
+  // the field, real visitors were told "Message sent" while no email was
+  // ever attempted.
   if (clean(body.company_website, 200) !== "") {
-    return res.status(200).json({ ok: true });
+    console.warn("contact API: honeypot field was filled; rejected without calling Resend");
+    return res.status(400).json({
+      ok: false,
+      error: "We couldn't send your message. Please email or call us directly instead.",
+    });
   }
 
   const name = clean(body.name, MAX_LENGTHS.name);
@@ -142,19 +150,32 @@ export default async function handler(req, res) {
       }),
     });
 
+    // Resend answers JSON: { id } on success, { statusCode, name, message }
+    // on error. Never let reading it turn a sent email into a failure (the
+    // visitor would resubmit and we'd send a duplicate).
+    const result = await resendRes.json().catch(() => null);
+
     if (!resendRes.ok) {
-      // Don't log the message body/contents — just enough to debug delivery
-      // failures without persisting what the enquiry actually said.
-      console.error("Resend API error:", resendRes.status);
+      // Log Resend's own error (e.g. unverified "from" domain, invalid key)
+      // so delivery failures are diagnosable — but never the API key,
+      // request headers, or what the enquiry actually said.
+      console.error(
+        "contact API: Resend rejected the email:",
+        resendRes.status,
+        result?.name ?? "",
+        String(result?.message ?? "").slice(0, 300),
+      );
       return res.status(502).json({
         ok: false,
         error: "We couldn't send your message right now. Please email or call us directly instead.",
       });
     }
 
+    // The only success response: Resend has accepted the email.
+    console.log("contact API: email accepted by Resend, id:", result?.id ?? "(none returned)");
     return res.status(200).json({ ok: true });
   } catch (err) {
-    console.error("contact API network error:", err.message);
+    console.error("contact API network error calling Resend:", err.name, err.message, err.cause?.code ?? "");
     return res.status(502).json({
       ok: false,
       error: "We couldn't send your message right now. Please email or call us directly instead.",
