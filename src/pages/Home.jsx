@@ -9,6 +9,7 @@ import cctv_control_image from "../assets/services/Install_cctv.png";
 import personnel_image from "../assets/services/armed and unarmed(cropped).png";
 import industrial_image from "../assets/services/Industrial_Facility.png";
 import mobile_patrol_image from "../assets/services/mobile_police.png";
+import security_dog_image from "../assets/services/security_dog2.jpg";
 import join_team from "../assets/join_team.png";
 /**
  * S & D Membs Security Services — Home page.
@@ -272,7 +273,7 @@ function ServicesSection() {
     {
       title: "Security Dogs",
       desc: "Trained security dogs and professional handlers for patrol, detection and search operations.",
-      img: "https://images.unsplash.com/photo-1568572933382-74d440642117?q=80&w=900&auto=format&fit=crop",
+      img: security_dog_image,
       alt: "Security dog and trained handler on patrol",
       Icon: PawIcon,
     },

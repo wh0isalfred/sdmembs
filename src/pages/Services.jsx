@@ -7,7 +7,7 @@ import cctv_control_image from "../assets/services/Install_cctv.png";
 import personnel_image from "../assets/services/armed and unarmed(cropped).png";
 import industrial_image from "../assets/services/Industrial_Facility.png";
 import mobile_patrol_image from "../assets/services/mobile_police.png";
-
+import security_dog_image from "../assets/services/security_dog2.jpg";
 
 export default function Services() {
   const location = useLocation();
@@ -68,7 +68,7 @@ export default function Services() {
       id: "security-dogs",
       title: "Security Dogs",
       desc: "Our trained security dogs work with professional handlers to provide deterrence, detection and support for patrol and search operations in higher-risk environments.",
-      img: "https://images.unsplash.com/photo-1568572933382-74d440642117?q=80&w=1200&auto=format&fit=crop",
+      img: security_dog_image,
       alt: "Security dog and professional handler on patrol",
       Icon: PawIcon,
     },
