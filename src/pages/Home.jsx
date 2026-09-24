@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import useDocumentMeta from "../hooks/useDocumentMeta";
 import { COMPANY } from "../data/company";
 import hero from "../assets/hero.webp";
-import commerce from "../assets/services/commerce.jpg";
-import cctvImage from "../assets/CCTV_image.jpg";
-import cctv_control_image from "../assets/services/Install_cctv.png";
-import personnel_image from "../assets/services/armed and unarmed(cropped).png";
-import industrial_image from "../assets/services/Industrial_Facility.png";
-import mobile_patrol_image from "../assets/services/mobile_police.png";
-import security_dog_image from "../assets/services/security_dog2.jpg";
-import join_team from "../assets/join_team.png";
+import commerce from "../assets/services/commerce.webp";
+import cctvImage from "../assets/CCTV_image.webp";
+import cctv_control_image from "../assets/services/Install_cctv.webp";
+import personnel_image from "../assets/services/armed and unarmed(cropped).webp";
+import industrial_image from "../assets/services/Industrial_Facility.webp";
+import mobile_patrol_image from "../assets/services/mobile_police.webp";
+import security_dog_image from "../assets/services/security_dog2.webp";
+import join_team from "../assets/join_team.webp";
 /**
  * S & D Membs Security Services — Home page.
  *

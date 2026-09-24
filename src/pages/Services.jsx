@@ -2,12 +2,13 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import useDocumentMeta from "../hooks/useDocumentMeta";
 import hero from "../assets/hero.webp";
-import commerce from "../assets/services/commerce.jpg";
-import cctv_control_image from "../assets/services/Install_cctv.png";
-import personnel_image from "../assets/services/armed and unarmed(cropped).png";
-import industrial_image from "../assets/services/Industrial_Facility.png";
-import mobile_patrol_image from "../assets/services/mobile_police.png";
-import security_dog_image from "../assets/services/security_dog2.jpg";
+import commerce from "../assets/services/commerce.webp";
+import cctv_control_image from "../assets/services/Install_cctv.webp";
+import personnel_image from "../assets/services/armed and unarmed(cropped).webp";
+import industrial_image from "../assets/services/Industrial_Facility.webp";
+import mobile_patrol_image from "../assets/services/mobile_police.webp";
+import security_dog_image from "../assets/services/security_dog2.webp";
+import join_team from "../assets/join_team.webp";
 
 export default function Services() {
   const location = useLocation();
@@ -220,16 +221,22 @@ export default function Services() {
       </section>
 
       {/* CTA BANNER */}
-      <section className="bg-navy-dark py-14">
-        <div className="container-page flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="text-center sm:text-left">
-            <h3 className="font-heading font-extrabold text-2xl sm:text-3xl text-white mb-1">
-              Need a Security Solution?
-            </h3>
-            <p className="text-white/70">
-              Let's discuss how we can help protect what matters to you.
-            </p>
-          </div>
+      <section className="relative bg-navy-dark overflow-hidden">
+         <img
+                src={join_team}
+                alt="Security officer communicating on a two-way radio"
+                className="absolute inset-0 w-full h-full object-cover opacity-25"
+                loading="lazy"
+              />
+              <div className="relative container-page py-14 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="text-center md:text-left">
+                  <h2 className="font-heading font-extrabold text-white text-2xl sm:text-3xl mb-2">
+                    Need a Reliable Security Partner?
+                  </h2>
+                  <p className="text-white/75">
+                    Let&rsquo;s discuss how we can protect what matters most to you.
+                  </p>
+                </div>
           <a
             href="#contact"
             onClick={handleContactClick}

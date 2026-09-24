@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import useDocumentMeta from "../hooks/useDocumentMeta";
-import businessManagerPh from "../assets/team/business-manager-ph.jpeg";
-import generalManagerPh from "../assets/team/general-manager-ph.jpeg";
+import businessManagerPh from "../assets/team/business-manager-ph.webp";
+import generalManagerPh from "../assets/team/general-manager-ph.webp";
 import lawrenceTuraki from "../assets/team/lawrence-turaki-admin-abuja.webp";
-import marketingManagerAbuja from "../assets/team/marketing-manager-abuja.jpeg";
+import marketingManagerAbuja from "../assets/team/marketing-manager-abuja.webp";
 import marketingManagerLagos from "../assets/team/marketing-manager-lagos.webp";
 import opsManagerBayelsa from "../assets/team/operations-manager-bayelsa.webp";
 // import opsManager1Ph from "../assets/team/operations-manager-1-ph.jpeg";
