@@ -667,8 +667,8 @@ function ContactSection() {
       preferredOffice: data.get("preferredOffice"),
       message: data.get("message"),
       // Honeypot — real visitors never see or fill this field (see the
-      // hidden input below). If it's non-empty, api/contact.js silently
-      // discards the submission without sending an email.
+      // hidden input below). If it's non-empty, api/contact.js rejects the
+      // submission with an error and no email is sent.
       company_website: data.get("company_website"),
     };
 
@@ -722,14 +722,18 @@ function ContactSection() {
             ) : (
               <form ref={formRef} onSubmit={handleSubmit} className="space-y-5" noValidate>
                 {/* Honeypot — hidden from sighted and screen-reader users alike;
-                    a real visitor will never focus or fill this. */}
+                    a real visitor will never focus or fill this. It must stay
+                    display:none (`hidden`), not just visually hidden: browser
+                    autofill ignores autocomplete="off" and fills any focusable
+                    field (Chrome classifies this one as an email field), and a
+                    filled honeypot makes the API reject the submission. */}
                 <input
                   type="text"
                   name="company_website"
                   tabIndex={-1}
                   autoComplete="off"
                   aria-hidden="true"
-                  className="fixed top-0 left-0 w-px h-px opacity-0 pointer-events-none"
+                  className="hidden"
                 />
 
                 <div className="grid sm:grid-cols-2 gap-5">
